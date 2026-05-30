@@ -92,9 +92,15 @@ export default function Explorer({ estados, municipios, weights }: Props) {
   useEffect(() => {
     let alive = true;
     fetch("/data/mexico_estados.geojson").then((r) => r.json()).then((g) => { if (alive) setGeo(g); }).catch(() => {});
-    fetch("/data/clinicas.json").then((r) => r.json()).then((c) => { if (alive && Array.isArray(c)) setClinicas(c); }).catch(() => {});
     return () => { alive = false; };
   }, []);
+  // clínicas (~3.4MB DENUE+CLUES): cargar SOLO al activar la capa, no en cada visita
+  useEffect(() => {
+    if (!showClin || clinicas.length > 0) return;
+    let alive = true;
+    fetch("/data/clinicas.json").then((r) => r.json()).then((c) => { if (alive && Array.isArray(c)) setClinicas(c); }).catch(() => {});
+    return () => { alive = false; };
+  }, [showClin, clinicas.length]);
 
   const scored: Scored[] = useMemo(
     () =>
@@ -246,14 +252,10 @@ export default function Explorer({ estados, municipios, weights }: Props) {
           <span className="lbl" style={{ marginLeft: 8 }}>
             <span className="tabular">{visCount}</span> visibles
           </span>
-          {clinicas.length > 0 ? (
-            <button type="button" className="chip-f" aria-pressed={showClin} onClick={() => setShowClin((v) => !v)} style={{ marginLeft: 8 }}>
-              <span className="sw" style={{ background: "var(--success)" }} />
-              Clínicas ({clinicas.length.toLocaleString("es-MX")})
-            </button>
-          ) : (
-            <span className="lbl" style={{ marginLeft: 8, opacity: 0.7 }}>Clínicas · Fase B</span>
-          )}
+          <button type="button" className="chip-f" aria-pressed={showClin} onClick={() => setShowClin((v) => !v)} style={{ marginLeft: 8 }}>
+            <span className="sw" style={{ background: "var(--success)" }} />
+            Clínicas{clinicas.length ? ` (${clinicas.length.toLocaleString("es-MX")})` : ""}
+          </button>
         </div>
       </div>
 
@@ -309,9 +311,10 @@ export default function Explorer({ estados, municipios, weights }: Props) {
                 selClinicas.map((c, i) => {
                   const [cx, cy] = activeProj.project(c.lng, c.lat);
                   return (
-                    <circle key={(c.id || "c") + i} cx={cx} cy={cy} r={drilled ? 3.2 : 2.6}
-                      fill={c.categoria === "oftalmologia" ? "#06114B" : "#0a8a3a"} fillOpacity={0.82}
-                      stroke="#fff" strokeWidth={0.5} style={{ cursor: "pointer" }}
+                    <circle key={(c.id || "c") + i} cx={cx} cy={cy}
+                      r={c.categoria === "hospital" ? (drilled ? 4 : 3.2) : c.categoria === "oftalmologia" ? (drilled ? 3.6 : 3) : (drilled ? 2.6 : 2.2)}
+                      fill={c.categoria === "hospital" ? "#c0432f" : c.categoria === "oftalmologia" ? "#06114B" : "#0a8a3a"}
+                      fillOpacity={0.82} stroke="#fff" strokeWidth={0.5} style={{ cursor: "pointer" }}
                       onMouseEnter={(e) => setTip({ x: e.clientX, y: e.clientY, d: null, name: c.nombre, clinic: c })}
                       onMouseMove={moveTip} onMouseLeave={hideTip} />
                   );
@@ -335,12 +338,13 @@ export default function Explorer({ estados, municipios, weights }: Props) {
           ) : null}
           {showClin ? (
             <div className="legend" style={{ marginTop: 2 }}>
+              <span className="it"><span className="sw" style={{ background: "#c0432f", borderRadius: "50%" }} />Hospital 2º/3er nivel (candidato quirúrgico)</span>
               <span className="it"><span className="sw" style={{ background: "#06114B", borderRadius: "50%" }} />Oftalmología</span>
               <span className="it"><span className="sw" style={{ background: "#0a8a3a", borderRadius: "50%" }} />Optometría / óptica</span>
               <span className="lbl">
                 {selEnt
-                  ? `${selClinicas.length} establecimientos en ${byIso.get(selected!)?.estado} · capacidad no verificada`
-                  : "Selecciona un estado para ver sus establecimientos de salud visual"}
+                  ? `${selClinicas.length} establecimientos en ${byIso.get(selected!)?.estado} · DENUE + CLUES · capacidad quirúrgica no verificada`
+                  : "Selecciona un estado para ver su oferta de salud visual (DENUE + hospitales CLUES)"}
               </span>
             </div>
           ) : null}
@@ -526,9 +530,10 @@ export default function Explorer({ estados, municipios, weights }: Props) {
           </div>
           {tip.clinic ? (
             <>
-              <div className="tt-row"><span>Categoría</span><b>{tip.clinic.categoria === "oftalmologia" ? "Oftalmología" : "Optometría"}</b></div>
+              <div className="tt-row"><span>Tipo</span><b>{tip.clinic.categoria === "hospital" ? "Hospital" : tip.clinic.categoria === "oftalmologia" ? "Oftalmología" : "Optometría"}</b></div>
+              {tip.clinic.sector ? <div className="tt-row"><span>Sector</span><b>{tip.clinic.sector === "publico" ? "Público" : "Privado"}</b></div> : null}
+              {tip.clinic.nivel ? <div className="tt-row"><span>Nivel</span><b>{tip.clinic.nivel}</b></div> : null}
               {tip.clinic.municipio ? <div className="tt-row"><span>Municipio</span><b>{tip.clinic.municipio}</b></div> : null}
-              {tip.clinic.estrato ? <div className="tt-row"><span>Tamaño</span><b>{tip.clinic.estrato}</b></div> : null}
               <div className="tt-row"><span>Fuente</span><b>{tip.clinic.fuente}</b></div>
               <div className="tt-row" style={{ marginTop: 4 }}><span>Capacidad quirúrgica: due diligence</span></div>
             </>

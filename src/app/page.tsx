@@ -219,12 +219,11 @@ export default async function Page() {
               <p style={{ marginTop: 6 }}>
                 Haz clic en un estado del mapa para bajar a su <b>coroplético municipal</b> (
                 {municipios.length.toLocaleString("es-MX")} municipios): demanda real de <b>población 60+ del Censo
-                2020</b> + oferta de salud visual contada por municipio desde DENUE.
+                2020</b> + oferta por municipio contada de <b>DENUE + hospitales públicos CLUES</b>.
                 {meta?.muniSinOftalmoDenue
-                  ? ` ${meta.muniSinOftalmoDenue.toLocaleString("es-MX")} municipios con 60+ por encima de la mediana no registran un solo establecimiento de oftalmología/hospital en DENUE`
+                  ? ` ${meta.muniSinOftalmoDenue.toLocaleString("es-MX")} municipios con población 60+ por encima de la mediana no registran un solo hospital de 2º/3er nivel ni oftalmología (ni en DENUE ni en CLUES): desiertos quirúrgicos reales`
                   : ""}{" "}
-                — ojo: DENUE subrepresenta hospitales públicos (IMSS/ISSSTE) que sí operan catarata, y el score
-                municipal es <b>modelado, no medido</b> (falacia ecológica: el municipio agrega colonias dispares).
+                — el score municipal es <b>modelado, no medido</b> (falacia ecológica: el municipio agrega colonias dispares).
               </p>
             </Callout>
           ) : null}
@@ -271,14 +270,15 @@ export default async function Page() {
           </Callout>
           {meta?.clinicasTotal ? (
             <Callout kind="info" ic="i">
-              <b>{meta.clinicasTotal.toLocaleString("es-MX")} establecimientos de salud visual ya mapeados (DENUE / INEGI).</b>
+              <b>{meta.clinicasTotal.toLocaleString("es-MX")} establecimientos de salud mapeados (DENUE + CLUES).</b>
               <p style={{ marginTop: 6 }}>
-                El Explorador incluye una <b>capa de oferta real</b>: activa <b>«Clínicas»</b> y selecciona un estado para
-                ver sus puntos georreferenciados —{" "}
-                {(meta.clinicasOftalmologia ?? 0).toLocaleString("es-MX")} de oftalmología/médicos (candidatos
-                quirúrgicos) y el resto de optometría/óptica (detección). Son el <b>punto de partida de la due
-                diligence</b>: su capacidad para cirugía de catarata (quirófano apto, oftalmólogo certificado CMO){" "}
-                <b>no está verificada</b> por este estudio.
+                El Explorador incluye una <b>capa de oferta real</b>: activa <b>«Clínicas»</b> y selecciona un estado.
+                De esos, <b>{(meta.clinicasOftalmologia ?? 0).toLocaleString("es-MX")} son candidatos quirúrgicos</b>
+                {" "}(hospitales de 2º/3er nivel + oftalmología
+                {meta.cluesPublico ? `, incluidos ${meta.cluesPublico.toLocaleString("es-MX")} públicos IMSS/ISSSTE/SSA del registro oficial CLUES` : ""}) y
+                el resto, optometría/óptica (detección). Sumar <b>CLUES corrige el subconteo de DENUE</b> en el sector
+                público que sí opera catarata. Su capacidad para cirugía de catarata (quirófano apto, oftalmólogo
+                certificado CMO) sigue siendo <b>due diligence — no verificada</b> por este estudio.
               </p>
             </Callout>
           ) : null}

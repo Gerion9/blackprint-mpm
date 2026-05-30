@@ -65,6 +65,8 @@ export const MetaSchema = z.object({
   clinicasTotal: z.number().optional(),
   clinicasOftalmologia: z.number().optional(),
   clinicasPorEstado: z.record(z.string(), z.number()).optional(),
+  cluesTotal: z.number().optional(),
+  cluesPublico: z.number().optional(),
   muniScored: z.number().optional(),
   muniConOferta: z.number().optional(),
   muniSinOftalmoDenue: z.number().optional(),
@@ -94,6 +96,9 @@ export const ClinicaSchema = z.object({
   nombre: z.string(),
   categoria: z.enum(["oftalmologia", "optometria", "hospital"]),
   fuente: z.string(), // "DENUE" | "CLUES"
+  sector: z.enum(["publico", "privado"]).optional(),
+  nivel: z.string().optional(),
+  institucion: z.string().optional(),
   cveEnt: z.string(),
   cvegeo: z.string().optional(),
   municipio: z.string().optional(),
