@@ -87,6 +87,7 @@ export default function Explorer({ estados, municipios, weights }: Props) {
   const [showClin, setShowClin] = useState(false);
   const [muniGeo, setMuniGeo] = useState<any | null>(null);
   const muniCache = useRef<Map<string, any>>(new Map());
+  const [hovered, setHovered] = useState<string | null>(null); // iso (nacional) o cvegeo (municipal) — cross-highlight
   const [tip, setTip] = useState<{ x: number; y: number; d: Scored | null; name: string; clinic?: Clinica; muni?: Municipio } | null>(null);
 
   useEffect(() => {
@@ -273,7 +274,7 @@ export default function Explorer({ estados, municipios, weights }: Props) {
             ) : null}
           </div>
           {activeProj ? (
-            <svg className="mx-map" viewBox={`0 0 ${activeProj.W} ${activeProj.H}`} role="group" aria-label={drilled ? `Municipios de ${estadoNombre}` : "Mapa de México por prioridad"}>
+            <svg key={drilled ? `mun-${selEnt}` : "nac"} className="mx-map" viewBox={`0 0 ${activeProj.W} ${activeProj.H}`} role="group" aria-label={drilled ? `Municipios de ${estadoNombre}` : "Mapa de México por prioridad"}>
               <defs>
                 <pattern id="pend" patternUnits="userSpaceOnUse" width="6" height="6" patternTransform="rotate(45)">
                   <rect width="6" height="6" fill="#eef0f3" />
@@ -285,10 +286,11 @@ export default function Explorer({ estados, municipios, weights }: Props) {
                   const d = f.iso ? byIso.get(f.iso) : null;
                   const fill = d && d._tier ? TIERCOL[d._tier] : "url(#pend)";
                   const dim = d && d._tier ? !active[d._tier] : false;
-                  const cls = `mx-state${selected && f.iso === selected ? " sel" : ""}${dim ? " dim" : ""}`;
+                  const cls = `mx-state${selected === f.iso ? " sel" : ""}${hovered === f.iso ? " hov" : ""}${dim ? " dim" : ""}`;
                   return (
                     <path key={f.iso ?? f.name} className={cls} d={f.d} fill={fill}
-                      onMouseEnter={(e) => showTip(e, d ?? null, f.name)} onMouseMove={moveTip} onMouseLeave={hideTip}
+                      onMouseEnter={(e) => { showTip(e, d ?? null, f.name); setHovered(f.iso); }} onMouseMove={moveTip}
+                      onMouseLeave={() => { hideTip(); setHovered(null); }}
                       onClick={() => d && f.iso && select(f.iso)}>
                       <title>{`${f.name}${d && d._tier ? ` · Tier ${d._tier} · ${d._score}` : " · pendiente (Fase B)"}`}</title>
                     </path>
@@ -300,9 +302,9 @@ export default function Explorer({ estados, municipios, weights }: Props) {
                   const fill = mu && mu.tier ? TIERCOL[mu.tier] : "url(#pend)";
                   const dim = mu && mu.tier ? !active[mu.tier] : false;
                   return (
-                    <path key={f.iso ?? f.name} className={`mx-state${dim ? " dim" : ""}`} d={f.d} fill={fill}
-                      onMouseEnter={(e) => setTip({ x: e.clientX, y: e.clientY, d: null, name: f.name, muni: mu ?? undefined })}
-                      onMouseMove={moveTip} onMouseLeave={hideTip}>
+                    <path key={f.iso ?? f.name} className={`mx-state${hovered === f.iso ? " hov" : ""}${dim ? " dim" : ""}`} d={f.d} fill={fill}
+                      onMouseEnter={(e) => { setTip({ x: e.clientX, y: e.clientY, d: null, name: f.name, muni: mu ?? undefined }); setHovered(f.iso); }}
+                      onMouseMove={moveTip} onMouseLeave={() => { hideTip(); setHovered(null); }}>
                       <title>{`${f.name}${mu ? ` · Tier ${mu.tier} · ${mu.priorityScore}` : ""}`}</title>
                     </path>
                   );
@@ -369,7 +371,8 @@ export default function Explorer({ estados, municipios, weights }: Props) {
                     .sort((a, b) => (b.priorityScore ?? 0) - (a.priorityScore ?? 0))
                     .filter((mu) => !mu.tier || active[mu.tier])
                     .map((mu) => (
-                      <tr key={mu.cvegeo}>
+                      <tr key={mu.cvegeo} className={hovered === mu.cvegeo ? "hov" : ""}
+                        onMouseEnter={() => setHovered(mu.cvegeo)} onMouseLeave={() => setHovered(null)}>
                         <td>
                           <span className="est">
                             <span className="tl" style={{ background: mu.tier ? TIERCOL[mu.tier] : "#ccc" }} />
@@ -415,10 +418,12 @@ export default function Explorer({ estados, municipios, weights }: Props) {
                   return (
                     <Fragment key={d.iso}>
                       <tr
-                        className={isSel ? "sel" : ""}
+                        className={`${isSel ? "sel" : ""}${hovered === d.iso ? " hov" : ""}`}
                         tabIndex={0}
                         role="button"
                         aria-expanded={isSel}
+                        onMouseEnter={() => setHovered(d.iso)}
+                        onMouseLeave={() => setHovered(null)}
                         onClick={() => select(d.iso)}
                         onKeyDown={(e) => {
                           if (e.key === "Enter" || e.key === " ") {
@@ -500,10 +505,10 @@ export default function Explorer({ estados, municipios, weights }: Props) {
             return (
               <g
                 key={d.iso}
-                className={`sc-pt${selected === d.iso ? " sel" : ""}`}
-                onMouseEnter={(e) => showTip(e, d, d.estado)}
+                className={`sc-pt${selected === d.iso ? " sel" : ""}${hovered === d.iso ? " hov" : ""}`}
+                onMouseEnter={(e) => { showTip(e, d, d.estado); setHovered(d.iso); }}
                 onMouseMove={moveTip}
-                onMouseLeave={hideTip}
+                onMouseLeave={() => { hideTip(); setHovered(null); }}
                 onClick={() => select(d.iso)}
               >
                 <circle cx={cx} cy={cy} r={r} fill={d._tier ? TIERCOL[d._tier] : "#ccc"} fillOpacity={0.85} stroke="#fff" strokeWidth={1} />

@@ -31,7 +31,8 @@ export default async function Page() {
           <header className="hero" id="inicio" data-sec>
             <div className="hero-strip">
               <div className="hero-strip-left">
-                <span className="bp">BlackPrint</span>
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img className="bp-logo" src="/logos/blackprint-light.png" alt="BlackPrint" />
                 <span className="x">×</span>
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img className="mpm-logo" src="/logos/mpm-white.svg" alt="Mirando por México" />
@@ -332,7 +333,8 @@ export default async function Page() {
           <footer className="footer">
             <div className="footer-top">
               <div className="brand">
-                <span style={{ fontWeight: 700, letterSpacing: "0.04em" }}>BlackPrint</span>
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img className="bp-logo-dark" src="/logos/blackprint-dark.png" alt="BlackPrint" />
                 <span className="x">×</span>
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img className="mpm" src="/logos/mpm-navy.svg" alt="Mirando por México" />
