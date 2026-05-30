@@ -65,6 +65,11 @@ export const MetaSchema = z.object({
   clinicasTotal: z.number().optional(),
   clinicasOftalmologia: z.number().optional(),
   clinicasPorEstado: z.record(z.string(), z.number()).optional(),
+  muniScored: z.number().optional(),
+  muniConOferta: z.number().optional(),
+  muniSinOftalmoDenue: z.number().optional(),
+  muniIlustrativos: z.number().optional(),
+  faseMunicipio: z.string().optional(),
 });
 
 // Fase B (vacíos en Fase A, contrato listo)
@@ -75,6 +80,13 @@ export const MunicipioSchema = z.object({
   priorityScore: z.number().nullable(),
   tier: TierSchema.nullable(),
   dataConfidence: ConfianzaSchema.nullable(),
+  // aditivos (Fase B) — opcionales
+  pob60: z.number().nullable().optional(),
+  ofertaTotal: z.number().optional(),
+  ofertaOftalmo: z.number().optional(),
+  demanda: z.number().optional(),
+  sgi: z.number().optional(),
+  sinOftalmoDenue: z.boolean().optional(),
 });
 
 export const ClinicaSchema = z.object({

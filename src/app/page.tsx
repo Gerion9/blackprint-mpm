@@ -1,4 +1,4 @@
-import { loadEstados, loadMeta, loadSources } from "@/lib/data";
+import { loadEstados, loadMeta, loadSources, loadMunicipios } from "@/lib/data";
 import {
   HERO, SECTIONS, CHAPTERS, PANELS, INDICES, CLUSTERS, CRITERIA, GAPS, CSR_BARS, FOOTER_SOURCES,
 } from "@/lib/content";
@@ -7,7 +7,9 @@ import ScrollFX from "@/components/ScrollFX";
 import Explorer from "@/components/explorer/Explorer";
 
 export default async function Page() {
-  const [estados, meta, sources] = await Promise.all([loadEstados(), loadMeta(), loadSources()]);
+  const [estados, meta, sources, municipios] = await Promise.all([
+    loadEstados(), loadMeta(), loadSources(), loadMunicipios(),
+  ]);
   const srcMap = new Map(sources.map((s) => [s.id, s]));
   const kpis = meta?.nationalKpis ?? [];
   const weights = meta?.weights ?? { social: [0.45, 0.3, 0.25], b2b: [0.25, 0.1, 0.2, 0.45] };
@@ -210,7 +212,22 @@ export default async function Page() {
           {/* CAP 03 PRIORIZACIÓN */}
           <ChapterDivider {...CHAPTERS[2]!} id="priorizacion" />
           <SectionTitle {...SECTIONS["04.1"]!} />
-          <Explorer estados={estados} weights={weights} />
+          <Explorer estados={estados} municipios={municipios} weights={weights} />
+          {municipios.length ? (
+            <Callout kind="info" ic="i">
+              <b>Nuevo: drill-down a municipio.</b>
+              <p style={{ marginTop: 6 }}>
+                Haz clic en un estado del mapa para bajar a su <b>coroplético municipal</b> (
+                {municipios.length.toLocaleString("es-MX")} municipios): demanda real de <b>población 60+ del Censo
+                2020</b> + oferta de salud visual contada por municipio desde DENUE.
+                {meta?.muniSinOftalmoDenue
+                  ? ` ${meta.muniSinOftalmoDenue.toLocaleString("es-MX")} municipios con 60+ por encima de la mediana no registran un solo establecimiento de oftalmología/hospital en DENUE`
+                  : ""}{" "}
+                — ojo: DENUE subrepresenta hospitales públicos (IMSS/ISSSTE) que sí operan catarata, y el score
+                municipal es <b>modelado, no medido</b> (falacia ecológica: el municipio agrega colonias dispares).
+              </p>
+            </Callout>
+          ) : null}
           <div className="row cols-3" style={{ marginTop: 18 }}>
             {CLUSTERS.map((c) => (
               <ClusterCard key={c.name} {...c} />

@@ -1,7 +1,7 @@
 "use client";
 
-import { Fragment, useEffect, useMemo, useState, useCallback } from "react";
-import type { Estado, Tier, Clinica } from "@/lib/schema";
+import { Fragment, useEffect, useMemo, useRef, useState, useCallback } from "react";
+import type { Estado, Tier, Clinica, Municipio } from "@/lib/schema";
 
 type Scenario = "social" | "b2b";
 type SortKey = "estado" | "_score" | "demandIndex" | "supplyGapIndex" | "accessIndex" | "b2bIndex" | "dataConfidence";
@@ -11,6 +11,7 @@ interface Scored extends Estado {
 }
 interface Props {
   estados: ReadonlyArray<Estado>;
+  municipios: ReadonlyArray<Municipio>;
   weights: { social: number[]; b2b: number[] };
 }
 
@@ -75,7 +76,7 @@ function projectGeo(geo: any): Projected {
   return { W, H: Math.round(H), feats, project };
 }
 
-export default function Explorer({ estados, weights }: Props) {
+export default function Explorer({ estados, municipios, weights }: Props) {
   const [scenario, setScenario] = useState<Scenario>("social");
   const [selected, setSelected] = useState<string | null>(null); // iso
   const [sortKey, setSortKey] = useState<SortKey>("_score");
@@ -84,7 +85,9 @@ export default function Explorer({ estados, weights }: Props) {
   const [geo, setGeo] = useState<any | null>(null);
   const [clinicas, setClinicas] = useState<Clinica[]>([]);
   const [showClin, setShowClin] = useState(false);
-  const [tip, setTip] = useState<{ x: number; y: number; d: Scored | null; name: string; clinic?: Clinica } | null>(null);
+  const [muniGeo, setMuniGeo] = useState<any | null>(null);
+  const muniCache = useRef<Map<string, any>>(new Map());
+  const [tip, setTip] = useState<{ x: number; y: number; d: Scored | null; name: string; clinic?: Clinica; muni?: Municipio } | null>(null);
 
   useEffect(() => {
     let alive = true;
@@ -119,7 +122,52 @@ export default function Explorer({ estados, weights }: Props) {
   const selEnt = selected ? byIso.get(selected)?.cveEnt ?? null : null;
   const selClinicas = selEnt ? clinByEnt.get(selEnt) ?? [] : [];
 
+  const muniByCvegeo = useMemo(() => {
+    const m = new Map<string, Municipio>();
+    for (const x of municipios) m.set(x.cvegeo, x);
+    return m;
+  }, [municipios]);
+  const muniByEnt = useMemo(() => {
+    const m = new Map<string, Municipio[]>();
+    for (const x of municipios) {
+      const arr = m.get(x.cveEnt);
+      if (arr) arr.push(x);
+      else m.set(x.cveEnt, [x]);
+    }
+    return m;
+  }, [municipios]);
+
   const proj = useMemo(() => (geo ? projectGeo(geo) : null), [geo]);
+
+  // lazy-fetch de la geometría municipal del estado seleccionado
+  useEffect(() => {
+    if (!selEnt || municipios.length === 0) {
+      setMuniGeo(null);
+      return;
+    }
+    const cached = muniCache.current.get(selEnt);
+    if (cached) {
+      setMuniGeo(cached);
+      return;
+    }
+    setMuniGeo(null);
+    let alive = true;
+    fetch(`/data/geo/mun-${selEnt}.geojson`)
+      .then((r) => (r.ok ? r.json() : null))
+      .then((g) => {
+        if (g) muniCache.current.set(selEnt, g);
+        if (alive) setMuniGeo(g);
+      })
+      .catch(() => {});
+    return () => {
+      alive = false;
+    };
+  }, [selEnt, municipios.length]);
+  const projMuni = useMemo(() => (muniGeo ? projectGeo(muniGeo) : null), [muniGeo]);
+  const drilled = !!(selEnt && projMuni);
+  const activeProj = drilled ? projMuni! : proj;
+  const selMunicipios = selEnt ? (muniByEnt.get(selEnt) ?? []) : [];
+  const estadoNombre = selected ? byIso.get(selected)?.estado ?? "" : "";
 
   const visible = useMemo(() => scored.filter((d) => !d.pending && d._tier && active[d._tier]), [scored, active]);
   const rows = useMemo(() => {
@@ -211,66 +259,80 @@ export default function Explorer({ estados, weights }: Props) {
 
       <div className="module-grid">
         <div className="module-map">
-          {proj ? (
-            <svg className="mx-map" viewBox={`0 0 ${proj.W} ${proj.H}`} role="group" aria-label="Mapa de México por prioridad">
+          <div className="breadcrumb">
+            <button type="button" className={selected ? "bc-link" : "bc-cur"} onClick={() => setSelected(null)} disabled={!selected}>
+              México
+            </button>
+            {selected ? (
+              <>
+                <span className="bc-sep">▸</span>
+                <span className="bc-cur">{estadoNombre}{drilled ? ` · ${selMunicipios.length} municipios` : ""}</span>
+              </>
+            ) : null}
+          </div>
+          {activeProj ? (
+            <svg className="mx-map" viewBox={`0 0 ${activeProj.W} ${activeProj.H}`} role="group" aria-label={drilled ? `Municipios de ${estadoNombre}` : "Mapa de México por prioridad"}>
               <defs>
                 <pattern id="pend" patternUnits="userSpaceOnUse" width="6" height="6" patternTransform="rotate(45)">
                   <rect width="6" height="6" fill="#eef0f3" />
                   <line x1="0" y1="0" x2="0" y2="6" stroke="#cfd5dd" strokeWidth="2" />
                 </pattern>
               </defs>
-              {proj.feats.map((f) => {
-                const d = f.iso ? byIso.get(f.iso) : null;
-                const fill = d && d._tier ? TIERCOL[d._tier] : "url(#pend)";
-                const dim = d && d._tier ? !active[d._tier] : false;
-                const cls = `mx-state${selected && f.iso === selected ? " sel" : ""}${dim ? " dim" : ""}`;
-                return (
-                  <path
-                    key={f.iso ?? f.name}
-                    className={cls}
-                    d={f.d}
-                    fill={fill}
-                    onMouseEnter={(e) => showTip(e, d ?? null, f.name)}
-                    onMouseMove={moveTip}
-                    onMouseLeave={hideTip}
-                    onClick={() => d && f.iso && select(f.iso)}
-                  >
-                    <title>{`${f.name}${d && d._tier ? ` · Tier ${d._tier} · ${d._score}` : " · pendiente (Fase B)"}`}</title>
-                  </path>
-                );
-              })}
+              {!drilled &&
+                proj!.feats.map((f) => {
+                  const d = f.iso ? byIso.get(f.iso) : null;
+                  const fill = d && d._tier ? TIERCOL[d._tier] : "url(#pend)";
+                  const dim = d && d._tier ? !active[d._tier] : false;
+                  const cls = `mx-state${selected && f.iso === selected ? " sel" : ""}${dim ? " dim" : ""}`;
+                  return (
+                    <path key={f.iso ?? f.name} className={cls} d={f.d} fill={fill}
+                      onMouseEnter={(e) => showTip(e, d ?? null, f.name)} onMouseMove={moveTip} onMouseLeave={hideTip}
+                      onClick={() => d && f.iso && select(f.iso)}>
+                      <title>{`${f.name}${d && d._tier ? ` · Tier ${d._tier} · ${d._score}` : " · pendiente (Fase B)"}`}</title>
+                    </path>
+                  );
+                })}
+              {drilled &&
+                projMuni!.feats.map((f) => {
+                  const mu = f.iso ? muniByCvegeo.get(f.iso) : null;
+                  const fill = mu && mu.tier ? TIERCOL[mu.tier] : "url(#pend)";
+                  const dim = mu && mu.tier ? !active[mu.tier] : false;
+                  return (
+                    <path key={f.iso ?? f.name} className={`mx-state${dim ? " dim" : ""}`} d={f.d} fill={fill}
+                      onMouseEnter={(e) => setTip({ x: e.clientX, y: e.clientY, d: null, name: f.name, muni: mu ?? undefined })}
+                      onMouseMove={moveTip} onMouseLeave={hideTip}>
+                      <title>{`${f.name}${mu ? ` · Tier ${mu.tier} · ${mu.priorityScore}` : ""}`}</title>
+                    </path>
+                  );
+                })}
               {showClin &&
                 selClinicas.map((c, i) => {
-                  const [cx, cy] = proj.project(c.lng, c.lat);
+                  const [cx, cy] = activeProj.project(c.lng, c.lat);
                   return (
-                    <circle
-                      key={(c.id || "c") + i}
-                      cx={cx}
-                      cy={cy}
-                      r={2.6}
-                      fill={c.categoria === "oftalmologia" ? "#06114B" : "#0a8a3a"}
-                      fillOpacity={0.82}
-                      stroke="#fff"
-                      strokeWidth={0.5}
-                      style={{ cursor: "pointer" }}
+                    <circle key={(c.id || "c") + i} cx={cx} cy={cy} r={drilled ? 3.2 : 2.6}
+                      fill={c.categoria === "oftalmologia" ? "#06114B" : "#0a8a3a"} fillOpacity={0.82}
+                      stroke="#fff" strokeWidth={0.5} style={{ cursor: "pointer" }}
                       onMouseEnter={(e) => setTip({ x: e.clientX, y: e.clientY, d: null, name: c.nombre, clinic: c })}
-                      onMouseMove={moveTip}
-                      onMouseLeave={hideTip}
-                    />
+                      onMouseMove={moveTip} onMouseLeave={hideTip} />
                   );
                 })}
             </svg>
           ) : (
             <div style={{ height: 380, display: "grid", placeItems: "center", color: "var(--ink-mute)", fontFamily: "var(--font-mono)", fontSize: 12, letterSpacing: "0.18em", textTransform: "uppercase" }}>
-              Cargando mapa…
+              {selEnt ? "Cargando municipios…" : "Cargando mapa…"}
             </div>
           )}
           <div className="legend">
             <span className="it"><span className="sw" style={{ background: "#06114B" }} />Tier A</span>
             <span className="it"><span className="sw" style={{ background: "#0875e3" }} />Tier B</span>
             <span className="it"><span className="sw" style={{ background: "#7db0e6" }} />Tier C</span>
-            <span className="it"><span className="sw pend" />Pendiente · Fase B (16)</span>
+            <span className="it"><span className="sw pend" />{drilled ? "sin dato" : "Pendiente · Fase B (16)"}</span>
           </div>
+          {drilled ? (
+            <div className="legend" style={{ marginTop: 2 }}>
+              <span className="lbl">Vista municipal · tier por banda nacional · score MODELADO (demanda 60+ Censo 2020 + oferta DENUE; no medido)</span>
+            </div>
+          ) : null}
           {showClin ? (
             <div className="legend" style={{ marginTop: 2 }}>
               <span className="it"><span className="sw" style={{ background: "#06114B", borderRadius: "50%" }} />Oftalmología</span>
@@ -286,6 +348,42 @@ export default function Explorer({ estados, weights }: Props) {
 
         <div className="module-side">
           <div className="tbl-wrap">
+            {drilled ? (
+              <table className="ptable" aria-label={`Municipios de ${estadoNombre}`}>
+                <thead>
+                  <tr>
+                    <th><button type="button">Municipio</button></th>
+                    <th><button type="button">Score</button></th>
+                    <th><button type="button">60+</button></th>
+                    <th><button type="button">Oftalmo</button></th>
+                    <th><button type="button">Total</button></th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {selMunicipios
+                    .slice()
+                    .sort((a, b) => (b.priorityScore ?? 0) - (a.priorityScore ?? 0))
+                    .filter((mu) => !mu.tier || active[mu.tier])
+                    .map((mu) => (
+                      <tr key={mu.cvegeo}>
+                        <td>
+                          <span className="est">
+                            <span className="tl" style={{ background: mu.tier ? TIERCOL[mu.tier] : "#ccc" }} />
+                            {mu.nombre}
+                          </span>
+                        </td>
+                        <td>
+                          <span className="score-cell">{mu.priorityScore}</span>{" "}
+                          <span className={`tbadge ${mu.tier}`}>{mu.tier}</span>
+                        </td>
+                        <td className="tabular">{mu.pob60 != null ? mu.pob60.toLocaleString("es-MX") : "—"}</td>
+                        <td className="tabular">{mu.ofertaOftalmo ?? 0}</td>
+                        <td className="tabular">{mu.ofertaTotal ?? 0}</td>
+                      </tr>
+                    ))}
+                </tbody>
+              </table>
+            ) : (
             <table className="ptable" aria-label="Ranking de estados por prioridad">
               <thead>
                 <tr>
@@ -361,6 +459,7 @@ export default function Explorer({ estados, weights }: Props) {
                 })}
               </tbody>
             </table>
+            )}
           </div>
         </div>
       </div>
@@ -423,7 +522,7 @@ export default function Explorer({ estados, weights }: Props) {
         >
           <div className="tt-h">
             <span style={{ maxWidth: 200, overflow: "hidden", textOverflow: "ellipsis" }}>{tip.name}</span>
-            {tip.d?._score != null ? <span>{tip.d._score}</span> : null}
+            {tip.d?._score != null ? <span>{tip.d._score}</span> : tip.muni?.priorityScore != null ? <span>{tip.muni.priorityScore}</span> : null}
           </div>
           {tip.clinic ? (
             <>
@@ -441,6 +540,14 @@ export default function Explorer({ estados, weights }: Props) {
               <div className="tt-row"><span>Acceso</span><b>{tip.d.accessIndex}</b></div>
               <div className="tt-row"><span>B2B</span><b>{tip.d.b2bIndex}</b></div>
               <div className="tt-row"><span>Insumos</span><b>{tip.d.dataConfidence}</b></div>
+            </>
+          ) : tip.muni ? (
+            <>
+              <div className="tt-row"><span>Tier</span><b>{tip.muni.tier}</b></div>
+              <div className="tt-row"><span>60+</span><b>{tip.muni.pob60 != null ? tip.muni.pob60.toLocaleString("es-MX") : "—"}</b></div>
+              <div className="tt-row"><span>Oftalmología</span><b>{tip.muni.ofertaOftalmo ?? 0}</b></div>
+              <div className="tt-row"><span>Establecimientos</span><b>{tip.muni.ofertaTotal ?? 0}</b></div>
+              <div className="tt-row" style={{ marginTop: 4 }}><span>Score modelado · no medido</span></div>
             </>
           ) : (
             <div className="tt-row"><span>Pendiente de datos · Fase B</span></div>

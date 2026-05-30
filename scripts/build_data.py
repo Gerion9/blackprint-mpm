@@ -164,9 +164,13 @@ meta = {
 }
 write("meta.json", meta)
 
-# ── Fase B: vacíos, contrato listo ──
-write("municipios.json", [])
-write("clinicas.json", [])
+# ── Fase B: sembrar vacíos SOLO si no existen (no pisar datos ya generados
+#    por scripts/fase_b/build_municipios.py / build_clinicas.py) ──
+for _fb in ("municipios.json", "clinicas.json"):
+    if not os.path.exists(os.path.join(OUT, _fb)):
+        write(_fb, [])
+    else:
+        print("KEEP", _fb, "(ya existe — generado por Fase B, no se pisa)")
 
 # ── GeoJSON: añadir properties.id = ISO + redondear coords a 3 decimales ──
 geo = load(os.path.join(OUT, "mexico_estados.geojson"))

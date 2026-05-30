@@ -148,5 +148,11 @@
     "32": 54
   },
   "clinicasTotal": 6060,
-  "clinicasOftalmologia": 627
+  "clinicasOftalmologia": 627,
+  "muniScored": 2469,
+  "muniConOferta": 751,
+  "muniDesiertos": 1088,
+  "muniIlustrativos": 0,
+  "faseMunicipio": "demanda 60+ Censo 2020 (real) + oferta DENUE (real); score modelado, tier por banda nacional",
+  "muniSinOftalmoDenue": 1088
 }
