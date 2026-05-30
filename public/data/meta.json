@@ -1,0 +1,152 @@
+{
+  "generatedAt": "2026-05-30",
+  "fase": "Fase A · priorización descriptiva por entidad",
+  "coverageNote": "16 entidades con score (insumos estatales citados) + 16 en cola de Fase B. El score es un RANKING MODELADO, no una predicción de cirugías ni de ingreso.",
+  "weights": {
+    "social": [
+      0.45,
+      0.3,
+      0.25
+    ],
+    "b2b": [
+      0.25,
+      0.1,
+      0.2,
+      0.45
+    ]
+  },
+  "tiers": [
+    {
+      "t": "A",
+      "rule": "priorityScore ≥ 75",
+      "action": "Foco inmediato. Diseñar la primera jornada o la sede ancla."
+    },
+    {
+      "t": "B",
+      "rule": "62 – 74",
+      "action": "Segunda ola / apuesta de valor. Validar municipio sede."
+    },
+    {
+      "t": "C",
+      "rule": "50 – 61",
+      "action": "Oportunista o de un solo canal (autopago o B2B). Entrar con diferenciador."
+    },
+    {
+      "t": "D",
+      "rule": "< 50 / pendiente",
+      "action": "Capa-2: requiere completar datos (Fase B) antes de decidir."
+    }
+  ],
+  "pendingStates": [
+    "Aguascalientes",
+    "Baja California",
+    "Baja California Sur",
+    "Campeche",
+    "Coahuila",
+    "Colima",
+    "Durango",
+    "Guanajuato",
+    "Nayarit",
+    "Querétaro",
+    "Quintana Roo",
+    "San Luis Potosí",
+    "Sonora",
+    "Tamaulipas",
+    "Tlaxcala",
+    "Zacatecas"
+  ],
+  "nationalKpis": [
+    {
+      "label": "Personas que viven con catarata operable en Mexico",
+      "value": "760,000",
+      "sub": "Dato oficial robusto (mas conservador y mejor atribuido que el '~3 millones' de prensa, que tiene atribucion debil a INEGI). Es el universo central de la oportunidad de MPM.",
+      "sourceId": "ssa-estrategia",
+      "accent": ""
+    },
+    {
+      "label": "Rezago quirurgico acumulado ('el mapa del millon de ojos')",
+      "value": ">=1,000,000 ojos por operar (+~20%/ano)",
+      "sub": "Se acumula ~20% mas cada ano por nueva incidencia; el sistema publico hace ~66,036 egresos/ano (2023) y no alcanza a cerrarlo. Es la brecha central que MPM llena.",
+      "sourceId": "ssa-guia",
+      "accent": "coral"
+    },
+    {
+      "label": "Pacientes con catarata SIN acceso a cirugia por costo",
+      "value": "33% (1 de cada 3)",
+      "sub": "Barrera economica = oportunidad directa del modelo de bajo costo por volumen de MPM. La catarata causa el 34% de los casos de ceguera del pais (principal causa de ceguera REVERSIBLE).",
+      "sourceId": "ssa-estrategia",
+      "accent": "pink"
+    },
+    {
+      "label": "Tasa de Cirugia de Catarata (CSR) de Mexico vs meta",
+      "value": "~1,530 por millon/ano (2020) vs meta ~3,000",
+      "sub": "El propio gobierno reconoce que 'lo ideal seria como minimo el doble'. Mexico queda por debajo del promedio LATAM (2,672) y muy lejos de Brasil (3,165). La brecha es de capacidad instalada, no biologica. IAPB reportaba 1,475/millon en 2013.",
+      "sourceId": "ssa-guia",
+      "accent": ""
+    },
+    {
+      "label": "Cobertura quirurgica EFECTIVA de catarata (eCSC)",
+      "value": "30% (de las peores entre 55 paises)",
+      "sub": "% de pacientes que alcanza agudeza visual >=20/40 tras cirugia. No basta operar: el sistema publico tambien tiene brecha de CALIDAD. El estandar de medicina privada de MPM (Alcon/Zeiss) es el diferenciador real frente al 'operar por operar'.",
+      "sourceId": "lancet-ecsc",
+      "accent": "green"
+    },
+    {
+      "label": "Poblacion objetivo: adultos 60+ (mercado primario)",
+      "value": "16.5 millones",
+      "sub": "Personas de 60+ a mitad de 2024 (12.4% de la población). Casi 3 millones (20%) sin afiliación a salud. ~85% de las cataratas ocurren en este grupo; el envejecimiento es estructural (proyección CONAPO).",
+      "sourceId": "ssa-guia",
+      "accent": ""
+    },
+    {
+      "label": "Perdida economica por discapacidad visual (argumento B2B)",
+      "value": ">=USD 500 millones/ano",
+      "sub": "Perdida de productividad atribuible a deficiencia visual; la cirugia de catarata es de las intervenciones de salud mas costo-efectivas. Retorno social y economico medible para vender cirugia como beneficio a empresas/fundaciones.",
+      "sourceId": "ssa-guia",
+      "accent": "pink"
+    },
+    {
+      "label": "Cirugías de catarata del sector público al año",
+      "value": "66,036 egresos (2023)",
+      "sub": "Toda la producción pública anual (IMSS lidera con 50,103). Aun sumando jornadas no alcanza a cerrar el rezago de >1 millón de ojos que crece ~20%/año.",
+      "sourceId": "ssa-guia",
+      "accent": ""
+    }
+  ],
+  "clinicasPorEstado": {
+    "01": 137,
+    "02": 159,
+    "03": 16,
+    "04": 19,
+    "05": 114,
+    "06": 14,
+    "07": 95,
+    "08": 163,
+    "09": 729,
+    "10": 42,
+    "11": 288,
+    "12": 121,
+    "13": 172,
+    "14": 365,
+    "15": 1332,
+    "16": 213,
+    "17": 127,
+    "18": 25,
+    "19": 272,
+    "20": 131,
+    "21": 353,
+    "22": 183,
+    "23": 49,
+    "24": 97,
+    "25": 73,
+    "26": 94,
+    "27": 63,
+    "28": 105,
+    "29": 53,
+    "30": 306,
+    "31": 96,
+    "32": 54
+  },
+  "clinicasTotal": 6060,
+  "clinicasOftalmologia": 627
+}

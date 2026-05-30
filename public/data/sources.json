@@ -1,0 +1,65 @@
+[
+  {
+    "id": "ssa-estrategia",
+    "publisher": "Secretaría de Salud",
+    "document": "Estrategia Nacional de Cirugía de Catarata «Ver por México»",
+    "date": "2025-01-23",
+    "url": "https://www.gob.mx/salud/prensa/estrategia-nacional-de-cirugia-de-catarata-ver-por-mexico"
+  },
+  {
+    "id": "ssa-guia",
+    "publisher": "Secretaría de Salud",
+    "document": "Guía para el desarrollo de jornadas quirúrgicas «Ver por México»",
+    "date": "2025-02-01",
+    "url": "https://www.gob.mx/cms/uploads/attachment/file/983570/Gui_a_para_el_desarrollo_de_jornadas_quiru_rgicas_de_catarata__Ver_por_Me_xico_compressed.pdf"
+  },
+  {
+    "id": "inegi-am",
+    "publisher": "INEGI",
+    "document": "Estadísticas a propósito del adulto mayor (Censo 2020, Com. 547/21)",
+    "date": "2021-09-29",
+    "url": "https://www.inegi.org.mx/contenidos/saladeprensa/aproposito/2021/EAP_ADULMAYOR_21.pdf"
+  },
+  {
+    "id": "conapo-marg",
+    "publisher": "CONAPO",
+    "document": "Índices de Marginación 2020",
+    "date": "2021-01-01",
+    "url": "https://www.gob.mx/conapo/documentos/indices-de-marginacion-2020-284372"
+  },
+  {
+    "id": "coneval-pobreza",
+    "publisher": "CONEVAL",
+    "document": "Medición de la Pobreza 2022",
+    "date": "2023-08-01",
+    "url": "https://www.coneval.org.mx/SalaPrensa/Comunicadosprensa/Documents/2023/Comunicado_07_Medicion_Pobreza_2022.pdf"
+  },
+  {
+    "id": "ensanut-2022",
+    "publisher": "INSP / ENSANUT",
+    "document": "Prevalencia de diabetes en México, Ensanut 2022 (Salud Pública Mex)",
+    "date": "2023-01-01",
+    "url": "https://www.saludpublica.mx/index.php/spm/article/view/14832"
+  },
+  {
+    "id": "lancet-ecsc",
+    "publisher": "The Lancet Global Health",
+    "document": "McCormick I. et al., cobertura quirúrgica efectiva de catarata (2022)",
+    "date": "2022-01-01",
+    "url": "https://www.thelancet.com/journals/langlo/article/PIIS2214-109X(22)00419-3/fulltext"
+  },
+  {
+    "id": "iapb",
+    "publisher": "IAPB",
+    "document": "Vision Atlas / Cataract Surgical Rates (Community Eye Health Journal)",
+    "date": "2013-01-01",
+    "url": "https://archive.cehjournal.org/article/cataract-surgical-rates/"
+  },
+  {
+    "id": "conapo-proy",
+    "publisher": "CONAPO",
+    "document": "Proyecciones de la Población 2020-2070",
+    "date": "2023-01-01",
+    "url": "https://conapo.segob.gob.mx/work/models/CONAPO/pry23/PP/index.html"
+  }
+]
