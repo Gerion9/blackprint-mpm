@@ -9,9 +9,11 @@
     "start": "next start",
     "lint": "next lint",
     "type-check": "tsc --noEmit",
-    "data": "python scripts/build_data.py"
+    "data": "python scripts/build_data.py",
+    "sensitivity": "python scripts/fase_b/sensitivity.py"
   },
   "dependencies": {
+    "maplibre-gl": "5.24.0",
     "next": "^16.0.0",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
@@ -19,6 +21,7 @@
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4.0.0",
+    "@types/geojson": "^7946.0.16",
     "@types/node": "^22.10.0",
     "@types/react": "^19.0.0",
     "@types/react-dom": "^19.0.0",

@@ -7,11 +7,13 @@ import {
   SourceSchema,
   MunicipioSchema,
   ClinicaSchema,
+  SensitivitySchema,
   type Estado,
   type Meta,
   type Source,
   type Municipio,
   type Clinica,
+  type Sensitivity,
 } from "./schema";
 
 /**
@@ -56,4 +58,8 @@ export function loadMunicipios(): Promise<ReadonlyArray<Municipio>> {
 
 export function loadClinicas(): Promise<ReadonlyArray<Clinica>> {
   return readValidated("clinicas.json", z.array(ClinicaSchema), []);
+}
+
+export function loadSensitivity(): Promise<Sensitivity | null> {
+  return readValidated("sensitivity.json", SensitivitySchema, null);
 }

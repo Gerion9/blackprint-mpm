@@ -1,14 +1,14 @@
-import { loadEstados, loadMeta, loadSources, loadMunicipios } from "@/lib/data";
+import { loadEstados, loadMeta, loadSources, loadMunicipios, loadSensitivity } from "@/lib/data";
 import {
   HERO, SECTIONS, CHAPTERS, PANELS, INDICES, CLUSTERS, CRITERIA, GAPS, CSR_BARS, FOOTER_SOURCES,
 } from "@/lib/content";
 import { Html, SectionTitle, ChapterDivider, Panel, Callout, SourceChip, ClusterCard } from "@/components/Polaris";
 import ScrollFX from "@/components/ScrollFX";
-import Explorer from "@/components/explorer/Explorer";
+import MapExplorer from "@/components/explorer/MapExplorer";
 
 export default async function Page() {
-  const [estados, meta, sources, municipios] = await Promise.all([
-    loadEstados(), loadMeta(), loadSources(), loadMunicipios(),
+  const [estados, meta, sources, municipios, sensitivity] = await Promise.all([
+    loadEstados(), loadMeta(), loadSources(), loadMunicipios(), loadSensitivity(),
   ]);
   const srcMap = new Map(sources.map((s) => [s.id, s]));
   const kpis = meta?.nationalKpis ?? [];
@@ -184,10 +184,16 @@ export default async function Page() {
             <b>Descriptivo, no predictivo.</b>
             <p style={{ marginTop: 6 }}>
               Los pesos son <b>juicio experto declarado</b> de BlackPrint, no calibrados con resultados de jornadas (MPM
-              aún no tiene histórico). Antes de comprometer capital se recomienda análisis de sensibilidad (Monte Carlo
-              ±20–30%): Veracruz, Puebla y Michoacán lucen <b>robustos</b>; CDMX, Estado de México y el sur profundo son{" "}
-              <b>sensibles</b> al escenario social-vs-pago. Además, Demanda y Brecha comparten la población 60+ y la
-              señal de vulnerabilidad es colineal (r&gt;0.8): pesa más de una vez; en Fase B se residualiza.
+              aún no tiene histórico). Los <b>4 índices estatales son juicio experto estructurado</b>, no la fórmula de
+              arriba (que describe el score <i>municipal</i>): la fórmula no reproduce los índices de cada estado.{" "}
+              Para no afirmar la robustez sin medirla, corrimos un <b>Monte Carlo real</b> de re-ponderación de los 4
+              índices (5,000 sorteos, pesos ±30% renormalizados; ver el explorador): <b>Veracruz, Puebla y el Estado de
+              México</b> sostienen el top-5 en ≥98% de los sorteos (<b>anclas</b>), mientras que{" "}
+              <b>Michoacán, CDMX y el sur profundo</b> son <b>sensibles</b> a los pesos — su posición refleja juicio
+              experto más que dominio de los índices. Sobre la colinealidad: a nivel <b>estatal</b> Demanda y Brecha
+              resultan casi no correlacionadas (r=−0.05); la colinealidad real aparece a nivel <b>municipal</b>{" "}
+              (r=0.74, no el «&gt;0.8» que antes se afirmaba sin cálculo, porque ahí ambas derivan de la población 60+) y
+              se residualiza en Fase B.
             </p>
           </Callout>
 
@@ -213,18 +219,22 @@ export default async function Page() {
           {/* CAP 03 PRIORIZACIÓN */}
           <ChapterDivider {...CHAPTERS[2]!} id="priorizacion" />
           <SectionTitle {...SECTIONS["04.1"]!} />
-          <Explorer estados={estados} municipios={municipios} weights={weights} />
+          <MapExplorer estados={estados} municipios={municipios} weights={weights} sensitivity={sensitivity} dataVersion={meta?.generatedAt} />
           {municipios.length ? (
             <Callout kind="info" ic="i">
-              <b>Nuevo: drill-down a municipio.</b>
+              <b>Mapa interactivo: navega, filtra y baja a municipio.</b>
               <p style={{ marginTop: 6 }}>
-                Haz clic en un estado del mapa para bajar a su <b>coroplético municipal</b> (
-                {municipios.length.toLocaleString("es-MX")} municipios): demanda real de <b>población 60+ del Censo
-                2020</b> + oferta por municipio contada de <b>DENUE + hospitales públicos CLUES</b>.
+                El explorador es un <b>mapa real</b> (acerca, mueve, geolocaliza) con tres modos: <b>«Dónde conviene»</b>{" "}
+                (prioridad por score modelado), <b>«Lo que ya existe»</b> (los{" "}
+                {meta?.clinicasTotal ? meta.clinicasTotal.toLocaleString("es-MX") : "11,405"} establecimientos de salud
+                visual de <b>DENUE + hospitales públicos CLUES</b> agrupados en clústeres) y <b>«Sin oferta registrada»</b>.
+                Haz clic en un estado para bajar a su <b>coroplético municipal</b> ({municipios.length.toLocaleString("es-MX")}{" "}
+                municipios: demanda real de <b>población 60+ del Censo 2020</b> + oferta contada).
                 {meta?.muniSinOftalmoDenue
-                  ? ` ${meta.muniSinOftalmoDenue.toLocaleString("es-MX")} municipios con población 60+ por encima de la mediana no registran un solo hospital de 2º/3er nivel ni oftalmología (ni en DENUE ni en CLUES): desiertos quirúrgicos reales`
+                  ? ` ${meta.muniSinOftalmoDenue.toLocaleString("es-MX")} municipios con población 60+ por encima de la mediana no registran oftalmología ni hospital de 2º/3er nivel en DENUE+CLUES — señal a verificar en campo, NO un desierto confirmado: el registro público subrepresenta a IMSS/ISSSTE`
                   : ""}{" "}
                 — el score municipal es <b>modelado, no medido</b> (falacia ecológica: el municipio agrega colonias dispares).
+                Cada punto es un <b>candidato</b>: su capacidad quirúrgica no está verificada.
               </p>
             </Callout>
           ) : null}
@@ -287,23 +297,25 @@ export default async function Page() {
           <SectionTitle {...SECTIONS["05.2"]!} />
           <div className="roadmap reveal">
             <div className="phase now">
-              <span className="tag">Fase A · entregada</span>
-              <h4>Asignar esfuerzo</h4>
+              <span className="tag">Fase A + · entregada</span>
+              <h4>Asignar esfuerzo · explorar el territorio</h4>
               <ul>
-                <li>Ranking de 32 entidades por atractivo de oportunidad</li>
-                <li>Dos escenarios: social y B2B/autopago</li>
-                <li>Metodología transparente y fuentes citadas</li>
-                <li>Tesis «dos Méxicos» y clusters de estrategia</li>
+                <li>Ranking de 32 entidades, dos escenarios (social y B2B/autopago)</li>
+                <li><b>Mapa interactivo</b>: {meta?.clinicasTotal ? meta.clinicasTotal.toLocaleString("es-MX") : "11,405"} establecimientos reales (DENUE + CLUES) con clústeres y filtros</li>
+                <li>Drill a municipio: demanda 60+ Censo 2020 + oferta contada por municipio</li>
+                <li><b>Análisis de sensibilidad real</b> (Monte Carlo de re-ponderación, 5,000 sorteos)</li>
+                <li>Metodología transparente, fuentes citadas y tesis «dos Méxicos»</li>
               </ul>
             </div>
             <div className="phase next">
-              <span className="tag">Fase B · siguiente</span>
+              <span className="tag">Fase B · siguiente (lo que aún NO se calcula)</span>
               <h4>Clavar la sede</h4>
               <ul>
-                <li>Bajar a municipio/AGEB con Censo, marginación y pobreza locales</li>
-                <li>Geolocalizar oferta: DENUE (SCIAN 621113/14/621320) + CLUES + padrón CMO</li>
-                <li>Isócronas sobre red vial OSM (catchment real)</li>
-                <li>Análisis de sensibilidad + validación con panel clínico</li>
+                <li>Isócronas sobre red vial OSM (catchment real; precómputo offline — nunca círculos euclidianos disfrazados)</li>
+                <li>Padrón CMO de oftalmólogos certificados por estado (densidad real de oferta)</li>
+                <li>Egresos de catarata DGIS-SAEH por entidad (producción quirúrgica observada)</li>
+                <li>Residualizar la colinealidad demanda↔brecha (municipal r=0.74) + drill a AGEB</li>
+                <li>Basemap soberano self-host (PMTiles) + validación con panel clínico</li>
               </ul>
             </div>
           </div>

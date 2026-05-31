@@ -1,11 +1,14 @@
 import { NextResponse, type NextRequest } from "next/server";
 
 /**
- * Gate de acceso al reporte editorial BlackPrint × Mirando por México.
+ * Gate de acceso (COSMÉTICO) al reporte editorial BlackPrint × Mirando por México.
  *
- * Edge middleware ligero — verifica la cookie `bp_auth` en cada request y
- * redirige a `/login` si falta o no es válida. Rutas públicas: login y su API,
- * estáticos de Next.js, logos. El secreto real es la contraseña (no la cookie).
+ * Edge middleware ligero. OJO (decisión explícita): NO es una protección de datos
+ * real — el token de cookie está en el repo y los datos DENUE/CLUES son públicos en
+ * origen. `/data` se EXCLUYE del gate (vía matcher y rutas públicas) para que los
+ * fetch del mapa no pasen por el Edge en cada navegación (bug de performance) y para
+ * no vender el login como «datos protegidos». Endurecer auth (HMAC, password en env)
+ * es un ticket aparte, fuera del alcance del mapa.
  */
 const AUTH_COOKIE = "bp_auth";
 const AUTH_TOKEN = "mpm-2026"; // valor de cookie; debe coincidir con /api/login
@@ -16,6 +19,7 @@ const PUBLIC_PATH_PREFIXES = [
   "/_next",
   "/favicon.ico",
   "/logos",
+  "/data",
   "/robots.txt",
   "/sitemap.xml",
 ];
@@ -44,5 +48,7 @@ export function middleware(request: NextRequest) {
 }
 
 export const config = {
-  matcher: ["/((?!_next/static|_next/image|favicon.ico).*)"],
+  // Excluye estáticos, logos y /data (datos públicos del mapa) para no ejecutar el
+  // Edge Middleware en cada GET de 3.4MB de clínicas / shards geográficos.
+  matcher: ["/((?!_next/static|_next/image|favicon.ico|data|logos).*)"],
 };

@@ -111,6 +111,49 @@ export const ClinicaSchema = z.object({
   oftalmologoCMO: z.boolean().nullable(),
 });
 
+/**
+ * Sensibilidad (Monte Carlo de RE-PONDERACIÓN de los 4 índices) — Fase B aditiva.
+ * Sustituye las afirmaciones «Monte Carlo ±20-30% / robustos / r>0.8» que el reporte
+ * hacía SIN cálculo por números reproducibles (scripts/fase_b/sensitivity.py).
+ * REGLA: mide estabilidad del RANKING relativo ante re-ponderación, NO valida contra
+ * cirugías ni convierte el score en «medido».
+ */
+export const RobustLabelSchema = z.enum(["ancla", "estable", "medio", "sensible"]);
+export const SensScenarioSchema = z.object({
+  scoreMed: z.number(),
+  scoreP5: z.number(),
+  scoreP95: z.number(),
+  rankMed: z.number(),
+  rankP5: z.number(),
+  rankP95: z.number(),
+  pctTop3: z.number(),
+  pctTop5: z.number(),
+  robustLabel: RobustLabelSchema,
+});
+export const SensStateSchema = z.object({
+  code: z.string(),
+  estado: z.string(),
+  cveEnt: z.string(),
+  social: SensScenarioSchema,
+  b2b: SensScenarioSchema,
+});
+export const SensitivitySchema = z.object({
+  generatedAt: z.string(),
+  method: z.string(),
+  draws: z.number(),
+  spread: z.number(),
+  nominalWeights: z.object({ social: z.array(z.number()), b2b: z.array(z.number()) }),
+  indexOrder: z.array(z.string()),
+  correlations: z.object({
+    demand_supplyGap_estado: z.number(),
+    n_estado: z.number(),
+    demand_supplyGap_municipio: z.number().nullable(),
+    n_municipio: z.number(),
+    note: z.string(),
+  }),
+  states: z.array(SensStateSchema),
+});
+
 export type Estado = z.infer<typeof EstadoSchema>;
 export type Source = z.infer<typeof SourceSchema>;
 export type NationalKpi = z.infer<typeof NationalKpiSchema>;
@@ -119,3 +162,7 @@ export type Municipio = z.infer<typeof MunicipioSchema>;
 export type Clinica = z.infer<typeof ClinicaSchema>;
 export type Tier = z.infer<typeof TierSchema>;
 export type Confianza = z.infer<typeof ConfianzaSchema>;
+export type Sensitivity = z.infer<typeof SensitivitySchema>;
+export type SensState = z.infer<typeof SensStateSchema>;
+export type SensScenario = z.infer<typeof SensScenarioSchema>;
+export type RobustLabel = z.infer<typeof RobustLabelSchema>;

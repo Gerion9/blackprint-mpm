@@ -17,7 +17,7 @@ export const HERO = {
 
 export interface Sec { num: string; h2: string; purpose: string }
 export const SECTIONS: Record<string, Sec> = {
-  "00.1": { num: "00.1", h2: "Lo que dice el <em>mapa</em>", purpose: "<b>Resumen:</b> Veracruz, Michoacán y Puebla encabezan la prioridad y se sostienen aunque movamos los pesos del modelo. El sur profundo (Oaxaca, Guerrero, Chiapas) tiene la mayor necesidad social pero pide canal de fundación, no autopago. El norte y el Bajío (Nuevo León, Chihuahua) concentran el dinero corporativo del canal B2B." },
+  "00.1": { num: "00.1", h2: "Lo que dice el <em>mapa</em>", purpose: "<b>Resumen:</b> Veracruz, Michoacán y Puebla encabezan la prioridad; en el Monte Carlo de re-ponderación, Veracruz y Puebla se sostienen en el top-5 (anclas), mientras que Michoacán refleja juicio experto más que dominio de los índices. El sur profundo (Oaxaca, Guerrero, Chiapas) tiene la mayor necesidad social pero pide canal de fundación, no autopago. El norte y el Bajío (Nuevo León, Chihuahua) concentran el dinero corporativo del canal B2B." },
   "00.2": { num: "00.2", h2: "Cómo leer este <em>reporte</em>", purpose: "<b>Lectura:</b> el priorityScore es un ranking relativo de oportunidad, no una predicción de cirugías ni de ingreso. Cada cifra nacional trae fuente oficial citada; los índices por estado distinguen dato real, mixto e ilustrativo. La sede fina aún no está decidida: eso es Fase B." },
   "01.1": { num: "01.1", h2: "La catarata que se <em>revierte</em>", purpose: "<b>Diagnóstico:</b> la catarata es la principal causa de ceguera reversible del país y viven con ella 760,000 personas; se suman 47,600 casos nuevos cada año (Secretaría de Salud, 2025)." },
   "01.2": { num: "01.2", h2: "Una ola que ya <em>viene</em>", purpose: "<b>Demografía:</b> hay 16.5 millones de personas de 60 años o más; casi 3 millones no tienen ninguna cobertura de salud. El mercado de la catarata no es coyuntural: es estructural (INEGI, CONAPO)." },
@@ -41,7 +41,7 @@ export const PANELS = {
   dosMexicos: { title: "Dos Méxicos en el mismo mapa", body: "La demanda social está en el centro-sur (Veracruz, Oaxaca, Guerrero, Chiapas); el dinero corporativo está en el norte y el Bajío (Nuevo León, Chihuahua, Coahuila). Por eso el estudio entrega dos rankings: jornadas de fundación al sur, ventas B2B al norte. La estrategia tiene que ser de doble pista." },
   veracruz: { title: "Veracruz, el no-brainer geográfico", body: "Tercer estado en adultos mayores en número absoluto (1,157,892), segundo en porcentaje de 60+ (14.4%), marginación alta y la mayor mortalidad por diabetes del país (127.4 por 100 mil en 2022). Cuatro señales oficiales apuntan al mismo lugar. Es el caso más sólido para la primera jornada." },
   surFundacion: { title: "El sur pide fundación, no autopago", body: "Chiapas, Guerrero y Oaxaca son los únicos tres estados de marginación muy alta y los de mayor pobreza del país (Chiapas 67.4%). Su brecha de oferta es la más grande, pero su población es dispersa y de bajo ingreso. Entrar ahí con autopago sería un error: el canal correcto es fundación o convenio." },
-  rankingHonesto: { title: "Un ranking honesto, no una bola de cristal", body: "El priorityScore ordena oportunidad, no predice cirugías ni ingreso: MPM aún no tiene histórico de jornadas para calibrar. Veracruz, Puebla y Michoacán se mantienen arriba aunque movamos los pesos; CDMX, Estado de México y el sur profundo son sensibles al escenario social frente a pago." },
+  rankingHonesto: { title: "Un ranking honesto, no una bola de cristal", body: "El priorityScore ordena oportunidad, no predice cirugías ni ingreso: MPM aún no tiene histórico de jornadas para calibrar. En 5,000 re-ponderaciones de los cuatro índices, Veracruz, Puebla y el Estado de México sostienen el top-5 (anclas); Michoacán, CDMX y el sur profundo son sensibles a los pesos — su posición depende más del juicio de ponderación que del dominio de los índices." },
   unoDeTres: { title: "1 de cada 3 se queda esperando", body: "El 33% de los pacientes con catarata no se opera por falta de recursos económicos (Secretaría de Salud). No es un problema de cura sino de acceso: la cirugía dura 15 minutos y existe en México. Esa barrera de costo es, exactamente, el espacio del modelo de bajo costo por volumen de MPM." },
   volumen: { title: "El volumen no es el problema", body: "El sector público ya demostró 1,150 cirugías en 3 días (récord continental, IMSS Siglo XXI) y 2,079 en una sola jornada con 15 quirófanos en Ecatepec. El concepto de jornada visual de 100 citas de MPM está probado a escala mucho mayor. La pregunta no es si funciona, sino dónde y con quién instalarlo." },
   puerta: { title: "La puerta que deja abierta el programa federal", body: "La estrategia gratuita Ver por México excluye explícitamente los casos complejos: esclerosis nuclear avanzada, conteo endotelial bajo, ejes axiales extremos, cirugías previas de retina o glaucoma. Ese paciente difícil no cabe en la jornada de volumen y es demanda natural para una oferta privada accesible y resolutiva." },
@@ -59,7 +59,7 @@ export const INDICES = [
 
 export const CLUSTERS = [
   { name: "Sur social", kind: "Canal fundación / convenio · sede regional", states: "Chiapas · Guerrero · Oaxaca · Veracruz (periferia) · Tabasco", body: "Máxima necesidad y mayor brecha del país, pero población dispersa y de bajo ingreso: entrar con autopago sería un error. El canal correcto es fundación, gobierno estatal o convenio (tarifa GRD-42), con una sede regional que agregue municipios." },
-  { name: "Centro-bajío de volumen", kind: "Jornadas mixtas (social + autopago)", states: "Veracruz (polos urbanos) · Puebla · Michoacán · Hidalgo", body: "Convergencia de volumen y vulnerabilidad con catchment razonable. Es el corazón accionable y robusto del ranking: Veracruz, Puebla y Michoacán se sostienen aunque se muevan los pesos del modelo." },
+  { name: "Centro-bajío de volumen", kind: "Jornadas mixtas (social + autopago)", states: "Veracruz (polos urbanos) · Puebla · Michoacán · Hidalgo", body: "Convergencia de volumen y vulnerabilidad con catchment razonable. Es el corazón accionable del ranking: Veracruz y Puebla se sostienen ante la re-ponderación de los pesos; Michoacán es sólido por convergencia de señales, aunque más sensible a la ponderación elegida." },
   { name: "Norte/Bajío B2B + cinturón autopago", kind: "Venta corporativa / autopago de bajo costo", states: "Nuevo León · Chihuahua · Jalisco · Morelos · Yucatán · Sinaloa", body: "Aquí está el dinero, no la mayor necesidad social. El modelo B2B/RSE está probado (FECHAC con maquiladoras de Cd. Juárez). El cinturón envejecido de poder medio habilita autopago de bajo costo en sus polos urbanos." },
 ];
 
@@ -89,6 +89,32 @@ export const CSR_BARS: [string, number, string][] = [
   ["Meta OMS/IAPB", 3000, "var(--success)"],
   ["Brasil", 3165, "var(--blue-p)"],
 ];
+
+/**
+ * Copy del MAPA INTERACTIVO. Centraliza los disclaimers de integridad como elementos
+ * de diseño (banner persistente, sello inline en cada punto), no como letra chica.
+ * La honestidad se comunica como rigor, no como descargo.
+ */
+export const MAP_COPY = {
+  intro:
+    "Explora dónde espera la vista: estados y municipios por prioridad y los 11,405 establecimientos de salud visual (DENUE + hospitales públicos CLUES) sobre el mapa real. Filtra, acerca y abre cada punto.",
+  banner:
+    "El priorityScore y sus 4 índices son un RANKING MODELADO (relativo), no una predicción de cirugías ni de ingreso. Los índices estatales son juicio experto estructurado, no la fórmula publicada (que describe el score municipal). Cada punto es un establecimiento CANDIDATO: su capacidad quirúrgica no está verificada.",
+  modes: {
+    oportunidad: { label: "Dónde conviene", desc: "Prioridad por priorityScore — ranking modelado, no predicción." },
+    oferta: { label: "Lo que ya existe", desc: "Oferta instalada: clínicas reales. La optometría se oculta por defecto (no opera catarata)." },
+    sinoferta: { label: "Sin oferta registrada", desc: "Municipios con 60+ alto y 0 oftalmología/hospital en DENUE+CLUES." },
+  },
+  sinOfertaDisclaimer:
+    "Señal a verificar en campo, NO un desierto quirúrgico confirmado: DENUE subrepresenta hospitales públicos IMSS/ISSSTE. Se muestran solo los municipios sin oftalmología/hospital REGISTRADO — no los municipios sin ninguna clínica.",
+  clinSeal:
+    "Candidato · capacidad quirúrgica (quirófano, oftalmólogo CMO) no verificada — due diligence en campo.",
+  weightSim:
+    "Re-ponderar cambia el RANKING relativo de los 4 índices; no es un segundo modelo calibrado ni una predicción de cirugías. «Robusto» = estable ante re-ponderación, no «correcto».",
+  ecological:
+    "Cifras agregadas del municipio; describen el conjunto, no a una clínica individual (falacia ecológica).",
+  attribution: "Basemap © OpenStreetMap · © CARTO. Capacidad quirúrgica de cada sede: due diligence en campo.",
+};
 
 export const FOOTER_SOURCES =
   "Fuentes oficiales: Secretaría de Salud (Estrategia y Guía «Ver por México», 2025), INEGI (Censo 2020, DENUE, mortalidad), CONAPO (proyecciones e índices de marginación 2020), CONEVAL (pobreza 2022), ENSANUT 2022, CLUES, Cubos DGIS-SAEH, IAPB Vision Atlas, OMS World Report on Vision y Lancet Global Health (McCormick et al., 2022). Disclaimer: la priorización estatal es una Fase A descriptiva (no predictiva); los pesos son juicio experto de BlackPrint y el priorityScore es un ranking relativo, no una cifra medida. El score por clínica y la sede municipal requieren la Fase B de datos (DENUE/CLUES/CMO, isócronas) y la huella real de GVICOA como dato interno del cliente.";

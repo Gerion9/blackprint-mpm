@@ -1,0 +1,467 @@
+{
+  "generatedAt": "2026-05-30",
+  "method": "Monte Carlo de re-ponderacion de los 4 indices publicados: pesos ~Uniform(nominal*0.7, nominal*1.3) renormalizados a suma 1, N=5000 por escenario. Mide la estabilidad del RANKING relativo ante re-ponderacion. NO es validacion contra cirugias ni un segundo modelo calibrado; los indices son juicio experto.",
+  "draws": 5000,
+  "spread": 0.3,
+  "nominalWeights": {
+    "social": [
+      0.3,
+      0.3,
+      0.25,
+      0.15
+    ],
+    "b2b": [
+      0.25,
+      0.1,
+      0.2,
+      0.45
+    ]
+  },
+  "indexOrder": [
+    "demandIndex",
+    "supplyGapIndex",
+    "accessIndex",
+    "b2bIndex"
+  ],
+  "correlations": {
+    "demand_supplyGap_estado": -0.054,
+    "n_estado": 16,
+    "demand_supplyGap_municipio": 0.736,
+    "n_municipio": 2469,
+    "note": "Pearson r entre demanda y brecha. A nivel ESTADO los indices son juicio experto y resultan casi NO correlacionados (r=-0.054). A nivel MUNICIPAL demanda y sgi comparten poblacion 60+ como insumo y si hay colinealidad moderada (r=0.736) a residualizar en Fase B (no el >0.8 que se afirmaba sin calculo)."
+  },
+  "states": [
+    {
+      "code": "VER",
+      "estado": "Veracruz",
+      "cveEnt": "30",
+      "social": {
+        "scoreMed": 74.3,
+        "scoreP5": 71.7,
+        "scoreP95": 76.7,
+        "rankMed": 1,
+        "rankP5": 1,
+        "rankP95": 2,
+        "pctTop3": 0.999,
+        "pctTop5": 1.0,
+        "robustLabel": "ancla"
+      },
+      "b2b": {
+        "scoreMed": 62.1,
+        "scoreP5": 58.5,
+        "scoreP95": 66.0,
+        "rankMed": 6,
+        "rankP5": 6,
+        "rankP95": 7,
+        "pctTop3": 0.0,
+        "pctTop5": 0.002,
+        "robustLabel": "estable"
+      }
+    },
+    {
+      "code": "MICH",
+      "estado": "Michoacán",
+      "cveEnt": "16",
+      "social": {
+        "scoreMed": 66.4,
+        "scoreP5": 64.1,
+        "scoreP95": 68.5,
+        "rankMed": 7,
+        "rankP5": 4,
+        "rankP95": 7,
+        "pctTop3": 0.005,
+        "pctTop5": 0.267,
+        "robustLabel": "medio"
+      },
+      "b2b": {
+        "scoreMed": 54.6,
+        "scoreP5": 51.5,
+        "scoreP95": 57.9,
+        "rankMed": 8,
+        "rankP5": 8,
+        "rankP95": 12,
+        "pctTop3": 0.0,
+        "pctTop5": 0.0,
+        "robustLabel": "medio"
+      }
+    },
+    {
+      "code": "PUE",
+      "estado": "Puebla",
+      "cveEnt": "21",
+      "social": {
+        "scoreMed": 69.9,
+        "scoreP5": 68.1,
+        "scoreP95": 71.5,
+        "rankMed": 3,
+        "rankP5": 2,
+        "rankP95": 5,
+        "pctTop3": 0.678,
+        "pctTop5": 0.98,
+        "robustLabel": "ancla"
+      },
+      "b2b": {
+        "scoreMed": 62.0,
+        "scoreP5": 59.7,
+        "scoreP95": 64.5,
+        "rankMed": 7,
+        "rankP5": 6,
+        "rankP95": 7,
+        "pctTop3": 0.0,
+        "pctTop5": 0.0,
+        "robustLabel": "estable"
+      }
+    },
+    {
+      "code": "OAX",
+      "estado": "Oaxaca",
+      "cveEnt": "20",
+      "social": {
+        "scoreMed": 63.1,
+        "scoreP5": 59.4,
+        "scoreP95": 66.5,
+        "rankMed": 8,
+        "rankP5": 6,
+        "rankP95": 10,
+        "pctTop3": 0.0,
+        "pctTop5": 0.032,
+        "robustLabel": "medio"
+      },
+      "b2b": {
+        "scoreMed": 46.2,
+        "scoreP5": 42.3,
+        "scoreP95": 50.4,
+        "rankMed": 14,
+        "rankP5": 14,
+        "rankP95": 14,
+        "pctTop3": 0.0,
+        "pctTop5": 0.0,
+        "robustLabel": "estable"
+      }
+    },
+    {
+      "code": "GRO",
+      "estado": "Guerrero",
+      "cveEnt": "12",
+      "social": {
+        "scoreMed": 61.7,
+        "scoreP5": 57.9,
+        "scoreP95": 65.2,
+        "rankMed": 10,
+        "rankP5": 8,
+        "rankP95": 13,
+        "pctTop3": 0.0,
+        "pctTop5": 0.0,
+        "robustLabel": "medio"
+      },
+      "b2b": {
+        "scoreMed": 44.1,
+        "scoreP5": 40.3,
+        "scoreP95": 48.2,
+        "rankMed": 15,
+        "rankP5": 15,
+        "rankP95": 15,
+        "pctTop3": 0.0,
+        "pctTop5": 0.0,
+        "robustLabel": "estable"
+      }
+    },
+    {
+      "code": "CHIS",
+      "estado": "Chiapas",
+      "cveEnt": "07",
+      "social": {
+        "scoreMed": 60.9,
+        "scoreP5": 56.9,
+        "scoreP95": 64.6,
+        "rankMed": 12,
+        "rankP5": 9,
+        "rankP95": 16,
+        "pctTop3": 0.0,
+        "pctTop5": 0.0,
+        "robustLabel": "sensible"
+      },
+      "b2b": {
+        "scoreMed": 42.5,
+        "scoreP5": 38.6,
+        "scoreP95": 46.7,
+        "rankMed": 16,
+        "rankP5": 16,
+        "rankP95": 16,
+        "pctTop3": 0.0,
+        "pctTop5": 0.0,
+        "robustLabel": "estable"
+      }
+    },
+    {
+      "code": "HGO",
+      "estado": "Hidalgo",
+      "cveEnt": "13",
+      "social": {
+        "scoreMed": 62.0,
+        "scoreP5": 60.5,
+        "scoreP95": 63.5,
+        "rankMed": 10,
+        "rankP5": 9,
+        "rankP95": 11,
+        "pctTop3": 0.0,
+        "pctTop5": 0.0,
+        "robustLabel": "estable"
+      },
+      "b2b": {
+        "scoreMed": 53.8,
+        "scoreP5": 52.1,
+        "scoreP95": 55.7,
+        "rankMed": 10,
+        "rankP5": 9,
+        "rankP95": 12,
+        "pctTop3": 0.0,
+        "pctTop5": 0.0,
+        "robustLabel": "medio"
+      }
+    },
+    {
+      "code": "TAB",
+      "estado": "Tabasco",
+      "cveEnt": "27",
+      "social": {
+        "scoreMed": 60.3,
+        "scoreP5": 57.9,
+        "scoreP95": 62.5,
+        "rankMed": 13,
+        "rankP5": 12,
+        "rankP95": 13,
+        "pctTop3": 0.0,
+        "pctTop5": 0.0,
+        "robustLabel": "estable"
+      },
+      "b2b": {
+        "scoreMed": 47.9,
+        "scoreP5": 45.2,
+        "scoreP95": 50.8,
+        "rankMed": 13,
+        "rankP5": 13,
+        "rankP95": 13,
+        "pctTop3": 0.0,
+        "pctTop5": 0.0,
+        "robustLabel": "estable"
+      }
+    },
+    {
+      "code": "MEX",
+      "estado": "Estado de México",
+      "cveEnt": "15",
+      "social": {
+        "scoreMed": 71.4,
+        "scoreP5": 68.3,
+        "scoreP95": 74.4,
+        "rankMed": 2,
+        "rankP5": 1,
+        "rankP95": 3,
+        "pctTop3": 0.994,
+        "pctTop5": 1.0,
+        "robustLabel": "ancla"
+      },
+      "b2b": {
+        "scoreMed": 70.5,
+        "scoreP5": 68.0,
+        "scoreP95": 73.1,
+        "rankMed": 4,
+        "rankP5": 3,
+        "rankP95": 4,
+        "pctTop3": 0.493,
+        "pctTop5": 1.0,
+        "robustLabel": "ancla"
+      }
+    },
+    {
+      "code": "JAL",
+      "estado": "Jalisco",
+      "cveEnt": "14",
+      "social": {
+        "scoreMed": 67.5,
+        "scoreP5": 66.1,
+        "scoreP95": 68.9,
+        "rankMed": 5,
+        "rankP5": 4,
+        "rankP95": 6,
+        "pctTop3": 0.0,
+        "pctTop5": 0.744,
+        "robustLabel": "estable"
+      },
+      "b2b": {
+        "scoreMed": 67.4,
+        "scoreP5": 66.3,
+        "scoreP95": 68.6,
+        "rankMed": 5,
+        "rankP5": 4,
+        "rankP95": 5,
+        "pctTop3": 0.0,
+        "pctTop5": 1.0,
+        "robustLabel": "ancla"
+      }
+    },
+    {
+      "code": "NL",
+      "estado": "Nuevo León",
+      "cveEnt": "19",
+      "social": {
+        "scoreMed": 66.8,
+        "scoreP5": 65.0,
+        "scoreP95": 68.7,
+        "rankMed": 6,
+        "rankP5": 4,
+        "rankP95": 9,
+        "pctTop3": 0.017,
+        "pctTop5": 0.281,
+        "robustLabel": "medio"
+      },
+      "b2b": {
+        "scoreMed": 77.1,
+        "scoreP5": 74.7,
+        "scoreP95": 79.3,
+        "rankMed": 1,
+        "rankP5": 1,
+        "rankP95": 2,
+        "pctTop3": 1.0,
+        "pctTop5": 1.0,
+        "robustLabel": "ancla"
+      }
+    },
+    {
+      "code": "CDMX",
+      "estado": "Ciudad de México",
+      "cveEnt": "09",
+      "social": {
+        "scoreMed": 68.3,
+        "scoreP5": 64.2,
+        "scoreP95": 72.4,
+        "rankMed": 4,
+        "rankP5": 3,
+        "rankP95": 8,
+        "pctTop3": 0.307,
+        "pctTop5": 0.695,
+        "robustLabel": "medio"
+      },
+      "b2b": {
+        "scoreMed": 74.5,
+        "scoreP5": 72.5,
+        "scoreP95": 76.5,
+        "rankMed": 2,
+        "rankP5": 1,
+        "rankP95": 2,
+        "pctTop3": 1.0,
+        "pctTop5": 1.0,
+        "robustLabel": "ancla"
+      }
+    },
+    {
+      "code": "CHIH",
+      "estado": "Chihuahua",
+      "cveEnt": "08",
+      "social": {
+        "scoreMed": 61.5,
+        "scoreP5": 60.3,
+        "scoreP95": 62.8,
+        "rankMed": 11,
+        "rankP5": 8,
+        "rankP95": 13,
+        "pctTop3": 0.0,
+        "pctTop5": 0.0,
+        "robustLabel": "medio"
+      },
+      "b2b": {
+        "scoreMed": 70.6,
+        "scoreP5": 68.2,
+        "scoreP95": 72.8,
+        "rankMed": 3,
+        "rankP5": 3,
+        "rankP95": 5,
+        "pctTop3": 0.507,
+        "pctTop5": 0.998,
+        "robustLabel": "ancla"
+      }
+    },
+    {
+      "code": "YUC",
+      "estado": "Yucatán",
+      "cveEnt": "31",
+      "social": {
+        "scoreMed": 58.9,
+        "scoreP5": 58.0,
+        "scoreP95": 59.7,
+        "rankMed": 14,
+        "rankP5": 12,
+        "rankP95": 15,
+        "pctTop3": 0.0,
+        "pctTop5": 0.0,
+        "robustLabel": "medio"
+      },
+      "b2b": {
+        "scoreMed": 53.6,
+        "scoreP5": 52.2,
+        "scoreP95": 55.1,
+        "rankMed": 11,
+        "rankP5": 9,
+        "rankP95": 12,
+        "pctTop3": 0.0,
+        "pctTop5": 0.0,
+        "robustLabel": "medio"
+      }
+    },
+    {
+      "code": "MOR",
+      "estado": "Morelos",
+      "cveEnt": "17",
+      "social": {
+        "scoreMed": 58.0,
+        "scoreP5": 56.4,
+        "scoreP95": 59.5,
+        "rankMed": 15,
+        "rankP5": 12,
+        "rankP95": 16,
+        "pctTop3": 0.0,
+        "pctTop5": 0.0,
+        "robustLabel": "medio"
+      },
+      "b2b": {
+        "scoreMed": 53.3,
+        "scoreP5": 51.2,
+        "scoreP95": 55.6,
+        "rankMed": 12,
+        "rankP5": 10,
+        "rankP95": 12,
+        "pctTop3": 0.0,
+        "pctTop5": 0.0,
+        "robustLabel": "estable"
+      }
+    },
+    {
+      "code": "SIN",
+      "estado": "Sinaloa",
+      "cveEnt": "25",
+      "social": {
+        "scoreMed": 58.0,
+        "scoreP5": 57.1,
+        "scoreP95": 58.9,
+        "rankMed": 15,
+        "rankP5": 15,
+        "rankP95": 16,
+        "pctTop3": 0.0,
+        "pctTop5": 0.0,
+        "robustLabel": "estable"
+      },
+      "b2b": {
+        "scoreMed": 54.4,
+        "scoreP5": 53.1,
+        "scoreP95": 55.9,
+        "rankMed": 9,
+        "rankP5": 8,
+        "rankP95": 10,
+        "pctTop3": 0.0,
+        "pctTop5": 0.0,
+        "robustLabel": "estable"
+      }
+    }
+  ]
+}

@@ -7,9 +7,11 @@ México) en una app Next.js desplegable en Vercel, con el sistema de diseño **P
 ## Stack
 - **Next.js 16** (App Router, RSC) · React 19 · TypeScript estricto
 - **Tailwind v4** + tokens Polaris (navy MPM `#06114B`)
-- **zod** para validar los datos en build
-- Mapa **coroplético SVG vanilla** (sin Leaflet): 32 polígonos, join por ISO-3166-2
-- Deploy **estático en Vercel** (cero funciones serverless, datos en `/public/data`)
+- **zod** para validar los datos en build (y en cliente: `clientData.ts` usa el mismo `ClinicaSchema`)
+- **Mapa interactivo MapLibre GL JS** (key-less, basemap **CARTO Positron**) con clustering nativo de los
+  11,405 puntos, 3 modos de vista y filtros; cargado solo en cliente (`dynamic(ssr:false)`). El antiguo
+  **coroplético SVG** (`Explorer.tsx`) queda como **fallback accesible** (swap de 1 línea en `page.tsx`).
+- Deploy **estático en Vercel** (datos en `/public/data`; hay middleware edge cosmético + `/api/login`)
 
 ## Correr en local
 ```bash
@@ -26,8 +28,9 @@ pnpm build       # build de producción
 | `meta.json` | pesos del modelo, tiers, KPIs nacionales, estados pendientes | **Fase A** |
 | `sources.json` | catálogo de fuentes citables (id → publicador/url/fecha) | **Fase A** |
 | `mexico_estados.geojson` | geometría de 32 estados (`properties.id` = ISO) | **Fase A** |
-| `municipios.json` | sub-score por municipio | **Fase B — vacío, contrato listo** |
-| `clinicas.json` | clínicas candidatas (CLUES/DENUE) | **Fase B — vacío, contrato listo** |
+| `municipios.json` | 2,469 municipios: pob60 (Censo 2020) + oferta DENUE/CLUES + score modelado + `sinOftalmoDenue` | **Poblado** |
+| `clinicas.json` | 11,405 establecimientos georreferenciados (DENUE + CLUES), categoría + sector | **Poblado** |
+| `sensitivity.json` | Monte Carlo de re-ponderación (rangos de rank P5–P95, r real demanda↔brecha) | **Poblado** (`pnpm sensitivity`) |
 
 `scripts/build_data.py` es la **única** vía de generar los JSON: aplica las
 reconciliaciones de integridad (corrección Cinépolis, KPI 60+, etc.) **antes** de
