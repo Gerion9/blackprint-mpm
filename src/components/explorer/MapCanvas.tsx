@@ -10,7 +10,7 @@ import type {
   Popup as MlPopup,
 } from "maplibre-gl";
 import type { FeatureCollection, Point } from "geojson";
-import { TIERCOL, CAT_COLOR, CAT_LABEL } from "./constants";
+import { TIERCOL, CAT_COLOR, CAT_LABEL, CONTEXT_LAYERS, type ContextLayer } from "./constants";
 import type { ViewMode } from "./useExplorerModel";
 import {
   BASEMAP_STYLE_URL,
@@ -29,6 +29,7 @@ interface Props {
   clinicsFC: FeatureCollection;
   drilled: boolean;
   choroMode: ChoroMode;
+  contextLayer: ContextLayer;
   clinVisible: boolean;
   selectedIso: string | null;
   selectedCvegeo: string | null;
@@ -50,6 +51,25 @@ const SINOFERTA_FILL_STATE = expr([
   0, "#eef0f3", 1, "#f7d7cf", 10, "#f0a797", 25, "#e0775f", 50, "#c0432f",
 ]);
 const SINOFERTA_FILL_MUNI = expr(["case", ["==", ["get", "sinOferta"], true], "#c0432f", "#e9ecf0"]);
+
+// Fill de una CAPA DE CONTEXTO: interpola la rampa secuencial sobre ctxVal (0-100);
+// estados sin dato (ctxVal null) caen a un gris neutro para no inventar valor.
+function contextFill(layer: Exclude<ContextLayer, "prioridad">) {
+  const ramp = CONTEXT_LAYERS[layer].ramp;
+  const interp: unknown[] = ["interpolate", ["linear"], ["to-number", ["get", "ctxVal"]]];
+  for (const [stop, color] of ramp) interp.push(stop, color);
+  return expr(["case", ["==", ["typeof", ["get", "ctxVal"]], "number"], interp, "#eef0f3"]);
+}
+// Opacidad para capas de contexto: respeta selección/hover y ATENÚA los estados de baja
+// confianza (solo trends marca ctxLow) para que se lean "más débiles".
+const CONTEXT_OPACITY = expr([
+  "case",
+  ["boolean", ["feature-state", "sel"], false], 0.92,
+  ["boolean", ["feature-state", "hl"], false], 0.85,
+  ["coalesce", ["get", "ctxLow"], false], 0.32,
+  ["==", ["typeof", ["get", "ctxVal"]], "number"], 0.78,
+  0.16,
+]);
 
 function fillOpacity(mode: ChoroMode) {
   if (mode === "muted") {
@@ -264,22 +284,29 @@ export default function MapCanvas(props: Props) {
     vis("clin-count", p.clinVisible);
     vis("clin-points", p.clinVisible);
 
-    // color/opacidad del coroplético según modo de vista
+    // color/opacidad del coroplético según modo de vista + capa de contexto.
+    // Una capa de contexto activa SOLO recolorea los ESTADOS (no el drill municipal):
+    // es "otra lente" sobre el país; el score/tier nunca se tocan.
+    const ctxActive = p.contextLayer !== "prioridad";
     const fillColor = p.choroMode === "sinoferta" ? (p.drilled ? SINOFERTA_FILL_MUNI : SINOFERTA_FILL_STATE) : TIER_FILL;
     const op = fillOpacity(p.choroMode);
     if (map.getLayer("estados-fill")) {
-      map.setPaintProperty("estados-fill", "fill-color", p.drilled ? TIER_FILL : fillColor);
-      map.setPaintProperty("estados-fill", "fill-opacity", op);
+      const stateColor = ctxActive ? contextFill(p.contextLayer as Exclude<ContextLayer, "prioridad">) : (p.drilled ? TIER_FILL : fillColor);
+      map.setPaintProperty("estados-fill", "fill-color", stateColor);
+      map.setPaintProperty("estados-fill", "fill-opacity", ctxActive ? CONTEXT_OPACITY : op);
     }
     if (map.getLayer("muni-fill")) {
       map.setPaintProperty("muni-fill", "fill-color", p.drilled ? fillColor : TIER_FILL);
       map.setPaintProperty("muni-fill", "fill-opacity", op);
     }
+    // Fuerza un frame tras cambiar visibilidad/datos: si no, las capas de clústeres recién
+    // hechas visibles no se pintaban hasta el primer pan/zoom (los puntos parecían "ausentes").
+    map.triggerRepaint();
   }
 
   // re-aplica cuando cambian los datos/modo
   useEffect(() => { applyAll(); /* eslint-disable-next-line react-hooks/exhaustive-deps */ }, [
-    props.statesFC, props.muniFC, props.clinicsFC, props.drilled, props.choroMode, props.clinVisible,
+    props.statesFC, props.muniFC, props.clinicsFC, props.drilled, props.choroMode, props.contextLayer, props.clinVisible,
   ]);
 
   // selección de estado (feature-state sel)

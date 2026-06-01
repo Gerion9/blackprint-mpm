@@ -1,6 +1,7 @@
 import type { Feature, FeatureCollection, Geometry } from "geojson";
-import type { Clinica, Municipio } from "@/lib/schema";
-import type { Scored, Scenario } from "./constants";
+import type { Clinica, Municipio, SignalState, TrendState } from "@/lib/schema";
+import type { Scored, Scenario, ContextLayer } from "./constants";
+import { CONTEXT_LAYERS } from "./constants";
 import type { ViewMode, SectorKey } from "./useExplorerModel";
 
 /**
@@ -42,20 +43,43 @@ function sectorKeyOf(c: Clinica): SectorKey {
   return c.sector === "publico" ? "publico" : c.sector === "privado" ? "privado" : "sinSector";
 }
 
-/** Coroplético de estados: une la geometría con el score/tier ya calculado. */
+/**
+ * Coroplético de estados: une la geometría con el score/tier ya calculado y, si hay una
+ * CAPA DE CONTEXTO activa (diabetes/copago/intención), añade su índice 0-100 (`ctxVal`)
+ * y la marca de baja confianza (`ctxLow`, solo trends). MapCanvas pinta por `ctxVal`
+ * cuando la capa no es "prioridad"; el score/tier siguen intactos.
+ */
 export function buildStatesFC(
   geo: FeatureCollection | null,
   byIso: Map<string, Scored>,
   active: Record<string, boolean>,
   sinOfertaByEnt: Map<string, number>,
+  contextLayer: ContextLayer = "prioridad",
+  signalsByEnt?: Map<string, SignalState>,
+  trendsByEnt?: Map<string, TrendState>,
 ): FeatureCollection {
   const features: Feature[] = [];
+  const def = contextLayer !== "prioridad" ? CONTEXT_LAYERS[contextLayer] : null;
   if (geo) {
     for (const f of geo.features) {
       const iso = String((f.properties as Props | null)?.id ?? "");
       const name = String((f.properties as Props | null)?.name ?? "");
       const d = byIso.get(iso);
       const tier = d?._tier ?? null;
+      const ent = d?.cveEnt ?? "";
+      // valor de la capa de contexto activa (null si falta el dato → fallback neutro)
+      let ctxVal: number | null = null;
+      let ctxLow = false;
+      if (def && ent) {
+        if (def.field === "trendIndex") {
+          const t = trendsByEnt?.get(ent);
+          ctxVal = t?.trendIndex ?? null;
+          ctxLow = t?.lowConfidence === true;
+        } else {
+          const s = signalsByEnt?.get(ent);
+          ctxVal = (def.field === "copayIndex" ? s?.copayIndex : s?.diabetesIndex) ?? null;
+        }
+      }
       features.push(
         feat(f.geometry, iso, {
           id: iso,
@@ -64,7 +88,9 @@ export function buildStatesFC(
           dim: tier ? !active[tier] : false,
           pending: !d || d.pending || tier === null,
           score: d?._score ?? null,
-          sinOfertaCount: d?.cveEnt ? sinOfertaByEnt.get(d.cveEnt) ?? 0 : 0,
+          sinOfertaCount: ent ? sinOfertaByEnt.get(ent) ?? 0 : 0,
+          ctxVal,
+          ctxLow,
         }),
       );
     }

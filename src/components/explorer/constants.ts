@@ -70,6 +70,97 @@ export const SCEN_DESC: Record<Scenario, string> = {
 
 export const NO_CLIN: Clinica[] = [];
 
+// ── Capas de CONTEXTO (toggle "Colorear estados por:") ────────────────────────
+// Recolorean el coroplético estatal por un índice 0-100 que NO entra al puntaje.
+// Cada rampa es SECUENCIAL y de un matiz DISTINTO al azul de tier, para leerse como
+// "otra lente": diabetes = violeta, copago = verde-azulado, intención = ámbar.
+// REGLA DE INTEGRIDAD: estas capas son contexto visual; priorityScore/scoreOf intactos.
+export type ContextLayer = "prioridad" | "diabetes" | "copay" | "trends";
+
+export const CONTEXT_RAMP: Record<Exclude<ContextLayer, "prioridad">, [number, string][]> = {
+  // violeta secuencial (acelerador de demanda)
+  diabetes: [[0, "#f3edf9"], [25, "#d9c7ec"], [50, "#b48ed6"], [75, "#8b54bd"], [100, "#5b2a91"]],
+  // verde-azulado secuencial (liquidez / capacidad de copago)
+  copay: [[0, "#e8f4f1"], [25, "#bfe3da"], [50, "#7fc9ba"], [75, "#3aa088"], [100, "#11705c"]],
+  // ámbar secuencial (intención de búsqueda)
+  trends: [[0, "#fdf2e1"], [25, "#fadfb0"], [50, "#f4bd6a"], [75, "#e09226"], [100, "#a8650a"]],
+};
+
+// Descriptor por capa: copy honesto (voz Polaris, audiencia de negocio), índice y rampa.
+// `field` = clave 0-100 en signals/trends; `ramp` = arriba; `lowConfOnly` = solo trends atenúa.
+export interface ContextLayerDef {
+  key: Exclude<ContextLayer, "prioridad">;
+  short: string; // etiqueta del selector
+  titleHtml: string; // título con una palabra en <em>
+  legend: string; // pie de leyenda (caveat honesto, 1-2 líneas)
+  field: "diabetesIndex" | "copayIndex" | "trendIndex";
+  ramp: [number, string][];
+}
+export const CONTEXT_LAYERS: Record<Exclude<ContextLayer, "prioridad">, ContextLayerDef> = {
+  diabetes: {
+    key: "diabetes",
+    short: "Diabetes",
+    titleHtml: "Acelerador de demanda: <em>diabetes</em>",
+    legend: "Mortalidad por diabetes (INEGI 2021); adelanta la catarata. Contexto, no entra en el puntaje.",
+    field: "diabetesIndex",
+    ramp: CONTEXT_RAMP.diabetes,
+  },
+  copay: {
+    key: "copay",
+    short: "Capacidad de copago",
+    titleHtml: "Capacidad de <em>copago</em> (remesas)",
+    legend: "Remesas por adulto 60+ (Banxico 2024); proxy de liquidez para autopago, no de necesidad médica.",
+    field: "copayIndex",
+    ramp: CONTEXT_RAMP.copay,
+  },
+  trends: {
+    key: "trends",
+    short: "Intención de búsqueda",
+    titleHtml: "Intención de <em>búsqueda</em> (Google Trends)",
+    legend:
+      "Interés relativo de «operación de cataratas» (12 m); mide a quien busca/paga (cuidador) y sesga a zonas conectadas. No entra en el puntaje.",
+    field: "trendIndex",
+    ramp: CONTEXT_RAMP.trends,
+  },
+};
+export const CONTEXT_ORDER: ContextLayer[] = ["prioridad", "diabetes", "copay", "trends"];
+export const CONTEXT_SHORT: Record<ContextLayer, string> = {
+  prioridad: "Prioridad",
+  diabetes: "Diabetes",
+  copay: "Capacidad de copago",
+  trends: "Intención de búsqueda",
+};
+
+// ── Semáforo de sede / aliado por estado ──────────────────────────────────────
+// Responde "¿con quién operar?", NO "¿hay capacidad quirúrgica?" (eso es due diligence).
+// aliado: algún registro esAliadoGVICOA truthy. candidato: ≥1 hospital/oftalmología.
+// sin: ni aliado ni candidato registrado.
+export type SedeStatus = "aliado" | "candidato" | "sin";
+export interface SedeInfo {
+  status: SedeStatus;
+  hospitales: number;
+  oftalmologia: number;
+}
+export const SEDE_LABEL: Record<SedeStatus, string> = {
+  aliado: "Aliado confirmado",
+  candidato: "Candidato a evaluar",
+  sin: "Sin sede registrada",
+};
+export const SEDE_NOTE =
+  "Responde «¿con quién operar?». Capacidad quirúrgica NO verificada (due diligence en campo).";
+
+/** Clasifica el semáforo de sede de un estado a partir de sus clínicas (DENUE+CLUES). */
+export function sedeInfoOf(clinicas: ReadonlyArray<Clinica>): SedeInfo {
+  let hospitales = 0, oftalmologia = 0, aliado = false;
+  for (const c of clinicas) {
+    if (c.esAliadoGVICOA) aliado = true;
+    if (c.categoria === "hospital") hospitales++;
+    else if (c.categoria === "oftalmologia") oftalmologia++;
+  }
+  const status: SedeStatus = aliado ? "aliado" : hospitales + oftalmologia >= 1 ? "candidato" : "sin";
+  return { status, hospitales, oftalmologia };
+}
+
 /**
  * Score por escenario. social = priorityScore publicado (juicio experto). b2b =
  * re-ponderación lineal de los 4 índices con los pesos de meta.json. ÚNICA fuente:

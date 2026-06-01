@@ -15,6 +15,10 @@
   --info-soft:#daf1ff;--warning:#c0ca33;
   --bg:#fff;--surface:#fff;--surface-2:#f7f8f9;--paper:var(--surface);
   --ink:var(--on-secondary);--ink-soft:var(--depth-6);--ink-mute:var(--depth-5);
+  /* --ink-note: variante de --ink-mute para notas/leyendas que SÍ deben leerse
+     (avisos de integridad). #5f6569 ≈ 5.7:1 sobre blanco → cumple WCAG AA (≥4.5:1),
+     a diferencia de --ink-mute #8d9398 (~2.9:1) que solo sirve para texto decorativo. */
+  --ink-note:#5f6569;
   --fg:var(--ink);--fg-2:var(--ink-soft);--fg-3:var(--ink-mute);
   --border:var(--depth-1);--line:var(--depth-1);
   --accent:var(--blue-p);--accent-hover:var(--blue-h);--accent-deep:var(--blue-deep);
@@ -218,8 +222,15 @@ body{padding:40px 40px 0;min-height:100vh;overflow-x:hidden}
 .filters .lbl{font-family:var(--font-mono),monospace;font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-mute)}
 .chip-f{font-family:var(--font-ui),sans-serif;font-size:11.5px;font-weight:600;border:1px solid var(--line);background:var(--surface);color:var(--ink-soft);border-radius:var(--r-pill);padding:5px 13px;cursor:pointer;transition:var(--transition);display:inline-flex;align-items:center;gap:6px}
 .chip-f .sw{width:9px;height:9px;border-radius:2px}
-.chip-f[aria-pressed=true]{color:#fff;border-color:transparent}
-.chip-f.t-A[aria-pressed=true]{background:var(--tier-a)}.chip-f.t-B[aria-pressed=true]{background:var(--tier-b)}.chip-f.t-C[aria-pressed=true]{background:var(--tier-c);color:var(--ink)}
+/* Estado activo: los chips de Tipo/Sector NO son chips de tier; sin un fondo propio
+   quedaban en texto blanco sobre fondo blanco (invisibles). Fondo navy por defecto
+   (coherente con los botones de modo activos); los tiers lo sobreescriben abajo. */
+.chip-f[aria-pressed=true]{color:#fff;border-color:transparent;background:var(--mpm-navy)}
+.chip-f.t-A[aria-pressed=true]{background:var(--tier-a)}.chip-f.t-B[aria-pressed=true]{background:var(--tier-b)}
+/* Tier C: el fondo --tier-c (#7db0e6) se mantiene para que el chip case con el mapa/leyenda;
+   el texto pasa a navy (~8:1) en vez de --ink/#fff (~3:1) → cumple WCAG AA. */
+.chip-f.t-C[aria-pressed=true]{background:var(--tier-c);color:var(--mpm-navy)}
+.chip-f.t-C[aria-pressed=true] .cf-n{color:rgba(6,17,75,.7)}
 .module-grid{display:grid;grid-template-columns:1.05fr 1fr;gap:0}
 @media(max-width:980px){.module-grid{grid-template-columns:1fr}}
 .module-map{padding:14px 16px;border-right:1px solid var(--line);position:relative}
@@ -261,7 +272,9 @@ table.ptable{border-collapse:collapse;width:100%;font-size:12.5px}
 .ix-bar .fill{height:100%;border-radius:3px;transition:width .7s cubic-bezier(.22,1,.36,1)}
 .ix-bar .v{font-variant-numeric:tabular-nums;color:var(--ink-soft);min-width:18px;text-align:right;font-size:11.5px}
 .tbadge{font-family:var(--font-ui),sans-serif;font-weight:700;font-size:10px;width:20px;height:20px;border-radius:5px;display:grid;place-items:center;color:#fff}
-.tbadge.A{background:var(--tier-a)}.tbadge.B{background:var(--tier-b)}.tbadge.C{background:var(--tier-c);color:var(--ink)}.tbadge.D{background:var(--tier-d);color:var(--ink)}
+.tbadge.A{background:var(--tier-a)}.tbadge.B{background:var(--tier-b)}
+/* Tier C/D conservan su token de fondo (coinciden con el mapa); texto navy/ink ≥4.5:1 (AA). */
+.tbadge.C{background:var(--tier-c);color:var(--mpm-navy)}.tbadge.D{background:var(--tier-d);color:var(--ink)}
 .cbadge{font-family:var(--font-mono),monospace;font-size:9px;letter-spacing:.04em;padding:2px 7px;border-radius:var(--r-pill);text-transform:uppercase}
 .cbadge.real{background:rgba(12,160,54,.12);color:#0a7a29;border:1px solid rgba(12,160,54,.3)}
 .cbadge.mixto{background:rgba(8,117,227,.1);color:var(--blue-deep);border:1px dashed rgba(8,117,227,.4)}
@@ -306,7 +319,7 @@ table.ptable{border-collapse:collapse;width:100%;font-size:12.5px}
 .md-name{font-family:var(--font-display),sans-serif;font-weight:700;font-size:23px;letter-spacing:-.02em;color:var(--ink);line-height:1.05}
 .md-score-row{display:flex;align-items:flex-start;gap:12px;padding:10px 0 14px;border-bottom:1px solid var(--line);margin-bottom:14px}
 .md-score{font-size:34px;line-height:1;flex-shrink:0}
-.md-score-cap{font-family:var(--font-mono),monospace;font-size:10px;line-height:1.45;color:var(--ink-mute);letter-spacing:.02em;padding-top:3px}
+.md-score-cap{font-family:var(--font-mono),monospace;font-size:10px;line-height:1.45;color:var(--ink-note);letter-spacing:.02em;padding-top:3px}
 .muni-chips{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:14px}
 .mchip{background:var(--surface-2);border:1px solid var(--line);border-radius:var(--r-sm);padding:9px 11px;display:flex;flex-direction:column;gap:2px}
 .mchip .mc-v{font-family:var(--font-display),sans-serif;font-weight:700;font-size:18px;color:var(--mpm-navy);line-height:1.1}
@@ -316,7 +329,7 @@ table.ptable{border-collapse:collapse;width:100%;font-size:12.5px}
 .md-alert{margin:0 0 12px;padding:11px 13px;font-size:12px}
 .md-alert .ic{width:22px;height:22px;font-size:13px}
 .md-alert p{font-size:12px;line-height:1.5}
-.md-eco{font-family:var(--font-mono),monospace;font-size:9.5px;color:var(--ink-mute);line-height:1.5;margin-bottom:16px;letter-spacing:.02em}
+.md-eco{font-family:var(--font-mono),monospace;font-size:9.5px;color:var(--ink-note);line-height:1.5;margin-bottom:16px;letter-spacing:.02em}
 .md-zoneB-head{display:flex;flex-direction:column;gap:2px;padding-top:12px;border-top:1px solid var(--line);margin-bottom:12px}
 .md-zoneB-head h4{font-family:var(--font-display),sans-serif;font-weight:700;font-size:15px;color:var(--ink);letter-spacing:-.01em}
 .md-zoneB-sub{font-family:var(--font-mono),monospace;font-size:9.5px;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-mute)}
@@ -328,7 +341,7 @@ table.ptable{border-collapse:collapse;width:100%;font-size:12.5px}
 .clin-group-head .sw{width:11px;height:11px;border-radius:50%;border:1px solid rgba(0,0,0,.08);flex-shrink:0}
 .clin-group-head .cg-label{font-family:var(--font-ui),sans-serif;font-weight:600;font-size:12.5px;color:var(--ink)}
 .clin-group-head .cg-count{margin-left:auto;font-family:var(--font-display),sans-serif;font-weight:700;font-size:14px;color:var(--mpm-navy)}
-.clin-note{font-family:var(--font-mono),monospace;font-size:9.5px;color:var(--ink-mute);line-height:1.45;letter-spacing:.02em}
+.clin-note{font-family:var(--font-mono),monospace;font-size:9.5px;color:var(--ink-note);line-height:1.45;letter-spacing:.02em}
 .clin-rows{list-style:none;display:flex;flex-direction:column}
 .clin-row{display:flex;flex-direction:column;gap:1px;padding:6px 0;border-bottom:1px solid var(--surface-2)}
 .clin-row .cr-name{font-family:var(--font-ui),sans-serif;font-size:12.5px;font-weight:500;color:var(--ink);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:100%}
@@ -342,7 +355,7 @@ table.ptable{border-collapse:collapse;width:100%;font-size:12.5px}
 .clin-skel .cs-bar:nth-child(2){width:82%}.clin-skel .cs-bar:nth-child(3){width:64%}.clin-skel .cs-bar:nth-child(4){width:74%}
 .clin-skel .cs-label{font-family:var(--font-mono),monospace;font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-mute);margin-top:4px}
 @keyframes shimmer{0%{background-position:100% 50%}100%{background-position:0 50%}}
-.md-foot{font-family:var(--font-mono),monospace;font-size:9.5px;color:var(--ink-mute);line-height:1.55;margin-top:18px;padding-top:12px;border-top:1px solid var(--line);letter-spacing:.02em}
+.md-foot{font-family:var(--font-mono),monospace;font-size:9.5px;color:var(--ink-note);line-height:1.55;margin-top:18px;padding-top:12px;border-top:1px solid var(--line);letter-spacing:.02em}
 
 /* ═══════════════ MAPA INTERACTIVO (MapLibre) ═══════════════ */
 .mapx-bar{gap:12px}
@@ -365,13 +378,13 @@ table.ptable{border-collapse:collapse;width:100%;font-size:12.5px}
 .fr-title{font-family:var(--font-mono),monospace;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-soft)}
 .fr-close{background:none;border:0;font-size:22px;line-height:1;color:var(--ink-mute);cursor:pointer}
 .fr-group{display:flex;flex-direction:column;gap:8px}
-.fr-lbl{font-family:var(--font-mono),monospace;font-size:9.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-mute)}
+.fr-lbl{font-family:var(--font-mono),monospace;font-size:9.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-note)}
 .fr-search{font-family:var(--font-ui),sans-serif;font-size:12.5px;border:1px solid var(--line);border-radius:var(--r-sm);padding:8px 11px;background:var(--surface);color:var(--ink)}
 .fr-search:focus{outline:2px solid var(--blue-p);outline-offset:1px}
 .fr-chips{display:flex;flex-wrap:wrap;gap:6px}
 .fr-chips.col{flex-direction:column;align-items:stretch}
 .fr-chips.col .chip-f{justify-content:flex-start}
-.chip-f .cf-n{margin-left:auto;font-variant-numeric:tabular-nums;font-size:10.5px;color:var(--ink-mute);font-weight:600}
+.chip-f .cf-n{margin-left:auto;font-variant-numeric:tabular-nums;font-size:10.5px;color:var(--ink-note);font-weight:600}
 .chip-f[aria-pressed=true] .cf-n{color:rgba(255,255,255,.85)}
 .chip-f.wide{width:100%;justify-content:center}
 .fr-foot{font-family:var(--font-mono),monospace;font-size:10.5px;color:var(--ink-soft);line-height:1.5;border-top:1px dashed var(--line);padding-top:10px;display:flex;flex-direction:column;gap:6px}
@@ -384,6 +397,20 @@ table.ptable{border-collapse:collapse;width:100%;font-size:12.5px}
 .mx-gl{position:absolute;inset:0;width:100%;height:100%}
 .mx-map-skel{width:100%;height:540px;border-radius:var(--r-md);border:1px solid var(--line);background:linear-gradient(90deg,var(--surface-2) 25%,#eef0f3 37%,var(--surface-2) 63%);background-size:400% 100%;animation:shimmer 1.3s ease-in-out infinite}
 .mx-hint{position:absolute;left:50%;bottom:14px;transform:translateX(-50%);z-index:5;font-family:var(--font-mono),monospace;font-size:10.5px;letter-spacing:.04em;color:var(--blue-deep);background:rgba(255,255,255,.92);border:1px solid rgba(8,117,227,.22);border-radius:var(--r-pill);padding:5px 14px;box-shadow:var(--shadow-1);pointer-events:none}
+/* overlay de carga de datos sobre el lienzo (3.4MB clínicas + geometría): no bloquea el mapa */
+.mx-map-loading{position:absolute;left:50%;top:16px;transform:translateX(-50%);z-index:6;display:inline-flex;align-items:center;gap:9px;
+  font-family:var(--font-ui),sans-serif;font-size:12px;font-weight:600;color:var(--mpm-navy);
+  background:rgba(255,255,255,.92);border:1px solid var(--line);border-radius:var(--r-pill);padding:7px 15px;box-shadow:var(--shadow-2);pointer-events:none}
+.mx-spin{width:14px;height:14px;border-radius:50%;border:2px solid rgba(6,17,75,.18);border-top-color:var(--blue-p);animation:mx-spin .8s linear infinite;flex-shrink:0}
+@keyframes mx-spin{to{transform:rotate(360deg)}}
+/* banner de error de datos: pequeño, no bloqueante, descartable, con reintento */
+.mx-data-error{display:flex;align-items:center;gap:9px;background:rgba(255,111,97,.08);border:1px solid rgba(255,111,97,.35);border-radius:var(--r-sm);padding:8px 11px;font-size:12px;color:var(--ink)}
+.mx-data-error .mx-de-ic{flex-shrink:0;width:18px;height:18px;border-radius:50%;display:grid;place-items:center;font-weight:700;font-size:11px;color:#fff;background:var(--coral)}
+.mx-data-error .mx-de-msg{line-height:1.4}
+.mx-data-error .mx-de-retry{margin-left:auto;font-family:var(--font-ui),sans-serif;font-size:11px;font-weight:600;color:#b3402f;background:none;border:1px solid rgba(255,111,97,.5);border-radius:var(--r-pill);padding:3px 11px;cursor:pointer;transition:var(--transition)}
+.mx-data-error .mx-de-retry:hover{background:rgba(255,111,97,.14);border-color:var(--coral)}
+.mx-data-error .mx-de-close{background:none;border:0;font-size:17px;line-height:1;color:var(--ink-soft);cursor:pointer;padding:0 2px}
+.mx-data-error .mx-de-close:hover{color:var(--ink)}
 .mobile-filters-btn{display:none}
 .mapx-legend{flex-direction:column;align-items:stretch;gap:6px}
 .legend-row{display:flex;flex-wrap:wrap;gap:12px;align-items:center}
@@ -418,6 +445,9 @@ table.ptable{border-collapse:collapse;width:100%;font-size:12.5px}
 .ws-banner{display:flex;gap:8px;font-size:11.5px;line-height:1.5;color:var(--ink-soft);background:#fff;border:1px dashed var(--depth-3);border-radius:var(--r-sm);padding:10px 12px;margin-bottom:14px}
 .ws-grid{display:grid;grid-template-columns:1fr 1.1fr;gap:20px}
 @media(max-width:760px){.ws-grid{grid-template-columns:1fr}}
+/* columna izquierda del simulador (sliders + presets + correlación): se referencia en
+   MapExplorer pero faltaba su regla → el panel se desalineaba. Columna flexible coherente con .ws-grid. */
+.ws-sliders{display:flex;flex-direction:column;min-width:0}
 .ws-slider{display:grid;grid-template-columns:64px 1fr 40px;align-items:center;gap:10px;margin-bottom:9px;font-family:var(--font-ui),sans-serif;font-size:12px;color:var(--ink-soft)}
 .ws-slider input[type=range]{width:100%;accent-color:var(--blue-p)}
 .ws-slider .tabular{text-align:right;color:var(--ink);font-weight:600}
@@ -446,8 +476,58 @@ table.ptable{border-collapse:collapse;width:100%;font-size:12.5px}
 .clin-pop .cp-cat{font-family:var(--font-mono),monospace;font-size:9.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-mute)}
 .clin-pop .cp-name{font-family:var(--font-display),sans-serif;font-weight:700;font-size:15px;color:var(--ink);line-height:1.2;margin-bottom:4px}
 .clin-pop .cp-meta{font-family:var(--font-mono),monospace;font-size:10.5px;color:var(--ink-soft);line-height:1.4}
-.clin-pop .cp-seal{margin-top:9px;padding-top:8px;border-top:1px dashed var(--line);font-size:10.5px;line-height:1.45;color:var(--coral);font-weight:500}
+/* Sello "capacidad no verificada": coral puro (#ff6f61 ~2.6:1) falla AA; se usa el coral
+   oscurecido #b3402f (~5.3:1) que ya emplea el <b> y .rband.rb-sensible — mantiene el color, suma contraste. */
+.clin-pop .cp-seal{margin-top:9px;padding-top:8px;border-top:1px dashed var(--line);font-size:10.5px;line-height:1.45;color:#b3402f;font-weight:500}
 .clin-pop .cp-seal b{color:#b3402f}
+/* ═══════════════ CAPAS DE CONTEXTO + SEMÁFORO DE SEDE (Fase B aditiva) ═══════════════ */
+/* selector "Colorear estados por:" — otra lente sobre el coroplético, no toca el puntaje */
+.ctx-layer{display:flex;flex-wrap:wrap;align-items:center;gap:10px;margin:6px 20px 0}
+.ctx-lbl{font-family:var(--font-mono),monospace;font-size:9.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-note)}
+.ctx-opts{display:inline-flex;flex-wrap:wrap;gap:5px;background:var(--surface);border:1px solid var(--line);border-radius:var(--r-pill);padding:3px}
+.ctx-opt{font-family:var(--font-ui),sans-serif;font-size:11.5px;font-weight:600;color:var(--ink-soft);background:none;border:0;border-radius:var(--r-pill);padding:6px 13px;cursor:pointer;transition:var(--transition);white-space:nowrap}
+.ctx-opt:hover{color:var(--ink)}
+.ctx-opt[aria-pressed=true]{color:#fff;box-shadow:var(--shadow-1)}
+/* cada lente activa toma el extremo alto de SU rampa (coincide con el mapa/leyenda) */
+.ctx-opt.ctx-prioridad[aria-pressed=true]{background:var(--mpm-navy)}
+.ctx-opt.ctx-diabetes[aria-pressed=true]{background:#5b2a91}
+.ctx-opt.ctx-copay[aria-pressed=true]{background:#11705c}
+.ctx-opt.ctx-trends[aria-pressed=true]{background:#a8650a}
+/* leyenda de la capa de contexto: rampa secuencial + caveat honesto */
+.ctx-legend{gap:10px}
+.ctx-scale-lbl{font-family:var(--font-ui),sans-serif;font-weight:600;font-size:11.5px;color:var(--ink)}
+.ctx-scale-lbl em{font-style:normal;color:var(--blue-deep)}
+.ctx-scale{display:inline-flex;border-radius:3px;overflow:hidden;border:1px solid rgba(0,0,0,.08)}
+.ctx-scale .ctx-stop{width:22px;height:12px}
+.ctx-scale-ends{font-family:var(--font-mono),monospace;font-size:9.5px;color:var(--ink-mute);letter-spacing:.04em}
+.ctx-low-key{display:inline-flex;align-items:center;gap:5px;font-family:var(--font-mono),monospace;font-size:9.5px;color:var(--ink-mute)}
+.ctx-low-sw{width:13px;height:13px;border-radius:3px;border:1px solid rgba(0,0,0,.08);background:repeating-linear-gradient(45deg,#d9c7ec,#d9c7ec 2px,#fff 2px,#fff 4px)}
+.ctx-legend-foot{font-family:var(--font-mono),monospace;font-size:9.5px;color:var(--ink-note);line-height:1.5;letter-spacing:.02em;margin-top:2px}
+/* bloque "Señales de contexto" en el inspector de estado */
+.ctx-signals{margin:2px 0 14px;padding:12px;background:var(--surface-2);border:1px solid var(--line);border-radius:var(--r-sm)}
+.ctx-sig-head{display:flex;align-items:baseline;justify-content:space-between;gap:8px;margin-bottom:8px}
+.ctx-sig-head h4{font-family:var(--font-display),sans-serif;font-weight:700;font-size:13px;color:var(--ink)}
+.ctx-sig-sub{font-family:var(--font-mono),monospace;font-size:8.5px;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-mute)}
+.ctx-sig-list{list-style:none;display:flex;flex-direction:column;gap:9px}
+.ctx-sig-row{display:grid;grid-template-columns:1fr auto;gap:2px 10px;padding-bottom:9px;border-bottom:1px dashed var(--line)}
+.ctx-sig-row:last-child{border-bottom:0;padding-bottom:0}
+.ctx-sig-row.low{opacity:.72}
+.ctx-sig-title{font-family:var(--font-ui),sans-serif;font-weight:600;font-size:11.5px;color:var(--ink)}
+.ctx-sig-title em{font-style:normal;color:var(--blue-deep)}
+.ctx-sig-val{grid-column:2;grid-row:1;font-family:var(--font-display),sans-serif;font-weight:700;font-size:13px;color:var(--mpm-navy);text-align:right;white-space:nowrap}
+.ctx-sig-note{grid-column:1 / -1;font-family:var(--font-mono),monospace;font-size:9px;color:var(--ink-note);line-height:1.45;letter-spacing:.01em}
+.ctx-sig-src{grid-column:1 / -1;font-family:var(--font-mono),monospace;font-size:9px;letter-spacing:.02em;color:var(--blue-deep)}
+.ctx-sig-src.dim{color:var(--ink-mute)}
+.ctx-sig-src:hover{color:var(--blue-h)}
+/* semáforo de sede/aliado: verde / ámbar / gris (responde "¿con quién operar?") */
+.sede-badge{display:inline-block;margin-left:8px;font-family:var(--font-mono),monospace;font-size:9px;letter-spacing:.02em;padding:1px 7px;border-radius:var(--r-pill);border:1px solid var(--line);vertical-align:middle;white-space:nowrap}
+.sede-badge.sb-aliado{background:rgba(12,160,54,.12);color:#0a7a29;border-color:rgba(12,160,54,.35)}
+.sede-badge.sb-candidato{background:rgba(192,202,51,.16);color:#7a7d10;border-color:rgba(192,202,51,.45)}
+.sede-badge.sb-sin{background:var(--surface-2);color:var(--ink-mute);border-color:var(--depth-3)}
+.sede-badge.sb-load{background:var(--surface-2);color:var(--ink-mute);border-style:dashed}
+/* en la tabla, el semáforo va bajo el nombre del estado */
+.ptable .est + .sede-badge{margin-left:0;margin-top:4px;display:inline-block}
+
 /* rail como drawer en móvil */
 @media(max-width:900px){
   .filter-rail{position:fixed;top:0;left:0;bottom:0;width:min(320px,86vw);z-index:300;border-right:1px solid var(--line);box-shadow:var(--shadow-4);transform:translateX(-104%);transition:transform .28s cubic-bezier(.22,1,.36,1)}
@@ -456,5 +536,5 @@ table.ptable{border-collapse:collapse;width:100%;font-size:12.5px}
   .mobile-filters-btn{display:inline-flex;align-self:flex-start;align-items:center;gap:6px;font-family:var(--font-ui),sans-serif;font-size:12px;font-weight:600;color:#fff;background:var(--mpm-navy);border:0;border-radius:var(--r-pill);padding:8px 16px;cursor:pointer;box-shadow:var(--shadow-1)}
 }
 @media(prefers-reduced-motion:reduce){
-  .mx-map-skel,.filter-rail,.state-sum,.weight-sim .ws-rank li{transition:none!important;animation:none!important}
+  .mx-map-skel,.filter-rail,.state-sum,.weight-sim .ws-rank li,.mx-spin{transition:none!important;animation:none!important}
 }

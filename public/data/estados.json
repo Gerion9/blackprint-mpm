@@ -12,7 +12,7 @@
     "supplyGapIndex": 82,
     "accessIndex": 62,
     "b2bIndex": 40,
-    "rationale": "Maxima convergencia de demanda con fuente estatal solida: 3er estado en 60+ ABSOLUTO (1,157,892, INEGI Censo 2020), 2do mayor % de 60+ del pais (14.4%), grado de marginacion ALTO (CONAPO 2020) y la MAYOR tasa de mortalidad por diabetes (127.4/100k en 2022, INEGI) = driver de catarata diabetica. No esta entre los estados saturados de egresos publicos, por lo que el hueco (supplyGapIndex) es alto. Es el 'no-brainer' geografico para la primera jornada; viable por autopago de bajo costo en sus polos urbanos y por canal social en su periferia rural."
+    "rationale": "Maxima convergencia de demanda con fuente estatal solida: 3er estado en 60+ ABSOLUTO (1,157,892, INEGI Censo 2020), 2do mayor % de 60+ del pais (14.4%), grado de marginacion ALTO (CONAPO 2020) y una de las mayores tasas de mortalidad por diabetes (15.6/10 mil en 2021, INEGI; 2a nacional) = driver de catarata diabetica. No esta entre los estados saturados de egresos publicos, por lo que el hueco (supplyGapIndex) es alto. Es el 'no-brainer' geografico para la primera jornada; viable por autopago de bajo costo en sus polos urbanos y por canal social en su periferia rural."
   },
   {
     "estado": "Michoacán",

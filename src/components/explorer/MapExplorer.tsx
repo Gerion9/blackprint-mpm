@@ -5,11 +5,16 @@ import dynamic from "next/dynamic";
 import type { Estado, Municipio, Sensitivity } from "@/lib/schema";
 import type { FeatureCollection } from "geojson";
 import { MAP_COPY } from "@/lib/content";
-import { TIERCOL, CAT_COLOR, CAT_LABEL } from "./constants";
-import { useExplorerModel, type ViewMode, type CatKey, type SectorKey } from "./useExplorerModel";
+import {
+  TIERCOL, CAT_COLOR, CAT_LABEL,
+  CONTEXT_LAYERS, CONTEXT_ORDER, CONTEXT_SHORT,
+  type ContextLayer,
+} from "./constants";
+import type { Source } from "@/lib/schema";
+import { useExplorerModel, type ViewMode, type CatKey, type SectorKey, type ExplorerModel } from "./useExplorerModel";
 import { setDataVersion, loadEstadosGeoClient, loadMuniGeoClient } from "./clientData";
 import { buildStatesFC, buildMuniFC, buildClinicsFC } from "./mapStyle";
-import { MuniDetailPanel, RankingTable, Scatter } from "./panels";
+import { MuniDetailPanel, RankingTable, Scatter, SedeBadge } from "./panels";
 
 const MapCanvas = dynamic(() => import("./MapCanvas"), {
   ssr: false,
@@ -46,10 +51,20 @@ export default function MapExplorer({ estados, municipios, weights, sensitivity 
   const [reducedMotion, setReducedMotion] = useState(false);
   const [mobileFilters, setMobileFilters] = useState(false);
   const [simOpen, setSimOpen] = useState(false);
+  const [geoLoading, setGeoLoading] = useState(true);
+  const [geoError, setGeoError] = useState(false);
+  const [geoNonce, setGeoNonce] = useState(0);
   const ofertaHandled = useRef(false);
 
-  // geometría nacional (una vez) + reduced motion
-  useEffect(() => { let a = true; loadEstadosGeoClient().then((g) => { if (a) setEstadosGeo(g); }); return () => { a = false; }; }, []);
+  // geometría nacional (una vez; reintenta vía geoNonce) + reduced motion
+  useEffect(() => {
+    let a = true;
+    setGeoLoading(true); setGeoError(false);
+    loadEstadosGeoClient()
+      .then((g) => { if (a) { setEstadosGeo(g); setGeoLoading(false); } })
+      .catch(() => { if (a) { setGeoLoading(false); setGeoError(true); } });
+    return () => { a = false; };
+  }, [geoNonce]);
   useEffect(() => {
     if (typeof window === "undefined" || !window.matchMedia) return;
     const mq = window.matchMedia("(prefers-reduced-motion: reduce)");
@@ -79,10 +94,12 @@ export default function MapExplorer({ estados, municipios, weights, sensitivity 
   const drilled = !!(m.selEnt && muniGeo);
   const choroMode = m.viewMode === "oportunidad" ? "tier" : m.viewMode === "oferta" ? "muted" : "sinoferta";
   const clinVisible = m.viewMode === "oferta" || (m.viewMode === "oportunidad" && m.showClin);
+  // La capa de contexto SOLO aplica en «Dónde conviene»; en otros modos vuelve a Prioridad.
+  const effContext: ContextLayer = m.viewMode === "oportunidad" ? m.contextLayer : "prioridad";
 
   const statesFC = useMemo(
-    () => buildStatesFC(estadosGeo, m.byIso, m.active, m.sinOfertaByEnt.byEnt),
-    [estadosGeo, m.byIso, m.active, m.sinOfertaByEnt],
+    () => buildStatesFC(estadosGeo, m.byIso, m.active, m.sinOfertaByEnt.byEnt, effContext, m.signalsByEnt, m.trendsByEnt),
+    [estadosGeo, m.byIso, m.active, m.sinOfertaByEnt, effContext, m.signalsByEnt, m.trendsByEnt],
   );
   const muniFC = useMemo(
     () => (drilled ? buildMuniFC(muniGeo, m.muniByCvegeo, m.active) : null),
@@ -109,6 +126,14 @@ export default function MapExplorer({ estados, municipios, weights, sensitivity 
   const facet = m.facetCounts;
   const selScored = m.selected ? m.byIso.get(m.selected) : null;
 
+  // Feedback de carga/errores de red sobre el lienzo del mapa (clínicas 3.4MB + geometría).
+  const dataLoading = m.dataLoading || geoLoading;
+  const hasDataError = !!m.dataError || geoError;
+  const [errorDismissed, setErrorDismissed] = useState(false);
+  // Reabre el banner si llega un error nuevo después de haberlo descartado.
+  useEffect(() => { if (hasDataError) setErrorDismissed(false); }, [hasDataError]);
+  const retryAllData = () => { setErrorDismissed(false); if (geoError) setGeoNonce((n) => n + 1); if (m.dataError) m.retryData(); };
+
   return (
     <div className="module reveal mapx">
       {/* barra: modos + escenario */}
@@ -126,6 +151,21 @@ export default function MapExplorer({ estados, municipios, weights, sensitivity 
         </div>
       </div>
       <p className="mode-desc">{MAP_COPY.modes[m.viewMode].desc}</p>
+
+      {/* selector de capa de contexto (solo en «Dónde conviene»): recolorea los estados
+          por una señal 0-100 que NO entra en el puntaje. "Prioridad" = vista de hoy. */}
+      {m.viewMode === "oportunidad" ? (
+        <div className="ctx-layer" role="group" aria-label="Colorear estados por">
+          <span className="ctx-lbl">Colorear estados por:</span>
+          <div className="ctx-opts">
+            {CONTEXT_ORDER.map((c) => (
+              <button key={c} type="button" className={`ctx-opt ctx-${c}`} aria-pressed={m.contextLayer === c} onClick={() => m.setContextLayer(c)}>
+                {CONTEXT_SHORT[c]}
+              </button>
+            ))}
+          </div>
+        </div>
+      ) : null}
 
       {/* banner de integridad PERSISTENTE */}
       <div className="integrity-banner" role="note">
@@ -200,6 +240,14 @@ export default function MapExplorer({ estados, municipios, weights, sensitivity 
           <button type="button" className="mobile-filters-btn" onClick={() => setMobileFilters(true)}>
             Filtros ({facet.visibleTotal.toLocaleString("es-MX")})
           </button>
+          {hasDataError && !errorDismissed ? (
+            <div className="mx-data-error" role="alert">
+              <span className="mx-de-ic" aria-hidden>!</span>
+              <span className="mx-de-msg">No se pudieron cargar algunos datos.</span>
+              <button type="button" className="mx-de-retry" onClick={retryAllData}>Reintentar</button>
+              <button type="button" className="mx-de-close" onClick={() => setErrorDismissed(true)} aria-label="Descartar aviso">×</button>
+            </div>
+          ) : null}
           <div className="mx-gl-host">
             <MapCanvas
               statesFC={statesFC}
@@ -207,6 +255,7 @@ export default function MapExplorer({ estados, municipios, weights, sensitivity 
               clinicsFC={clinicsFC}
               drilled={drilled}
               choroMode={choroMode}
+              contextLayer={effContext}
               clinVisible={clinVisible}
               selectedIso={m.selected}
               selectedCvegeo={m.muniSelected}
@@ -217,8 +266,14 @@ export default function MapExplorer({ estados, municipios, weights, sensitivity 
               onHover={(id) => m.setHovered(id)}
             />
             {drilled && !m.muniSel ? <div className="mx-hint">Haz clic en un municipio para ver su oferta de salud visual.</div> : null}
+            {dataLoading ? (
+              <div className="mx-map-loading" role="status" aria-live="polite">
+                <span className="mx-spin" aria-hidden />
+                <span>Cargando datos…</span>
+              </div>
+            ) : null}
           </div>
-          <Legend mode={m.viewMode} clinVisible={clinVisible} drilled={drilled} sinOfertaTotal={m.sinOfertaByEnt.total} />
+          <Legend mode={m.viewMode} contextLayer={effContext} clinVisible={clinVisible} drilled={drilled} sinOfertaTotal={m.sinOfertaByEnt.total} />
         </div>
 
         {/* ── inspector ── */}
@@ -235,7 +290,7 @@ export default function MapExplorer({ estados, municipios, weights, sensitivity 
               m.muniSel ? (
                 <MuniDetailPanel muni={m.muniSel} counts={m.muniCounts} groups={m.muniGroups} estadoNombre={m.estadoNombre} clinLoading={m.clinLoading} onClose={m.closeMuni} />
               ) : selScored ? (
-                <StateSummary d={selScored} onClear={m.goNational} />
+                <StateSummary d={selScored} m={m} onClear={m.goNational} />
               ) : (
                 <div className="insp-empty"><p>{MAP_COPY.intro}</p><p className="dim">Haz clic en un estado para bajar a sus municipios y clínicas.</p></div>
               )
@@ -300,7 +355,24 @@ export default function MapExplorer({ estados, municipios, weights, sensitivity 
 }
 
 // ── Leyenda viva según el modo ──
-function Legend({ mode, clinVisible, drilled, sinOfertaTotal }: { mode: ViewMode; clinVisible: boolean; drilled: boolean; sinOfertaTotal: number }) {
+function Legend({ mode, contextLayer, clinVisible, drilled, sinOfertaTotal }: { mode: ViewMode; contextLayer: ContextLayer; clinVisible: boolean; drilled: boolean; sinOfertaTotal: number }) {
+  // Capa de contexto activa: leyenda con su rampa secuencial + caveat honesto (otra lente).
+  if (contextLayer !== "prioridad") {
+    const def = CONTEXT_LAYERS[contextLayer];
+    return (
+      <div className="legend mapx-legend">
+        <div className="legend-row ctx-legend">
+          <span className="ctx-scale-lbl" dangerouslySetInnerHTML={{ __html: def.titleHtml }} />
+          <span className="ctx-scale" aria-hidden>
+            {def.ramp.map(([stop, color]) => <span key={stop} className="ctx-stop" style={{ background: color }} />)}
+          </span>
+          <span className="ctx-scale-ends">0 → 100</span>
+          {contextLayer === "trends" ? <span className="ctx-low-key"><span className="ctx-low-sw" />señal débil (bajo volumen)</span> : null}
+        </div>
+        <p className="ctx-legend-foot">{def.legend}</p>
+      </div>
+    );
+  }
   return (
     <div className="legend mapx-legend">
       {mode === "sinoferta" ? (
@@ -337,12 +409,75 @@ function Legend({ mode, clinVisible, drilled, sinOfertaTotal }: { mode: ViewMode
   );
 }
 
+// ── Bloque "Señales de contexto" (SIEMPRE visible en el inspector de estado) ──
+// Muestra los 3 valores reales del estado con su caveat de 1 línea y link a la fuente.
+function ctxSource(sources: ReadonlyArray<Source> | undefined, id: string | null | undefined): Source | undefined {
+  if (!id || !sources) return undefined;
+  return sources.find((s) => s.id === id);
+}
+function ContextSignals({ m }: { m: ExplorerModel }) {
+  const ent = m.selEnt;
+  const sig = ent ? m.signalsByEnt.get(ent) : undefined;
+  const tr = ent ? m.trendsByEnt.get(ent) : undefined;
+  const diabetesSrc = ctxSource(m.signals?.sources, m.signals?.signals.diabetes.sourceId);
+  const copaySrc = ctxSource(m.signals?.sources, m.signals?.signals.copay.sourceId);
+  const fmt = (n: number | null | undefined) => (n == null ? "—" : n.toLocaleString("es-MX"));
+  const rows: { html: string; value: string; note: string; src?: Source; srcText?: string; low?: boolean }[] = [
+    {
+      html: CONTEXT_LAYERS.diabetes.titleHtml,
+      value: sig?.diabetesRate != null ? `${fmt(sig.diabetesRate)} def./10 mil hab.` : "—",
+      note: CONTEXT_LAYERS.diabetes.legend,
+      src: diabetesSrc, srcText: "INEGI 2021",
+    },
+    {
+      html: CONTEXT_LAYERS.copay.titleHtml,
+      value: sig?.remesasPerCapita60 != null ? `$${fmt(sig.remesasPerCapita60)}/año por adulto 60+` : "—",
+      note: CONTEXT_LAYERS.copay.legend,
+      src: copaySrc, srcText: "Banxico 2024",
+    },
+    {
+      html: CONTEXT_LAYERS.trends.titleHtml,
+      value: tr?.trendIndex != null ? `Índice ${tr.trendIndex}/100${tr.lowConfidence ? " · señal débil" : ""}` : "—",
+      note: CONTEXT_LAYERS.trends.legend,
+      srcText: m.trends?.source ? "Google Trends (12 m)" : undefined,
+      low: tr?.lowConfidence === true,
+    },
+  ];
+  return (
+    <div className="ctx-signals">
+      <header className="ctx-sig-head">
+        <h4>Señales de contexto</h4>
+        <span className="ctx-sig-sub">capas de contexto · no entran en el puntaje</span>
+      </header>
+      <ul className="ctx-sig-list">
+        {rows.map((r, i) => (
+          <li className={`ctx-sig-row${r.low ? " low" : ""}`} key={i}>
+            <span className="ctx-sig-title" dangerouslySetInnerHTML={{ __html: r.html }} />
+            <span className="ctx-sig-val tabular">{r.value}</span>
+            <span className="ctx-sig-note">{r.note}</span>
+            {r.src ? (
+              <a className="ctx-sig-src" href={r.src.url} target="_blank" rel="noreferrer">{r.srcText ?? r.src.publisher} ↗</a>
+            ) : r.srcText ? (
+              <span className="ctx-sig-src dim">{r.srcText}</span>
+            ) : null}
+          </li>
+        ))}
+      </ul>
+    </div>
+  );
+}
+
 // ── Resumen de estado seleccionado (tab Detalle sin municipio) ──
-function StateSummary({ d, onClear }: { d: { estado: string; _tier: string | null; _score: number | null; rationale: string | null; demandIndex: number | null; supplyGapIndex: number | null; accessIndex: number | null; b2bIndex: number | null }; onClear: () => void }) {
+function StateSummary({ d, m, onClear }: { d: { cveEnt: string; estado: string; _tier: string | null; _score: number | null; rationale: string | null; demandIndex: number | null; supplyGapIndex: number | null; accessIndex: number | null; b2bIndex: number | null }; m: ExplorerModel; onClear: () => void }) {
+  const sede = m.sedeByEnt.get(d.cveEnt);
   return (
     <div className="state-sum">
       <button type="button" className="bc-link md-back" onClick={onClear}>‹ México</button>
-      <div className="md-title"><h3 className="md-name">{d.estado}</h3>{d._tier ? <span className={`tbadge ${d._tier}`}>{d._tier}</span> : null}</div>
+      <div className="md-title">
+        <h3 className="md-name">{d.estado}</h3>
+        {d._tier ? <span className={`tbadge ${d._tier}`}>{d._tier}</span> : null}
+        <SedeBadge status={sede?.status ?? null} hospitales={sede?.hospitales ?? 0} oftalmologia={sede?.oftalmologia ?? 0} loading={m.clinLoading} />
+      </div>
       <div className="md-score-row"><span className="score-cell md-score">{d._score ?? "—"}</span><span className="md-score-cap">priorityScore — ranking modelado (juicio experto), no predicción de cirugías.</span></div>
       <div className="muni-chips">
         <div className="mchip"><span className="mc-v tabular">{d.demandIndex ?? "—"}</span><span className="mc-l">Demanda</span></div>
@@ -350,6 +485,7 @@ function StateSummary({ d, onClear }: { d: { estado: string; _tier: string | nul
         <div className="mchip"><span className="mc-v tabular">{d.accessIndex ?? "—"}</span><span className="mc-l">Acceso</span></div>
         <div className="mchip"><span className="mc-v tabular">{d.b2bIndex ?? "—"}</span><span className="mc-l">B2B</span></div>
       </div>
+      <ContextSignals m={m} />
       {d.rationale ? <p className="md-foot">{d.rationale}</p> : null}
       <p className="md-eco">Haz clic en el mapa para bajar a los municipios de {d.estado}.</p>
     </div>

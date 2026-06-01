@@ -154,6 +154,58 @@ export const SensitivitySchema = z.object({
   states: z.array(SensStateSchema),
 });
 
+/**
+ * SEÑALES DE CONTEXTO (Fase B aditiva) — diabetes, capacidad de copago (remesas) e
+ * intención de búsqueda. Son CAPAS VISUALES de contexto: NO entran al priorityScore ni
+ * a los 4 índices (ver constants.ts/scoreOf). Campos tolerantes (.nullable()/.optional())
+ * para no romper si el pipeline emite un estado parcial.
+ */
+const SignalMetaSchema = z.object({
+  label: z.string(),
+  unit: z.string(),
+  method: z.string(),
+  sourceId: z.string().optional().nullable(),
+  caveats: z.array(z.string()).optional().default([]),
+});
+export const SignalStateSchema = z.object({
+  cveEnt: z.string(),
+  estado: z.string(),
+  diabetesRate: z.number().nullable().optional(),
+  diabetesIndex: z.number().nullable().optional(),
+  diabetesConf: z.string().nullable().optional(),
+  remesas2024Mdd: z.number().nullable().optional(),
+  remesasPerCapita60: z.number().nullable().optional(),
+  copayIndex: z.number().nullable().optional(),
+  copayConf: z.string().nullable().optional(),
+});
+export const SignalsSchema = z.object({
+  generatedAt: z.string(),
+  signals: z.object({
+    diabetes: SignalMetaSchema,
+    copay: SignalMetaSchema,
+  }),
+  sources: z.array(SourceSchema).optional().default([]),
+  states: z.array(SignalStateSchema),
+});
+
+export const TrendStateSchema = z.object({
+  cveEnt: z.string(),
+  estado: z.string(),
+  perTerm: z.record(z.string(), z.number()).optional().default({}),
+  trendRaw: z.number().nullable().optional(),
+  trendIndex: z.number().nullable().optional(),
+  lowConfidence: z.boolean().optional().default(false),
+});
+export const TrendsSchema = z.object({
+  generatedAt: z.string(),
+  source: z.string(),
+  method: z.string().optional().default(""),
+  window: z.string().optional().default(""),
+  terms: z.array(z.string()).optional().default([]),
+  caveats: z.array(z.string()).optional().default([]),
+  states: z.array(TrendStateSchema),
+});
+
 export type Estado = z.infer<typeof EstadoSchema>;
 export type Source = z.infer<typeof SourceSchema>;
 export type NationalKpi = z.infer<typeof NationalKpiSchema>;
@@ -166,3 +218,7 @@ export type Sensitivity = z.infer<typeof SensitivitySchema>;
 export type SensState = z.infer<typeof SensStateSchema>;
 export type SensScenario = z.infer<typeof SensScenarioSchema>;
 export type RobustLabel = z.infer<typeof RobustLabelSchema>;
+export type Signals = z.infer<typeof SignalsSchema>;
+export type SignalState = z.infer<typeof SignalStateSchema>;
+export type Trends = z.infer<typeof TrendsSchema>;
+export type TrendState = z.infer<typeof TrendStateSchema>;

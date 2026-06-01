@@ -1,7 +1,14 @@
 "use client";
 
 import type { FeatureCollection } from "geojson";
-import { ClinicaSchema, type Clinica } from "@/lib/schema";
+import {
+  ClinicaSchema,
+  SignalsSchema,
+  TrendsSchema,
+  type Clinica,
+  type Signals,
+  type Trends,
+} from "@/lib/schema";
 
 /**
  * Carga de datos en CLIENTE con cache a nivel MÓDULO (no useRef): la promesa se
@@ -40,6 +47,44 @@ export function loadClinicasClient(): Promise<Clinica[]> {
   return clinicasPromise;
 }
 
+// Señales de contexto (diabetes, copago, intención). Archivos chicos (~7KB): carga
+// temprana y cacheada a nivel módulo, mismo patrón que clinicas.json. Validadas con
+// el zod tolerante de schema.ts (un estado parcial no rompe la capa). CAPA VISUAL:
+// jamás tocan el priorityScore.
+let signalsPromise: Promise<Signals> | null = null;
+export function loadSignalsClient(): Promise<Signals> {
+  if (!signalsPromise) {
+    signalsPromise = fetch(dataHref("/data/signals.json"))
+      .then((r) => {
+        if (!r.ok) throw new Error(`signals.json HTTP ${r.status}`);
+        return r.json();
+      })
+      .then((j) => SignalsSchema.parse(j))
+      .catch((err) => {
+        signalsPromise = null; // permite reintentar
+        throw err;
+      });
+  }
+  return signalsPromise;
+}
+
+let trendsPromise: Promise<Trends> | null = null;
+export function loadTrendsClient(): Promise<Trends> {
+  if (!trendsPromise) {
+    trendsPromise = fetch(dataHref("/data/trends.json"))
+      .then((r) => {
+        if (!r.ok) throw new Error(`trends.json HTTP ${r.status}`);
+        return r.json();
+      })
+      .then((j) => TrendsSchema.parse(j))
+      .catch((err) => {
+        trendsPromise = null; // permite reintentar
+        throw err;
+      });
+  }
+  return trendsPromise;
+}
+
 const muniGeoCache = new Map<string, Promise<FeatureCollection | null>>();
 export function loadMuniGeoClient(cveEnt: string): Promise<FeatureCollection | null> {
   let p = muniGeoCache.get(cveEnt);
@@ -59,10 +104,13 @@ let estadosGeoPromise: Promise<FeatureCollection | null> | null = null;
 export function loadEstadosGeoClient(): Promise<FeatureCollection | null> {
   if (!estadosGeoPromise) {
     estadosGeoPromise = fetch(dataHref("/data/mexico_estados.geojson"))
-      .then((r) => (r.ok ? (r.json() as Promise<FeatureCollection>) : null))
-      .catch(() => {
-        estadosGeoPromise = null;
-        return null;
+      .then((r) => {
+        if (!r.ok) throw new Error(`mexico_estados.geojson HTTP ${r.status}`);
+        return r.json() as Promise<FeatureCollection>;
+      })
+      .catch((err) => {
+        estadosGeoPromise = null; // permite reintentar (también ante HTTP no-OK)
+        throw err;
       });
   }
   return estadosGeoPromise;

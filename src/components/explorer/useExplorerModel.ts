@@ -1,19 +1,31 @@
 "use client";
 
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
-import type { Estado, Tier, Clinica, Municipio } from "@/lib/schema";
+import type {
+  Estado,
+  Tier,
+  Clinica,
+  Municipio,
+  Signals,
+  Trends,
+  SignalState,
+  TrendState,
+} from "@/lib/schema";
 import {
   type Scenario,
   type SortKey,
   type Scored,
   type MuniCounts,
   type ClinGroup,
+  type ContextLayer,
+  type SedeInfo,
   CAT_COLOR,
   CAT_LABEL,
   scoreOf,
+  sedeInfoOf,
   NO_CLIN,
 } from "./constants";
-import { loadClinicasClient } from "./clientData";
+import { loadClinicasClient, loadSignalsClient, loadTrendsClient } from "./clientData";
 
 export type CatKey = Clinica["categoria"];
 export type SectorKey = "publico" | "privado" | "sinSector";
@@ -52,7 +64,11 @@ export function useExplorerModel({ estados, municipios, weights }: ExplorerModel
   const [active, setActive] = useState<Record<string, boolean>>({ A: true, B: true, C: true, D: true });
   const [hovered, setHovered] = useState<string | null>(null);
   const [viewMode, setViewMode] = useState<ViewMode>("oportunidad");
+  const [contextLayer, setContextLayer] = useState<ContextLayer>("prioridad"); // capa de color del coroplético
   const [showClin, setShowClin] = useState(false);
+  // Eager (diferido tras el primer paint): resuelve el semáforo de sede y los conteos por
+  // sector sin que el usuario active nada (antes quedaban en "Calculando…" / 0 para siempre).
+  const [eagerClin, setEagerClin] = useState(false);
   const [clinFilter, setClinFilter] = useState<ClinFilter>({
     cat: { hospital: true, oftalmologia: true, optometria: true },
     sector: { publico: true, privado: true, sinSector: true },
@@ -61,6 +77,23 @@ export function useExplorerModel({ estados, municipios, weights }: ExplorerModel
 
   const [clinicas, setClinicas] = useState<Clinica[]>([]);
   const clinLoading = clinicas.length === 0;
+  // Feedback de red para el lienzo del mapa: dataLoading mientras hay un fetch de
+  // clínicas en vuelo; dataError con un mensaje si falla (antes se tragaba en silencio).
+  const [dataLoading, setDataLoading] = useState(false);
+  const [dataError, setDataError] = useState<string | null>(null);
+  const [retryNonce, setRetryNonce] = useState(0);
+
+  // Señales de contexto (diabetes, copago, intención). Archivos chicos: carga temprana
+  // e independiente; si fallan, degradan a "—" sin bloquear el mapa (no son críticas y NO
+  // alimentan el puntaje). Se cachean a nivel módulo en clientData.
+  const [signals, setSignals] = useState<Signals | null>(null);
+  const [trends, setTrends] = useState<Trends | null>(null);
+  useEffect(() => {
+    let alive = true;
+    loadSignalsClient().then((s) => { if (alive) setSignals(s); }).catch(() => {});
+    loadTrendsClient().then((t) => { if (alive) setTrends(t); }).catch(() => {});
+    return () => { alive = false; };
+  }, []);
 
   // ── Scoring (única fuente) ──
   const scored: Scored[] = useMemo(
@@ -78,16 +111,36 @@ export function useExplorerModel({ estados, municipios, weights }: ExplorerModel
   const selEnt = selected ? byIso.get(selected)?.cveEnt ?? null : null;
   const estadoNombre = selected ? byIso.get(selected)?.estado ?? "" : "";
 
-  // La capa de oferta exige clínicas; también al entrar a un estado (drill).
-  const needClin = showClin || viewMode !== "oportunidad" || !!selEnt;
+  // Tras el primer render, trae el registro de clínicas en segundo plano (sede + conteos).
+  useEffect(() => {
+    const id = window.setTimeout(() => setEagerClin(true), 350);
+    return () => window.clearTimeout(id);
+  }, []);
+
+  // La capa de oferta exige clínicas; también eager al cargar o al entrar a un estado (drill).
+  const needClin = eagerClin || showClin || viewMode !== "oportunidad" || !!selEnt;
   useEffect(() => {
     if (!needClin || clinicas.length > 0) return;
     let alive = true;
+    setDataLoading(true);
+    setDataError(null);
     loadClinicasClient()
-      .then((c) => { if (alive) setClinicas(c); })
-      .catch(() => {});
+      .then((c) => { if (alive) { setClinicas(c); setDataLoading(false); } })
+      .catch((err: unknown) => {
+        // Antes: .catch(()=>{}) ocultaba el fallo y dejaba el mapa sin puntos sin avisar.
+        if (!alive) return;
+        setDataLoading(false);
+        setDataError(err instanceof Error ? err.message : "No se pudieron cargar las clínicas.");
+      });
     return () => { alive = false; };
-  }, [needClin, clinicas.length]);
+  }, [needClin, clinicas.length, retryNonce]);
+
+  // Reintenta la carga de datos: loadClinicasClient ya invalida su cache de módulo al
+  // fallar, así que basta con limpiar el error y re-disparar el efecto (retryNonce).
+  const retryData = useCallback(() => {
+    setDataError(null);
+    setRetryNonce((n) => n + 1);
+  }, []);
 
   // ── Índices por estado / municipio ──
   const clinByEnt = useMemo(() => {
@@ -98,6 +151,30 @@ export function useExplorerModel({ estados, municipios, weights }: ExplorerModel
     }
     return m;
   }, [clinicas]);
+  // Señales unidas por cveEnt (clave numérica 01-32; NUNCA por nombre: trends usa
+  // "México" donde signals usa "Estado de México", pero el cveEnt 15 coincide).
+  const signalsByEnt = useMemo(() => {
+    const m = new Map<string, SignalState>();
+    for (const s of signals?.states ?? []) m.set(s.cveEnt, s);
+    return m;
+  }, [signals]);
+  const trendsByEnt = useMemo(() => {
+    const m = new Map<string, TrendState>();
+    for (const t of trends?.states ?? []) m.set(t.cveEnt, t);
+    return m;
+  }, [trends]);
+  // Semáforo de sede/aliado por estado (agrupa clinicas.json por cveEnt).
+  const sedeByEnt = useMemo(() => {
+    const m = new Map<string, SedeInfo>();
+    const groups = new Map<string, Clinica[]>();
+    for (const c of clinicas) {
+      const arr = groups.get(c.cveEnt);
+      if (arr) arr.push(c); else groups.set(c.cveEnt, [c]);
+    }
+    for (const [ent, arr] of groups) m.set(ent, sedeInfoOf(arr));
+    return m;
+  }, [clinicas]);
+
   const clinByCvegeo = useMemo(() => {
     const m = new Map<string, Clinica[]>();
     for (const c of clinicas) {
@@ -251,15 +328,19 @@ export function useExplorerModel({ estados, municipios, weights }: ExplorerModel
     active, toggleTier,
     hovered, setHovered,
     viewMode, setViewMode,
+    contextLayer, setContextLayer,
     showClin, setShowClin,
     clinFilter, toggleCat, toggleSector, setQuery, clearClinFilter, clinPasses,
     // datos
     clinicas, clinLoading,
+    dataLoading, dataError, retryData,
     scored, byIso, selEnt, estadoNombre,
     rows, visible,
     selMunicipios, muniByCvegeo, muniByEnt, clinByEnt, clinByCvegeo,
     muniSel, selMuniClinicas, muniCounts, muniGroups,
     facetCounts, sinOfertaByEnt,
+    // señales de contexto + semáforo de sede
+    signals, trends, signalsByEnt, trendsByEnt, sedeByEnt,
     weights,
     // constantes útiles
     ALL_CATS, CAT_LABEL,

@@ -3,8 +3,21 @@
 import { Fragment, memo } from "react";
 import type { Municipio, Sensitivity, SensScenario } from "@/lib/schema";
 import { MAP_COPY } from "@/lib/content";
-import { TIERCOL, CAT_NOTE, clinMeta, type ClinGroup, type MuniCounts, type SortKey } from "./constants";
+import { TIERCOL, CAT_NOTE, clinMeta, SEDE_LABEL, SEDE_NOTE, type ClinGroup, type MuniCounts, type SortKey, type SedeStatus } from "./constants";
 import type { ExplorerModel } from "./useExplorerModel";
+
+// ── Insignia de semáforo de sede/aliado (tabla de ranking + inspector) ──
+// Responde "¿con quién operar?", NO "¿hay capacidad quirúrgica?" (due diligence en campo).
+export function SedeBadge({ status, hospitales, oftalmologia, loading }: { status: SedeStatus | null; hospitales: number; oftalmologia: number; loading?: boolean }) {
+  if (loading || status === null) return <span className="sede-badge sb-load" title="Calculando sede a partir del registro DENUE+CLUES…">Sede…</span>;
+  const tip =
+    status === "aliado"
+      ? `Aliado GVICOA confirmado en el estado. ${SEDE_NOTE}`
+      : status === "candidato"
+        ? `${hospitales} hospital(es) · ${oftalmologia} oftalmología candidatos. ${SEDE_NOTE}`
+        : `Sin hospital/oftalmología registrado en DENUE+CLUES. ${SEDE_NOTE}`;
+  return <span className={`sede-badge sb-${status}`} title={tip}>{SEDE_LABEL[status]}</span>;
+}
 
 // ── Lista de establecimientos agrupada por categoría ──
 export const ClinList = memo(function ClinList({ groups }: { groups: ClinGroup[] }) {
@@ -162,6 +175,7 @@ export function RankingTable({ m, sens }: { m: ExplorerModel; sens: Sensitivity 
                 >
                   <td>
                     <span className="est"><span className="tl" style={{ background: d._tier ? TIERCOL[d._tier] : "#ccc" }} />{d.estado}</span>
+                    {(() => { const sd = m.sedeByEnt.get(d.cveEnt); return <SedeBadge status={sd?.status ?? null} hospitales={sd?.hospitales ?? 0} oftalmologia={sd?.oftalmologia ?? 0} loading={m.clinLoading} />; })()}
                     {band ? (
                       <span className={`rband rb-${band.robustLabel}`} title={`Bajo re-ponderación de los 4 índices: posición #${band.rankP5}–#${band.rankP95} (mediana #${band.rankMed}); ${ROBUST_LABEL[band.robustLabel]}. No es validación contra cirugías.`}>
                         #{band.rankP5}–{band.rankP95} · {ROBUST_LABEL[band.robustLabel]}
