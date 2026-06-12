@@ -10,7 +10,8 @@
     "lint": "next lint",
     "type-check": "tsc --noEmit",
     "data": "python scripts/build_data.py",
-    "sensitivity": "python scripts/fase_b/sensitivity.py"
+    "sensitivity": "python scripts/fase_b/sensitivity.py",
+    "tijuana": "node scripts/build_tijuana.mjs"
   },
   "dependencies": {
     "maplibre-gl": "5.24.0",

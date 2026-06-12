@@ -19,6 +19,7 @@ const PUBLIC_PATH_PREFIXES = [
   "/_next",
   "/favicon.ico",
   "/logos",
+  "/img",
   "/data",
   "/robots.txt",
   "/sitemap.xml",
@@ -50,5 +51,5 @@ export function middleware(request: NextRequest) {
 export const config = {
   // Excluye estáticos, logos y /data (datos públicos del mapa) para no ejecutar el
   // Edge Middleware en cada GET de 3.4MB de clínicas / shards geográficos.
-  matcher: ["/((?!_next/static|_next/image|favicon.ico|data|logos).*)"],
+  matcher: ["/((?!_next/static|_next/image|favicon.ico|data|logos|img).*)"],
 };

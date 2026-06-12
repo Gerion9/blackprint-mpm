@@ -8,12 +8,16 @@ import {
   MunicipioSchema,
   ClinicaSchema,
   SensitivitySchema,
+  TijuanaStudySchema,
+  TijuanaAgebSchema,
   type Estado,
   type Meta,
   type Source,
   type Municipio,
   type Clinica,
   type Sensitivity,
+  type TijuanaStudy,
+  type TijuanaAgeb,
 } from "./schema";
 
 /**
@@ -62,4 +66,14 @@ export function loadClinicas(): Promise<ReadonlyArray<Clinica>> {
 
 export function loadSensitivity(): Promise<Sensitivity | null> {
   return readValidated("sensitivity.json", SensitivitySchema, null);
+}
+
+/** Estudio de plaza Tijuana (dossier /orquesta → tijuana.json). null si aún no existe. */
+export function loadTijuana(): Promise<TijuanaStudy | null> {
+  return readValidated("tijuana.json", TijuanaStudySchema, null);
+}
+
+/** Capa de demanda/desatención por colonia del deliverable (tijuana_agebs.json). [] si falta. */
+export function loadTijuanaAgebs(): Promise<ReadonlyArray<TijuanaAgeb>> {
+  return readValidated("tijuana_agebs.json", z.array(TijuanaAgebSchema), []);
 }

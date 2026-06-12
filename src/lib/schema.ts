@@ -206,6 +206,142 @@ export const TrendsSchema = z.object({
   states: z.array(TrendStateSchema),
 });
 
+/**
+ * ESTUDIO DE PLAZA — TIJUANA (Hospitales MAC). Salida del workflow /orquesta
+ * (estudio-tijuana-mxm) consolidada en un dossier y pre-renderizada a HTML por
+ * scripts/build_tijuana.mjs → public/data/tijuana.json. Es un estudio de mercado
+ * CUALITATIVO (las 6 preguntas del briefing), distinto del ranking nacional: su
+ * "score" no es modelado, son hallazgos con cifras marcadas [dato]/[estimación]/
+ * [supuesto] y confianza declarada por pregunta. Los campos *Html ya vienen
+ * sanitizados desde nuestro propio pipeline (no entrada de usuario).
+ */
+export const TijuanaConfSchema = z.enum(["baja", "media", "alta"]);
+export const TijuanaKpiSchema = z.object({
+  valor: z.string(),
+  label: z.string(),
+  subHtml: z.string(),
+});
+export const TijuanaSeccionSchema = z.object({
+  id: z.string(),
+  numTag: z.string(),
+  titulo: z.string(),
+  conf: TijuanaConfSchema.nullable(),
+  html: z.string(),
+});
+export const TijuanaTablaSchema = z.object({
+  id: z.string(),
+  titulo: z.string(),
+  columnas: z.array(z.string()),
+  filas: z.array(z.array(z.string())),
+  notaHtml: z.string().optional().default(""),
+});
+export const TijuanaPuntoSchema = z.object({
+  nombre: z.string(),
+  tipo: z.string(), // sede | cruce | competidor | aliado-posible | publico | referencia
+  zona: z.string(),
+  lat: z.number(),
+  lng: z.number(),
+  nota: z.string().optional().default(""),
+});
+export const TijuanaFuenteSchema = z.object({
+  nombre: z.string(),
+  url: z.string().optional().default(""),
+  fecha: z.string().optional().default(""),
+});
+export const TijuanaPendienteSchema = z.object({ titulo: z.string(), html: z.string() });
+
+/* Capa de mapa por colonia (deliverable "mirando_por_mexico"): demanda modelada y
+ * "sin cirugía a 2 km" por AGEB, para una capa nativa de círculos en el mapa de Tijuana.
+ * Archivo aparte (public/data/tijuana_agebs.json) para no inflar el estudio; opcional. */
+export const TijuanaAgebSchema = z.object({
+  lng: z.number(),
+  lat: z.number(),
+  dem: z.number(), // demanda modelada (personas con catarata operable) en la colonia
+  sin: z.boolean(), // true = sin cirugía de catarata a 2 km (zona desatendida)
+});
+
+/* Capa de VISUALIZACIÓN (opcional, no-breaking) — números limpios y tipados para el
+ * tablero de veredictos y los gráficos SVG. Single-source con zod: el gráfico y la tabla
+ * citan el MISMO dato, marcado igual; nunca se parsea una cifra del HTML de la tabla. */
+export const TijuanaDecisionSchema = z.object({
+  pregunta: z.string(),
+  respuesta: z.string(),
+  numero: z.string(),
+  conf: TijuanaConfSchema,
+  confNota: z.string(),
+  anclaId: z.string(),
+});
+export const TijuanaPrecioSchema = z.object({
+  nombre: z.string(),
+  usdMin: z.number(),
+  usdMax: z.number(),
+  capa: z.enum(["gratis", "solidario", "mxm", "privado", "dolar"]),
+  tag: z.string(), // dato | estimacion | supuesto
+  nota: z.string().optional().default(""),
+});
+export const TijuanaEmbudoNivelSchema = z.object({
+  nivel: z.string(),
+  min: z.number(),
+  max: z.number(),
+  tipo: z.enum(["pob", "stock", "flujo"]),
+  tag: z.string(),
+});
+export const TijuanaRangoSchema = z.object({
+  label: z.string(),
+  min: z.number(),
+  max: z.number(),
+  tag: z.string(),
+  nota: z.string().optional().default(""),
+});
+export const TijuanaVizSchema = z.object({
+  somDecay: z.object({
+    arranqueMin: z.number(),
+    arranqueMax: z.number(),
+    runrateMin: z.number(),
+    runrateMax: z.number(),
+    piso: z.number(),
+    ventanaAniosMin: z.number(),
+    ventanaAniosMax: z.number(),
+    stockMin: z.number(),
+    stockMax: z.number(),
+  }),
+  precios: z.array(TijuanaPrecioSchema),
+  embudo: z.array(TijuanaEmbudoNivelSchema),
+  tamSamSom: z.object({
+    stock: TijuanaRangoSchema,
+    flujoTam: TijuanaRangoSchema,
+    sam: TijuanaRangoSchema,
+    som: z.array(TijuanaRangoSchema),
+  }),
+});
+
+// Validación primaria (2ª pasada jun-2026): supuestos reemplazados por dato duro + solicitudes de transparencia.
+export const TijuanaValidacionSchema = z.object({
+  resumen: z.string(),
+  eliminados: z.array(z.object({ tema: z.string(), antes: z.string(), ahora: z.string(), fuente: z.string(), conf: TijuanaConfSchema })),
+  persisten: z.array(z.object({ tema: z.string(), ruta: z.string() })),
+  solicitudes: z.array(z.object({ institucion: z.string(), texto: z.string() })),
+});
+
+export const TijuanaStudySchema = z.object({
+  generatedAt: z.string(),
+  titulo: z.string(),
+  subtitulo: z.string(),
+  resumenHtml: z.string(),
+  kpis: z.array(TijuanaKpiSchema),
+  secciones: z.array(TijuanaSeccionSchema),
+  tablas: z.array(TijuanaTablaSchema),
+  puntosMapa: z.array(TijuanaPuntoSchema),
+  recomendaciones: z.array(z.string()),
+  caveats: z.array(z.string()),
+  fuentes: z.array(TijuanaFuenteSchema),
+  pendientes: z.array(TijuanaPendienteSchema),
+  // viz/decisiones/validacion: aditivos opcionales (el loader cae a fallback si faltan)
+  decisiones: z.array(TijuanaDecisionSchema).optional(),
+  viz: TijuanaVizSchema.optional(),
+  validacion: TijuanaValidacionSchema.optional(),
+});
+
 export type Estado = z.infer<typeof EstadoSchema>;
 export type Source = z.infer<typeof SourceSchema>;
 export type NationalKpi = z.infer<typeof NationalKpiSchema>;
@@ -222,3 +358,17 @@ export type Signals = z.infer<typeof SignalsSchema>;
 export type SignalState = z.infer<typeof SignalStateSchema>;
 export type Trends = z.infer<typeof TrendsSchema>;
 export type TrendState = z.infer<typeof TrendStateSchema>;
+export type TijuanaStudy = z.infer<typeof TijuanaStudySchema>;
+export type TijuanaSeccion = z.infer<typeof TijuanaSeccionSchema>;
+export type TijuanaTabla = z.infer<typeof TijuanaTablaSchema>;
+export type TijuanaPunto = z.infer<typeof TijuanaPuntoSchema>;
+export type TijuanaKpi = z.infer<typeof TijuanaKpiSchema>;
+export type TijuanaFuente = z.infer<typeof TijuanaFuenteSchema>;
+export type TijuanaConf = z.infer<typeof TijuanaConfSchema>;
+export type TijuanaDecision = z.infer<typeof TijuanaDecisionSchema>;
+export type TijuanaViz = z.infer<typeof TijuanaVizSchema>;
+export type TijuanaPrecio = z.infer<typeof TijuanaPrecioSchema>;
+export type TijuanaEmbudoNivel = z.infer<typeof TijuanaEmbudoNivelSchema>;
+export type TijuanaRango = z.infer<typeof TijuanaRangoSchema>;
+export type TijuanaValidacion = z.infer<typeof TijuanaValidacionSchema>;
+export type TijuanaAgeb = z.infer<typeof TijuanaAgebSchema>;

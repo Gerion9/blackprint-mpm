@@ -1,0 +1,1137 @@
+{
+  "titulo": "Tijuana: dos mercados bajo un mismo techo",
+  "subtitulo": "Estudio de plaza para Mirando por México en Hospitales MAC Tijuana — cirugía de catarata accesible en el corredor oriente",
+  "resumenEjecutivo": "## Tijuana tiene el problema que MxM resuelve — en **dos mercados** que no se deben confundir\n\n**El problema fundacional de MxM está intacto en Tijuana — y es más grande.** Quien tiene catarata en esta ciudad escoge hoy entre dos malas opciones: la vía pública, gratuita pero con esperas que el propio ISSSTE reconoce \"de meses a más de un año\" [dato may-2024], o la privada, rápida pero a precios pensados para el bolsillo estadounidense ($2,449-2,950 USD por ojo en los líderes locales [dato]). Toda la capacidad gratuita de Baja California suma menos de 2,000 cirugías al año [dato 2025] frente a una represa estimada de 20,000-32,000 ojos operables solo en Tijuana [estimación]. Y mientras la lista avanza, la catarata también: la persona deja de manejar, de trabajar, de valerse sola. El puente que MxM ya tiende en CDMX, Ecatepec y Puebla encuentra aquí un río más ancho — y sin otro puente a la vista.\n\n**Tijuana son dos mercados bajo un mismo techo — y conviene no confundirlos.** **El motor es el paciente local del oriente**: trabaja, tiene ingreso —el salario de frontera es ~40% mayor que el nacional [dato]—, pero no tiene cobertura efectiva ni una opción intermedia. **El upside —no la base— es el paciente que cruza desde California en dólares**: la brecha de precio es enorme (MxM quedaría ~49-58% debajo del líder de Tijuana y ~79% debajo del autopago premium de San Diego [estimación]), pero el flujo es volátil: cayó 20-40% en 2025 [dato]. La lectura correcta del mapa: **el oriente desatendido da el volumen y la frontera da el margen.**\n\n**Por qué MAC y por qué ahora.** En el corredor oriente —donde está MAC, junto al aeropuerto y la garita de Otay— ningún competidor opera cirugía de catarata de alto volumen a precio accesible [dato]. Los líderes de turismo médico (CODET y compañía) están todos en Zona Río, al otro lado de la ciudad (~15 km por carretera), mirando a Estados Unidos. El oriente es local y casi nadie lo atiende bien. Ese es el hueco que el modelo de jornadas de MxM puede llenar con la infraestructura que MAC ya tiene instalada.\n\n**El número que importa para planear.** Drenando la represa de pacientes acumulados, MxM puede sostener **~1,500-1,800 cirugías al año en los años 2-4** (~32-39 M MXN / ~1.9-2.2 M USD) [estimación], con un piso defendible de **~1,000 cirugías** (~21 M MXN) con una sola sala en jornadas. **Aviso honesto:** ese ritmo se apoya en vaciar una bolsa finita; el ritmo sostenible de largo plazo converge hacia **~400-750 cirugías nuevas al año** (la demanda fresca), salvo crecimiento poblacional, captación del segmento en dólares o expansión a más niveles socioeconómicos. Cualquier proyección multianual debe modelar esa curva, no una meseta plana.\n\n**El ajuste estratégico clave.** El posicionamiento \"puente\" es válido, pero su luz está corrida hacia la **clase media trabajadora (C-/C/C+)**, no hacia la clase D pura de contado que sugiere el briefing. A $18,500 + IVA (que el paciente paga como ~$21,460 por ojo), el precio equivale a 1.4-1.6 meses de ingreso de un hogar D+ [estimación] — alcanzable con financiamiento, no trivial. Por debajo de MxM ya están la Fundación Mendoza Barbosa (~$12,000 solidario, con evaluación socioeconómica de por medio) y el programa público gratuito. **MxM gana con el sistema completo —los mismos lentes Zeiss/Alcon de los hospitales caros, velocidad sin lista de espera, jornadas de alto volumen, sin filtros que avergüencen— no con el precio más bajo.**\n\n**La recomendación en una línea:** entrar por el paciente local en pesos como negocio principal, tratar el cruce en dólares como segunda línea oportunista y construir la captación sobre el diagnóstico gratuito — la palanca que ya probaron Salauno en México y Aravind en el mundo. Y hacerlo con la filosofía que define a MxM: tratar a cada paciente como a un familiar, sin pedirle jamás que demuestre pobreza para merecer un precio justo.",
+  "kpis": [
+    {
+      "valor": "$18,500 + IVA",
+      "label": "precio todo incluido por ojo (MxM)",
+      "sub": "[dato del cliente] cirujano, anestesia, lente alemán, medicamentos y post-op · el paciente paga ~$21,460 (~$1,240 USD)"
+    },
+    {
+      "valor": "$2,449-2,950",
+      "label": "USD por ojo en Tijuana (turismo médico)",
+      "sub": "[dato] CODET y pares en Zona Río; MxM queda ~49-58% por debajo"
+    },
+    {
+      "valor": "$3,500-7,000",
+      "label": "USD por ojo en EE.UU. (autopago)",
+      "sub": "[dato] MxM a un tercio del más económico; ~79% bajo el autopago premium de San Diego"
+    },
+    {
+      "valor": "6-18 meses",
+      "label": "espera pública típica reportada",
+      "sub": "[estimación sectorial, sin cifra oficial BC] lo documentado: rezago 40% ISSSTE y <2,000 cirugías gratuitas/año en todo BC"
+    },
+    {
+      "valor": "20,000-32,000",
+      "label": "ojos con catarata operable en Tijuana",
+      "sub": "[estimación] demanda acumulada hoy; el modelo por colonia, más conservador, ubica el piso en ~10,000 personas con catarata (≈ 16–26 mil ojos)"
+    },
+    {
+      "valor": "~1,500-1,800",
+      "label": "cirugías/año alcanzables (años 2-4)",
+      "sub": "[estimación] ~32-39 M MXN; piso ~1,000; converge a 400-750 tras drenar la represa · condicionado a la conversión del diagnóstico, hoy sin medir"
+    }
+  ],
+  "secciones": [
+    {
+      "id": "tesis",
+      "titulo": "La tesis: dos pacientes que no se parecen en nada",
+      "markdown": "## Un mismo hospital, **dos pacientes** que exigen dos decisiones distintas\n\nEl error más caro que se puede cometer en Tijuana es tratar la ciudad como un solo mercado. Son dos, y cada uno cambia las decisiones de marketing, dotación, mensaje y precio.\n\n**El paciente local del oriente** paga en pesos, de contado, juntando el dinero en familia. Es sensible al precio hasta el último billete y vive cerca de MAC. Para él, 18,500 pesos es una meta de ahorro de varios meses, no una compra impulsiva. Lo que valora es que el precio sea fijo, todo incluido y sin sorpresas, y que no lo hagan demostrar que es pobre.\n\n**El paciente que cruza desde California** razona en dólares y compara contra los $3,500-7,000 USD que pagaría en casa [dato]. Para él, MxM a ~$1,070-1,240 USD no es \"barato\": es un descuento de 60-80% sobre su alternativa real. Pero llega con dudas legítimas sobre seguridad, idioma y respaldo, hoy cruza menos por el ambiente político, y **ya tiene a CODET** como opción consolidada.\n\n**La consecuencia estratégica.** El paciente local define el **volumen y la sostenibilidad**: es predecible, no depende de la frontera y crece con la ciudad (el grupo de 65+ aumentará 126% hacia 2040 [dato CONAPO]). El paciente en dólares define el **margen**: cada cirugía vale más, pero el flujo es volátil. El oriente desatendido es la base; el cruce es la prima.\n\n**[QUÉ HACER]** Lanzar 100% enfocado en el local en pesos. Tratar el segmento dólares como piloto diferido (6-12 meses después), enfocado al paciente latino de San Diego sin seguro —que comparte idioma y confianza cultural con MxM— y no al paciente anglo que CODET ya domina."
+    },
+    {
+      "id": "p1-mercado-local",
+      "titulo": "P1 · Tamaño del mercado local por nivel socioeconómico",
+      "markdown": "## El mercado local es **grande y financiable**, no marginal\n\n**[QUÉ pasa]** Tijuana concentra la masa de pacientes que el modelo necesita. La ciudad supera los **2.15 millones de habitantes** [dato CONAPO 2025], con un grupo de 50+ de **363,025 personas** y de 60+ de **169,282** [dato Censo 2020 INEGI; la cohorte sigue creciendo: 65+ pasa de 107,406 en 2020 a 136,102 en 2025]. Cruzando la prevalencia de catarata en mayores de 60 (más del 50% tiene alguna opacidad, pero la indicada quirúrgicamente es bastante menor: 2.6% a 17% por edad en población latina [dato LALES, no local]) con esa base, se estiman entre **83,000 y 92,000 personas con catarata en algún grado** y entre **20,000 y 32,000 ojos con indicación quirúrgica activa** en cualquier momento [estimación]. Cada año aparecen **800-1,200 casos nuevos operables** [estimación] — el flujo que se renueva solo. La diabetes regional, una de las más altas del país (20.7% en el Pacífico Norte [dato ENSANUT 2022]), acelera la aparición de catarata y mantiene la bolsa llena.\n\n**[POR CUÁNTO]** El segmento que puede pagar el modelo es ancho. Casi el **40% de los hogares de Tijuana son clase media (C+, C)** [dato AMAI 2022]. Dos cortes útiles sobre la misma base: el **lanzamiento apunta a ~307,000 hogares C-/C/C+ financiables**, y el **corazón social son ~187,000 hogares C-/D+** [estimación: distribución AMAI metropolitana aplicada al municipio sobre viviendas de 2020; ver nota de la tabla por la base de viviendas]. La ventaja fronteriza importa: el salario mínimo de frontera es ~40% más alto que el nacional (~$13,410 MXN/mes en 2026 [dato]), así que la misma clase D+ tijuanense ahorra más que en el sur del país. El precio de 18,500 pesos equivale a **6-8 semanas de ingreso del hogar** objetivo (1.4-1.6 meses para un hogar D+) [estimación]: alcanzable con ahorro o financiamiento, no prohibitivo.\n\n**Segmentación por bolsillo:**\n- **Clase C / C+ (financiada) — ~39.5% de hogares** [dato]. Caso base, conversión más fácil; el precio es ~0.6-0.7 meses de ingreso. Perfil similar a las plazas de Ecatepec/Puebla del propio MxM.\n- **Clase D+ (contado, perfil Cruz Roja) — ~12.4% de hogares** [dato]. Corazón social y perfil dominante de la colonia de MAC (Chapultepec Alamar, nivel socioeconómico D+ [dato]). Pagan de contado tras ahorrar; ciclo de venta más largo.\n- **Clase D / E — ~19.5% de hogares** [dato]. **NO es cliente a precio de lista**: pertenece a los programas gratuitos o a la tarifa solidaria de Mendoza Barbosa. Solo atendible con subsidio cruzado al estilo Aravind.\n\n**El modelo por colonia aterriza el mercado a personas y a zonas.** Sumando colonia por colonia (60+ × prevalencia por edad × nivel), el ejercicio ubica **~10,000 personas con catarata operable** (rango ~8,300–13,300) [estimación] — el piso conservador del rango de 20,000–32,000 ojos de arriba. De esas personas, **~3,800 tienen capacidad de financiar la cirugía (niveles C+/C) y ~3,000 son de contado (D)** [estimación]. Y un dato que cambia el mensaje: **~74% está afiliado al sistema público y ~26% es privado directo** [dato] — incluso en las colonias de mayor ingreso, cerca del 80% sigue en el sistema público (ver las tablas de financiamiento y de carga visual por nivel). Afiliación no es atención: ahí está la bolsa del argumento de rapidez.\n\n**[QUÉ HACER]** Dimensionar las jornadas para el paciente local del oriente y diseñar el **financiamiento en pagos como herramienta de cierre estándar**, no como excepción. La diabetes regional hace que esta bolsa se renueve sola: es demanda estructural, no de una sola vez.\n\n**Confianza: media.** La población base y la distribución por nivel socioeconómico son datos sólidos; la prevalencia, los ojos operables y los casos nuevos son extrapolaciones de tasas globales/nacionales sin estudio local. La dirección (demanda grande no atendida) es robusta; la magnitud es un rango ancho."
+    },
+    {
+      "id": "p2-lista-espera",
+      "titulo": "P2 · Volumen y tiempos de la lista de espera pública en BC",
+      "markdown": "## La lista pública es **demanda represada** — aunque el dato exacto no exista\n\n**[QUÉ pasa]** El paciente local tiene cobertura pública en el papel, pero no acceso real en el tiempo que necesita. El IMSS atiende a **2.5 millones de derechohabientes en Baja California** [dato 2025], y aun así el rezago de catarata es un problema reconocido por las propias instituciones: el **ISSSTE admitió en mayo 2024 esperas de meses a más de un año y un rezago del 40%** en cirugías [dato]; el IMSS redujo el tiempo de espera 12 días y subió 25% el volumen de cirugías de catarata en 2025 [dato], lo que confirma que el diferimiento era —y sigue siendo— medible.\n\n**[POR CUÁNTO]** Aquí la honestidad manda y hay menos dato duro del que el briefing sugiere. **El rango \"6-18 meses\" es cifra BLANDA: ninguna fuente datada lo confirma para Baja California** [supuesto, no dato]. Es plausible como histórico post-COVID; el único estudio con metodología (2011, pre-COVID) midió ~19 semanas en hospitales de la Secretaría de Salud y 12-13 semanas en IMSS/ISSSTE. **El número exacto de pacientes en lista de espera del IMSS/ISSSTE para catarata en Tijuana NO es público** — el IMSS y el ISSSTE no publican el dato por procedimiento, y IMSS-Bienestar —el tercer sistema, para quien no tiene seguridad social— tampoco lo desglosa por especialidad. **Tenemos 9 solicitudes de transparencia redactadas y listas para enviar (ver Validación) — la ruta exacta para convertir esta bolsa en cifra.**\n\nLo que **SÍ está documentado** es la capacidad limitada de los programas gratuitos: el programa estatal (SESA BC + Fundación Lux) hizo **1,451 cirugías en todo BC en 2025** y 565 en lo que va de 2026, con meta de apenas **≥300/año solo en Tijuana** [dato]; acumulado >4,400 desde 2021. La Jurisdicción de Servicios de Salud Tijuana reportó 167 cirugías en el primer trimestre de 2026 [dato]. Esa capacidad gratuita —**menos de ~2,000 cirugías/año en todo el estado**— cubre una fracción mínima frente a la represa estimada de 20,000-32,000 ojos operables solo en Tijuana.\n\nDe los ~10,000 con catarata operable, **unas 7,400 personas (~74%) están afiliadas al sistema público** [dato] — pero afiliación no es acceso: la espera es justo lo que convierte esa bolsa en mercado para MxM. No es “solo el 26% es cliente”; la mayoría afiliada que no quiere esperar también lo es.\n\n**[QUÉ HACER]** Posicionar a MxM explícitamente como la salida para quien no quiere o no puede esperar. **El mensaje no ataca al sistema público: lo complementa.** El argumento de venta no es solo el precio, es el **tiempo** — recuperar la vista en semanas, no en una lista sin fecha. Usar la bolsa pública como argumento **cualitativo** de demanda insatisfecha, no como cifra de planeación. Antes de comprometer cifras al cliente, conseguir el dato real vía solicitud de transparencia (ver pendientes).\n\n**Confianza: baja.** Es la pregunta peor sustentada con dato duro; el rezago es real y reconocido, pero su magnitud exacta en meses y en pacientes requiere trabajo de campo."
+    },
+    {
+      "id": "p3-precios",
+      "titulo": "P3 · Mapa de precios de la competencia local y de turismo médico",
+      "markdown": "## MxM tiene un **carril propio** entre el regalo y el dólar\n\n**[QUÉ pasa]** El mercado de catarata en Tijuana está partido en tres capas que casi no se tocan. **Arriba, el turismo médico en dólares**, todo en Zona Río mirando a EE.UU.: CODET (~$2,449-2,950 USD/ojo [dato]), Tijuana Eye Center (~$2,595 USD, femtosegundo [dato]), Hospital Ángeles (~$3,700 USD [dato Bookimed]), Vision Méndez ($2,350 USD monofocal [dato]), MedicalMex ($2,300 USD/ojo monofocal [dato]). **Abajo, lo gratuito y lo semifilantrópico**: la pública sin costo pero con espera, y la **Fundación Mendoza Barbosa con tarifa solidaria desde ~$11,999 MXN pero con evaluación socioeconómica** de por medio [dato]. En medio, un hueco.\n\n**[POR CUÁNTO]** MxM a **$18,500 + IVA (≈$21,460 MXN, ~$1,070-1,240 USD** según tipo de cambio; extremos = sin IVA / con IVA [dato/estimación]) se mete justo en ese hueco. Es **~49-58% más barato que CODET** sin renunciar a velocidad ni a calidad de insumos —los mismos lentes Zeiss y Alcon que usan los competidores premium. A diferencia de Ciudad de México, **en Tijuana no existe un Salauno**: nadie ocupa hoy el espacio entre el precio solidario con filtro y el piso del dólar. MxM lo ocuparía sin competidor directo establecido.\n\n**Las tres lecturas del mapa:**\n1. **Contra el turismo médico (CODET, TEC, Ángeles):** MxM es ~49-58% más barato, pero juegan otro partido (dólares, Zona Río, marca consolidada). No son competencia directa por el paciente local; son la referencia de \"techo de precio\" que hace ver a MxM como ganga.\n2. **Contra el segmento accesible (Mendoza Barbosa):** aquí está la competencia real y **MxM es más caro**. La ventaja de MxM no es precio sino modelo: contado sin evaluación socioeconómica, todo incluido, jornada de alto volumen, mismos insumos premium.\n3. **Contra el referente del modelo (Salauno, ~$15,000 MXN):** MxM es más caro, pero Salauno no está en Tijuana. Ese vacío es la oportunidad.\n\n**[QUÉ HACER]** Anclar el precio como **\"calidad privada sin precio de gringo, sin evaluación socioeconómica\"**: el paciente paga un precio digno y claro, sin demostrar pobreza. Vigilar a Fundación Mendoza Barbosa: si escala en Tijuana, es el único que podría disputar el segmento por abajo. (Tabla completa: \"Mapa de precios comparado\".)\n\n**Confianza: media.** Buena cobertura de actores y rangos, pero casi todos los precios vienen de plataformas intermediarias (Bookimed, MyMediTravel) o de redes sociales (Mendoza Barbosa) con temporalidad mezclada; los sitios oficiales devuelven 403/404 o no publican tarifas. Sólido como orden de magnitud; débil como precios exactos de paquetes equivalentes."
+    },
+    {
+      "id": "p4-dolares",
+      "titulo": "P4 · El segmento en dólares: pacientes de EE.UU. que cruzan",
+      "markdown": "## El cruce en dólares es **margen extra**, no el plan principal\n\n**[QUÉ pasa]** Para el paciente de California, MxM sería la opción más barata de todo Tijuana. La cirugía promedia **~$5,940 USD por ojo en el autopago premium de San Diego** [dato] (mediana de mercado ~$2,311 [dato]) y $2,449-2,950 en las clínicas de turismo médico locales [dato]; MxM a ~$1,240 USD (con IVA) representa un ahorro de **~79% frente al autopago premium de San Diego** y de ~49-58% frente al líder de la ciudad [estimación con TC ~17.3]. San Diego County tiene **493,837 adultos de 65+** [dato Census ACS 2019-2023], pero —y aquí está el giro— **cerca del 99% tiene Medicare**, que cubre la cirugía base casi sin costo de bolsillo. El motor del cruce NO es la falta de seguro.\n\n**[POR CUÁNTO]** El mercado con incentivo real de cruzar tiene dos fuentes, ninguna grande: (1) la **brecha del lente premium** — Medicare no cubre el lente multifocal/tórico, así que el 15-18% de pacientes que lo elige paga **$2,000-4,000 extra de su bolsillo** [dato Market Scope], justo el rango donde MxM compite; y (2) los **no asegurados menores de 65** (~196,000 personas de todas las edades en el condado [dato]), que pagan autopago de $3,500-7,000/ojo en EE.UU. y comparten perfil latino afín a MxM. **La fracción que realmente cruza por catarata es desconocida** [hueco]: Baja California recibió 3.5 millones de visitantes médico-dentales en 2024 [dato de la industria, no auditado], pero ninguna fuente lo desglosa por oftalmología. Y hay un riesgo fresco: el turismo médico de BC **cayó 20-40% en el primer trimestre de 2025** [dato]. Toda cifra de volumen es supuesto sobre supuesto.\n\nAdemás, el paciente americano compra marca y reseñas, no solo precio — y MxM entraría sin reputación transfronteriza frente a CODET (reconocimiento Newsweek 2026, ~30,000 pacientes/año, traslado gratis desde San Diego).\n\n**[QUÉ HACER]** Tratar el dólar como **segunda línea, no como base**. Capturarlo con una oferta clara en inglés y logística por la **garita de Otay** (la más cercana a MAC, ~8-12 min sin cruce), pero construir el plan financiero sobre el paciente local en pesos. Enfocar al paciente latino de San Diego — sin seguro si es menor de 65, o que busca lente premium si tiene Medicare. **Decisión comercial pendiente:** ¿MxM factura en pesos (brecha imbatible pero deja dinero en la mesa) o sube a un precio en dólares con margen? Eso cambia por completo el ingreso del segmento. Si el cruce se recupera, es ganancia; si no, el negocio sigue en pie. (Tabla: \"Segmento en dólares — dimensionamiento\".)\n\n**Confianza: baja.** La ventaja de precio es real y bien calculada, pero el TAMAÑO del segmento es una cadena de supuestos. Es upside especulativo, no mercado dimensionado."
+    },
+    {
+      "id": "p5-hospitales",
+      "titulo": "P5 · Hospitales con oftalmología y médicos en el entorno de MAC",
+      "markdown": "## El oriente de Tijuana es **terreno despejado** para MxM\n\n**[QUÉ pasa]** La competencia oftalmológica de Tijuana vive en el lado equivocado de la ciudad para el paciente local. **Hospitales MAC está en el corredor oriente** —Vía Rápida Oriente 15000, Chapultepec Alamar, a ~3 km del aeropuerto y ~4.3 km en línea recta de la garita de Otay [dato/estimación]—, mientras que **todos los líderes de turismo médico están en Zona Río, al otro lado de la ciudad (~15 km por carretera)** [dato]. Es una dualidad geográfica que juega a favor de MxM: en el corredor oriente, **ningún hospital opera un centro de catarata de alto volumen y precio accesible**.\n\n**[POR CUÁNTO]** El entorno inmediato de MAC tiene oferta escasa y de bajo perfil:\n- **Hospital del Prado** (El Prado, oriente, ~3 km de MAC): privado, oftalmología confirmada pero como **consultorios sueltos**, no campañas quirúrgicas. Alberga al Dr. Edgar Muñoz (Oftacare), el oftalmólogo más activo del mercado local (+700 cirugías/año, 742 reseñas Doctoralia [dato]). Posible aliado secundario.\n- **Médica de la Ciudad** (Otay/aeropuerto, ~2-3 km): privado de bajo costo, oftalmología listada sin detalle de catarata.\n- **Hospital General Zona Este** (SSA, público, inaugurado nov 2024, ~8-12 km): 110 camas, 6 quirófanos; oftalmología incluida pero como hospital general con **sus propias listas de espera**.\n- **Clínica de Ojos CLC** (centro/Zona Río): local accesible con quirófano ambulatorio propio (+2,000 cirugías acumuladas); posible aliado de capacidad, pero no en el oriente.\n\nLa oferta especializada se concentra en Zona Río atendiendo al paciente estadounidense: **CODET (5 quirófanos dedicados, ~3,000 procedimientos/año)**, Tijuana Eye Center (6 oftalmólogos, +100,000 cirugías históricas), Hospital Ángeles (departamento de oftalmología con Visión Ángeles), Excel/MediExcel, NewCity, Retina Center. Tijuana tiene **~5 veces más oftalmólogos por habitante que la media nacional** (~121-130 por millón vs ~23 nacional [estimación, confianza baja: el directorio del Colegio puede incluir inactivos/duplicados y muchos atienden a pacientes de EE.UU., no al mercado local]).\n\n**Y la ventana se estrecha.** La oferta de cirugía oftalmológica en Tijuana **creció ~54% entre 2020 y 2026** (de 28 a 43 clínicas), con un **salto de +43% solo en 2024** [dato DENUE] — estancada hasta 2023 y acelerando desde entonces (las ópticas crecieron ~13%; los hospitales, planos). El oriente está despejado **hoy**; entre más tarde se entre, más competencia. El inventario de oferta de la vista se concentra en el poniente/centro (Zona Río): es ahí, no en el oriente, donde está la cirugía instalada.\n\n**[QUÉ HACER]** Usar MAC como base operativa de las jornadas: tiene **2 quirófanos y 28 consultorios**, infraestructura compatible con el modelo de bloque [dato]. **Confirmar antes de arrancar** si los quirófanos tienen microscopio quirúrgico oftalmológico y facoemulsificador instalados, o si MxM debe llevar equipo portátil [hueco crítico de due diligence]. Explorar a Hospital del Prado (~10 min, con oftalmología) y CLC (quirófano propio) como respaldos de capacidad, no sustitutos.\n\n**Aliados potenciales:** Hospital del Prado / Oftacare (+700 cirugías/año, ~3 km de MAC) y Clínica CLC (quirófano ambulatorio propio). Hospital Guadalajara aparece en el mapa pero su oftalmología no está confirmada (las fuentes se contradicen) — no debe contarse como aliado hasta verificarlo.\n\n**Confianza: media.** El mapeo de los dos corredores es sólido y bien razonado; pero la mayoría de coordenadas son aproximadas (solo MAC y garita Otay son exactas), la densidad de oftalmólogos es estimación de confianza baja, y faltan datos clave (quirófanos de del Prado, si MAC tiene oftalmólogo de planta, volumen quirúrgico real de cada actor)."
+    },
+    {
+      "id": "p6-puente",
+      "titulo": "P6 · Validación del posicionamiento puente",
+      "markdown": "## El modelo **puente** ya funcionó antes — aquí tiene dónde funcionar, con un ajuste\n\n**[QUÉ pasa]** El posicionamiento de MxM —velocidad y calidad del privado a precio que la clase trabajadora sí reúne— no es una apuesta teórica, pero **necesita una corrección honesta de a quién apunta**.\n\n**El lado fuerte (velocidad y calidad): se sostiene.** Frente a una bolsa de decenas de miles de ojos, la capacidad pública gratuita (<2,000/año en todo BC [dato]) es una gota. Ahí MxM gana sin discusión: ofrece en semanas lo que la vía pública entrega en muchos meses. El modelo está validado por análogos: **Salauno** lo probó en CDMX (precios 40-50% bajo el mercado privado, +600,000 pacientes atendidos, y un dato clave —el **70% de los captados en campañas comunitarias nunca había ido al oftalmólogo** [dato IFC 2017]); **Aravind** lo probó a escala mundial (+720,000 cirugías/año, financiando la mitad gratuita con la mitad que paga [dato]).\n\n**El lado débil (precio para la base): hay que ajustarlo.** A $18,500 + IVA (≈$21,460), el precio equivale a **1.4-1.6 meses de ingreso bruto de un hogar D+** [estimación] — alcanzable, pero no trivial para la clase D pura que el briefing describe como perfil Cruz Roja. Para ese segmento, el \"puente\" más barato hoy lo ocupan **Mendoza Barbosa** ($11,999 solidario [dato]) y el público gratuito. El mercado natural del precio MxM en Tijuana es más bien **C-/C/C+**, no la D pura.\n\n**La ventaja defendible NO es el precio; es el sistema:** insumos premium verificables (los mismos lentes alemanes Zeiss/Alcon que los hospitales caros), diagnóstico gratuito como embudo de captación, respaldo del volumen del equipo quirúrgico [autoinforme del cliente, por confirmar], y economía de jornada (pasar de 500 a 800 cirugías/año por quirófano baja el costo unitario ~23% [dato]). **El diferenciador de anestesia general es de doble filo:** el estándar mundial de alto volumen (Aravind, Salauno) usa anestesia tópica/local, que es más rápida, barata y segura para cirugía ambulatoria. La anestesia general eleva costo, riesgo clínico y carga regulatoria; recomiendo confirmar si es realmente general o sedación, y **no liderar el marketing con eso** (para un público que teme \"lo barato\", puede leerse como \"más invasivo\").\n\n**[QUÉ HACER]** No abandonar el discurso puente, sino **apuntar su luz al segmento que de verdad lo cruza primero**: la clase C-/C/C+ trabajadora con capacidad de financiar (el segmento de lanzamiento más ancho, ~307,000 hogares C-/C/C+; el corazón social son ~187,000 hogares C-/D+). La clase D de contado se atiende como segundo anillo, con financiamiento (esquema Salauno ~$955 MXN/mes a 24 meses) o tarifa diferenciada. **Vender tiempo además de precio:** \"recupere la vista en semanas, no en una lista sin fecha\". Hacer del **diagnóstico gratuito la palanca central de captación**, no un accesorio.\n\n**Confianza: media.** La mitad \"velocidad/calidad\" se sostiene bien; la mitad \"precio que la clase D reúne\" está correctamente retada. El posicionamiento es válido con corrección de segmento; depende del precio no verificado del cliente y de una conversión de embudo desconocida."
+    },
+    {
+      "id": "oportunidad-usd",
+      "titulo": "La oportunidad en dólares, dimensionada con asterisco",
+      "markdown": "## La brecha de precio es **enorme**; el volumen, incierto\n\nVale la pena aislar el cálculo del segmento en dólares porque es la pregunta donde más fácil se infla la cifra.\n\n**La ventaja de precio es la más poderosa del estudio.** Si MxM mantuviera su precio en pesos (con IVA) al atender a un paciente que cruza:\n- vs **autopago premium en San Diego** (~$5,940/ojo): **~79% más barato**\n- vs **CODET**, el líder más barato de Tijuana ($2,449-2,950): **~49-58% más barato**\n- vs **autopago general en EE.UU.** ($3,500-7,000): **~65-82% más barato**\n\n**Pero la bolsa capturable es una fracción del titular.** El número de 16,000 cirugías/año en San Diego 65+ es elegibilidad teórica, no demanda: la mayoría está cubierta por Medicare y no tiene razón para cruzar. El motor principal es la brecha de lente premium de Medicare; en segundo lugar, los no asegurados menores de 65 (15-18% de pacientes pagan $2,000-4,000 extra por un lente que Medicare no cubre). Cuántos de ellos cruzan por catarata es **100% supuesto**.\n\n**Tres condiciones para que este segmento valga la pena:**\n1. Que el turismo médico se recupere de la caída de 20-40% de 2025.\n2. Que MxM construya marca/reseñas en inglés (hoy no las tiene; CODET sí).\n3. Que se resuelva la decisión de facturar en pesos (imbatible) o en dólares con margen.\n\n**Recomendación:** modelar el segmento en dólares como **opción de fase 2**, con rango deliberadamente bajo y amplio. No apostar el caso de inversión a él. Comunicarlo siempre como \"cruce por Otay\" — MAC le gana a Zona Río en cercanía solo si el paciente cruza por esa garita."
+    },
+    {
+      "id": "geografia",
+      "titulo": "La geografía: dos corredores que casi no se solapan",
+      "markdown": "## La ciudad se parte en dos, y MAC está del lado del paciente **local**\n\nTijuana, vista en un mapa, no es un solo mercado: son **dos corredores separados por unos 6-7 km** que casi no se tocan en cuanto a tipo de paciente.\n\n**Corredor poniente — Zona Río (turismo médico en dólares).** Pegado a la garita de San Ysidro y al eje Paseo de los Héroes se concentra la oferta premium orientada al paciente estadounidense: CODET, Hospital Ángeles, Excel/MediExcel, NewCity, Tijuana Eye Center, Vision Méndez. Queda a 8-15 minutos de San Ysidro una vez del lado mexicano.\n\n**Corredor oriente — Vía Rápida Oriente / aeropuerto / garita Otay (paciente local).** Aquí está **Hospitales MAC** (coordenadas verificadas **32.513°N, 116.967°W** [dato]). Lo acompañan Hospital del Prado, Médica de la Ciudad y el Hospital General Zona Este. Es el lado donde vive y trabaja la población de las delegaciones **La Presa Este (~270,000 hab.) y Otay Centenario** —las de mayor marginación y mayor crecimiento del municipio—, núcleo del cliente D+/C-. Los parques industriales (El Florido, Otay, La Mesa) que emplean a ese cliente están en el mismo cuadrante.\n\n**Dos áreas de captación que apenas se solapan:**\n- **(A) Paciente local (negocio principal, en pesos):** un radio sobre el corredor oriente, conectado por la Vía Rápida. Se gana con presencia local, diagnóstico gratuito de barrio y boca a boca. La colonia inmediata de MAC es pequeña (~307 hogares), así que el hospital se nutre de un **radio amplio del oriente**, no de su manzana.\n- **(B) El cruce transfronterizo (segundo motor, en dólares):** no es un radio sino un **corredor que arranca en la garita Otay**. La accesibilidad la define el tiempo de cruce, no los kilómetros.\n\n**El matiz que cambia la estrategia transfronteriza:** MAC es **\"el hospital de Otay\", no el de San Ysidro**. Desde San Diego centro vía Otay son ~50-75 min puerta a puerta en condiciones normales [estimación], y MAC queda más cerca y más directo que la propia Zona Río. Pero si el paciente insiste en cruzar por San Ysidro, MAC pierde frente a CODET (rodeo de ~20 min extra). **El cuello de botella es siempre el cruce, no la distancia mexicana** (Otay suele ser 20-40 min más rápida que San Ysidro, pero ambas superan 2 horas en fines de semana y festivos).\n\n**Dónde está el dinero y dónde está el hueco no son el mismo lugar.** La demanda con más capacidad de pago se concentra en el **poniente y el centro** (Playas, Lomas de Aguacaliente, Puerta de Hierro) — justo donde ya está toda la competencia premium. El **oriente** tiene menos demanda total, pero está **desatendido**: **1 de cada 3 colonias (~30%) no tiene cirugía de catarata a 2 km — unas ~1,500 personas con catarata sin oferta cercana** [dato/estimación], sobre todo en el oriente y la periferia. MAC no compite por el poniente saturado: **captura el oriente que casi nadie atiende.**\n\n**Lectura:** tratar la lejanía de Zona Río como **ventaja** — MAC no comparte barrio con la competencia premium, lo que reduce la fricción competitiva en su propio terreno. El mapa es el argumento de venta: \"la opción accesible del oriente\"."
+    },
+    {
+      "id": "escenarios",
+      "titulo": "Escenarios de captura (SOM) y la curva que no se debe ignorar",
+      "markdown": "## Cuánto puede capturar MxM — y por qué el número **decae** con el tiempo\n\nTres niveles, tres preguntas. **TAM** = todo el mercado físico posible. **SAM** = lo servible con el modelo y precio de MxM. **SOM** = lo que realistamente capturará. (Detalle en \"TAM / SAM / SOM con rangos\".)\n\n**TAM — el universo (no es la meta).** Stock operable de Tijuana: **20,000-32,000 ojos** acumulados, con flujo de **800-1,200 nuevos/año** [estimación]. Valorar todo el stock al precio MxM da una cifra teórica de ~430-690 M MXN que nadie captura; sirve solo para mostrar la escala de la necesidad.\n\n**SAM — lo direccionable.** Filtrando por capacidad de pago (C/C+/D+ más fugas del público), la demanda fresca anual servible es de **~400-750 ojos/año**, más acceso a una represa que ningún competidor vacía.\n\n**SOM — la cifra de planeación:**\n- **Bajo: ~1,000 ojos/año** (~21 M MXN / ~1.2 M USD). Una sala en jornadas mensuales, captando C/C+ por referido. Alcanzable sin construir mucho embudo. **Es el piso defendible para financiar la inversión.**\n- **Base: ~1,500-1,800 ojos/año** (~32-39 M MXN / ~1.9-2.2 M USD). Embudo de diagnóstico funcionando, captura de represa pública, mezcla C/C+/D+. Requiere inversión en captación. **Es el escenario para planear.**\n- **Alto: ~2,500 ojos/año** (~54 M MXN / ~3.1 M USD). Lo anterior más una línea de pacientes en dólares por Otay. Depende de que el turismo médico se recupere y de una decisión de marca/precio en USD.\n\n**El aviso honesto e ineludible (corrección de nuestra propia revisión crítica):** el SOM base y alto **exceden el flujo fresco direccionable** (400-750/año) porque **drenan la represa acumulada, que es un stock finito**. No es inconsistencia —es la diferencia entre flujo anual y stock— pero tiene una consecuencia: **es ingreso de arranque, no ritmo sostenible de largo plazo**. Según el ritmo de captura, la represa de 20,000-32,000 ojos alcanza para sostener el escenario base durante aproximadamente **14 a 40 años** antes de agotarse [estimación, neto de reposición fresca], pero conforme se vacía, el volumen sostenible converge hacia los **400-750 ojos nuevos al año** salvo crecimiento poblacional (que sí ayuda: el grupo 65+ se duplica a 2040), captación del segmento dólar o expansión a más niveles socioeconómicos. **Cualquier proyección financiera multianual debe modelar esta curva de decaimiento gradual, no una meseta plana.**\n\n**Cómo usar esto:** planear con el **base**, financiar con el **bajo**, tratar el **alto** como opción que se desbloquea con el embudo y el dólar. El motor del crecimiento **no es la demanda —sobra— sino la captación**: el cuello de botella es convertir prevalencia silenciosa en pacientes agendados, exactamente como lo resolvieron Aravind (30% de cirugías vienen de campamentos) y Salauno (70% de pacientes de campaña eran primera vez en oftalmología)."
+    },
+    {
+      "id": "riesgos",
+      "titulo": "Mapa de riesgos de la plaza",
+      "markdown": "## Lo que puede salir mal en el **oriente**, ordenado por impacto\n\n**1. Percepción \"barato = malo\" (alto impacto, alta probabilidad).** Tijuana está educada a asociar calidad ocular con precios en dólares. Un precio 49-64% por debajo puede disparar desconfianza en el paciente que más cuida su vista. *Mitigación:* liderar con los insumos (Zeiss/Alcon), el volumen del equipo quirúrgico (una vez confirmado) y testimonios locales reales; **nunca con \"el más barato\"**.\n\n**2. Dependencia del llenado de jornadas (alto impacto).** El modelo de bloque solo es rentable si se llena; la economía de ~23% de ahorro por volumen se invierte si las jornadas van a media capacidad. **La tasa de conversión diagnóstico-gratis → cirugía para este mercado es justo lo que no sabemos.** *Mitigación:* validar la conversión con un piloto pequeño antes de comprometer capital de jornada completa.\n\n**3. Saturación de oferta especializada (medio-alto).** Tijuana tiene una alta densidad de oftalmólogos (piso verificado de 106 con domicilio en la ciudad), concentrada en Zona Río. Y el mercado se calienta: la oferta de cirugía oftalmológica **saltó +43% en 2024** y ~54% entre 2020 y 2026 [dato DENUE]. Abundan —y crecen— los médicos que podrían replicar un modelo accesible si MxM prueba que el segmento existe. Ser primero en el oriente es ventaja real, pero **no es monopolio defendible** sin marca y volumen, y la ventana se estrecha.\n\n**4. Competencia que escala desde abajo — Mendoza Barbosa (medio).** Único actor con vocación de paciente local de bajos recursos **y precio por debajo de MxM**. Si escala (ya tiene \"Adiós Cataratas\" con DIF [dato mar 2025]), compite de frente por la clase D. *Mitigación:* diferenciarse por velocidad, sin lista de espera y experiencia, no por precio.\n\n**5. Regulación COFEPRIS / anestesia (medio, subestimado).** Operar jornadas de alto volumen con anestesia general (si se confirma) eleva requisitos regulatorios, de equipamiento y de responsabilidad clínica. Un incidente en una jornada masiva es un riesgo reputacional desproporcionado para una marca nueva. *Mitigación:* due diligence regulatoria y de equipamiento **antes** de la primera jornada.\n\n**6. Fragilidad del canal transfronterizo (bajo para el local, alto si se apuesta a dólares).** El flujo fronterizo es estacional, sensible a la política y ya cayó 20-40%. Para el segmento local en pesos, este riesgo **no aplica** — razón adicional para priorizar lo local.\n\n**Métricas de éxito a vigilar desde el día uno, por jornada:** (1) tasa de conversión diagnóstico→cirugía; (2) % de ocupación de cada jornada vs umbral de rentabilidad; (3) costo de captación por paciente operado; (4) mezcla de pago (contado vs financiado); (5) referidos / Net Promoter, que en este modelo es el motor de demanda."
+    }
+  ],
+  "tablas": [
+    {
+      "id": "embudo-local",
+      "titulo": "Embudo de dimensionamiento del mercado local de catarata en Tijuana",
+      "columnas": [
+        "Eslabón",
+        "Valor (rango)",
+        "Marca",
+        "Origen / supuesto"
+      ],
+      "filas": [
+        [
+          "1. Población 60+ en Tijuana (Censo 2020)",
+          "169,282",
+          "[dato]",
+          "INEGI Censo 2020, 60+ del municipio (8.8%). La proyección a mano previa (~185k) sobreestimaba ~9%; 50+ = 363,025"
+        ],
+        [
+          "2. Con catarata en algún grado",
+          "~83,000-92,000",
+          "[supuesto]",
+          "Prevalencia 54.4% en 60+ (meta-análisis global; no hay estudio local)"
+        ],
+        [
+          "3. Con catarata operable (visualmente significativa) — personas",
+          "~25,000-35,000",
+          "[supuesto]",
+          "25-35% de los prevalentes (proporción nacional 760k operables / ~3M con catarata)"
+        ],
+        [
+          "3b. Ojos operables en cualquier momento (stock / represa)",
+          "~20,000-32,000",
+          "[estimación]",
+          "No toda persona tiene ambos ojos operables a la vez"
+        ],
+        [
+          "3c. Personas operables — modelo por colonia (deliverable)",
+          "~8,300-13,300 (centro ~10,000)",
+          "[estimación]",
+          "Modelo epidemiológico por colonia: 60+ × prevalencia por edad (LALES) × nivel, sumado por zona. Más conservador y trazable; ≈ 16,000-26,000 ojos"
+        ],
+        [
+          "4. Casos nuevos operables por año (flujo)",
+          "~800-1,200",
+          "[estimación]",
+          "Tasa nacional 47,600/año sobre ~130M, ajustada por estructura etaria"
+        ],
+        [
+          "5. Flujo anual con capacidad de pago a MxM (C/C+/D+ + fugas del público)",
+          "~400-750 ojos/año",
+          "[supuesto]",
+          "45-65% del flujo, vía mezcla AMAI y disposición a pagar"
+        ]
+      ],
+      "nota": "Cadena reproducible población → prevalencia → operable → pago. No existe estudio de ceguera evitable (RAAB) ni tasa de cirugía (CSR) local; TODA cifra es extrapolación nacional con supuestos etarios. Base poblacional única: municipio CONAPO (2,151,740); la cifra metropolitana (~2.33M) es solo contexto, no base de cálculo. Rangos, nunca puntos. El renglón 3c es la lectura por colonia del mismo mercado (más conservadora): convergen al traducir personas a ojos (~1.6-2.0 ojos por persona)."
+    },
+    {
+      "id": "nse",
+      "titulo": "Mercado local segmentado por capacidad de pago (a 18,500 MXN + IVA por ojo)",
+      "columnas": [
+        "Segmento",
+        "% hogares Tijuana",
+        "Modo de pago",
+        "Precio como % ingreso hogar",
+        "Prioridad de captación"
+      ],
+      "filas": [
+        [
+          "Clase C / C+ (financiada)",
+          "~39.5% [dato AMAI]",
+          "Financiado / ahorro familiar",
+          "~0.6-0.7 meses",
+          "Alta — caso base, conversión fácil"
+        ],
+        [
+          "Clase D+ (contado, perfil Cruz Roja)",
+          "~12.4% [dato AMAI]",
+          "Contado tras ahorrar 3-6 meses",
+          "~1.4-1.6 meses (6-8 sem. de ahorro)",
+          "Media — corazón social, ciclo largo"
+        ],
+        [
+          "Derechohabientes IMSS/ISSSTE que esperan",
+          "No cuantificable [hueco]",
+          "Pagan por no esperar",
+          "Variable",
+          "Media — demanda prestada del público"
+        ],
+        [
+          "Clase D / E (no direccionable a precio lista)",
+          "~19.5% [dato AMAI]",
+          "Solo gratis o solidario",
+          "Inalcanzable",
+          "Baja — solo vía subsidio cruzado"
+        ]
+      ],
+      "nota": "[estimación] Distribución AMAI metropolitana 2022 aplicada al municipio; base de viviendas 2020 (~577k; la cifra 2026 es mayor, ~630-650k). Tijuana es más 'clase media' que el promedio nacional (59.4% C+/C/C- vs 43.7%) y el salario mínimo de frontera (~13,410 MXN/mes) eleva el poder de compra real de la clase D+ por encima de su etiqueta. Cifras de hogares son rangos indicativos, no conteos exactos."
+    },
+    {
+      "id": "precios",
+      "titulo": "Mapa de precios comparado (por ojo, cirugía de catarata)",
+      "columnas": [
+        "Opción",
+        "Precio por ojo",
+        "En USD (~17.3)",
+        "Lente",
+        "Posición vs MxM"
+      ],
+      "filas": [
+        [
+          "IMSS / ISSSTE / Ver por México (público)",
+          "$0",
+          "$0",
+          "Monofocal",
+          "Gratis pero espera larga; solo monofocal [dato]"
+        ],
+        [
+          "Fundación Mendoza Barbosa (solidario, TJ)",
+          "~$11,999-20,000 MXN",
+          "~$694-1,156",
+          "Alcon+Zeiss",
+          "Competidor local directo; más barato pero exige evaluación socioeconómica [dato]"
+        ],
+        [
+          "Salauno (CDMX, referente del modelo)",
+          "~$10,999-15,000 MXN",
+          "~$635-868",
+          "Monofocal",
+          "Más barato pero SIN presencia en Tijuana [dato]"
+        ],
+        [
+          "MxM Tijuana",
+          "$18,500 MXN + IVA (~$21,460)",
+          "~$1,070-1,240",
+          "Zeiss/Alcon premium",
+          "— referencia — [dato briefing, no verificado en fuente pública]"
+        ],
+        [
+          "Devlyn (bajo costo privado, paquete)",
+          "$27,000 MXN",
+          "~$1,561",
+          "Monofocal",
+          "MxM ~20% más barato; solo Polanco/Puebla [dato]"
+        ],
+        [
+          "Privado estándar México",
+          "$28,000-52,000 MXN",
+          "~$1,618-3,006",
+          "Monofocal",
+          "MxM ~23-59% más barato [dato]"
+        ],
+        [
+          "CODET (TJ, líder turismo médico)",
+          "—",
+          "$2,449-2,950",
+          "Monofocal",
+          "MxM ~49-58% más barato [dato plataformas]"
+        ],
+        [
+          "MedicalMex (TJ)",
+          "—",
+          "$2,300",
+          "Monofocal",
+          "Piso del dólar en TJ; por ojo (paquete 2 ojos $4,600) [dato]"
+        ],
+        [
+          "Clínica de Ojos CLC (TJ)",
+          "Precio no público",
+          "—",
+          "—",
+          "Cotización en curso (ver pendientes); quirófano ambulatorio propio [hueco]"
+        ],
+        [
+          "Oftacare / Dr. Muñoz (Hospital del Prado)",
+          "Precio no público",
+          "—",
+          "—",
+          "+700 cirugías/año; cotización en curso [hueco]"
+        ],
+        [
+          "Médica de la Ciudad (Otay)",
+          "Precio no público",
+          "—",
+          "—",
+          "Bajo costo; cotización en curso [hueco]"
+        ],
+        [
+          "Tijuana Eye Center",
+          "—",
+          "$2,595",
+          "Femtosegundo",
+          "MxM ~58% más barato [dato]"
+        ],
+        [
+          "Hospital Ángeles Tijuana",
+          "—",
+          "~$3,700",
+          "Monofocal",
+          "MxM ~67% más barato [dato Bookimed]"
+        ],
+        [
+          "Privado premium MX (ABC/Christus)",
+          "$60,000-80,000 MXN",
+          "~$3,468-4,624",
+          "Trifocal",
+          "Otro segmento (premium) [dato]"
+        ],
+        [
+          "Autopago San Diego (EE.UU.)",
+          "—",
+          "~$5,940 (mediana mercado $2,311)",
+          "Varía",
+          "MxM ~79% más barato vs autopago premium [dato]"
+        ]
+      ],
+      "nota": "Todas las cifras son POR OJO; los paquetes de 2 ojos se dividieron entre 2. Precios USD del turismo médico TJ no se publican en MXN; conversión a ~17.3 MXN/USD (jun 2026), aproximada. Casi todos provienen de plataformas intermediarias (Bookimed, MyMediTravel) o redes sociales con temporalidad mezclada; sitios oficiales devuelven 403/404. Son precios 'desde', posiblemente no de paquetes equivalentes (lente, anestesia, consultas). La competencia REAL por el paciente local es Mendoza Barbosa, no CODET (que atiende al americano en Zona Río). 'Cataratas Tijuana' y 'Vision Clinic' del briefing no se pudieron verificar como entidades localizables y no se incluyen."
+    },
+    {
+      "id": "tam-sam-som",
+      "titulo": "TAM / SAM / SOM con rangos (bajo / base / alto)",
+      "columnas": [
+        "Nivel",
+        "Definición",
+        "Ojos/año (o stock)",
+        "Ingreso anual (MXN)",
+        "Ingreso (USD ~17.3)",
+        "Marca"
+      ],
+      "filas": [
+        [
+          "TAM local (stock)",
+          "Todo el stock operable de Tijuana",
+          "20,000-32,000 ojos (represa)",
+          "~430-690 M (valor teórico)",
+          "~25-40 M",
+          "[estimación]"
+        ],
+        [
+          "TAM local (flujo)",
+          "Casos nuevos operables/año",
+          "800-1,200 ojos/año",
+          "~17-26 M",
+          "~1.0-1.5 M",
+          "[estimación]"
+        ],
+        [
+          "SAM",
+          "Direccionable por precio/modelo (flujo fresco)",
+          "400-750 ojos/año",
+          "~9-16 M",
+          "~0.5-0.9 M",
+          "[supuesto]"
+        ],
+        [
+          "SOM bajo (piso financiable)",
+          "1 sala, jornadas, C/C+ por referido",
+          "~1,000 ojos/año",
+          "~21 M",
+          "~1.2 M",
+          "[estimación]"
+        ],
+        [
+          "SOM base (planear con este)",
+          "Embudo + represa pública + mezcla C/C+/D+",
+          "~1,500-1,800 ojos/año",
+          "~32-39 M",
+          "~1.9-2.2 M",
+          "[estimación]"
+        ],
+        [
+          "SOM alto (opción fase 2)",
+          "Base + línea de pacientes en dólares por Otay",
+          "~2,500 ojos/año",
+          "~54 M",
+          "~3.1 M",
+          "[estimación]"
+        ]
+      ],
+      "nota": "Ingreso a 18,500 MXN+IVA = ~21,460 MXN/ojo. CRÍTICO: el SOM base/alto excede el flujo fresco (400-750/año) porque DRENA la represa acumulada (stock FINITO). Es ingreso de ARRANQUE (años 2-4), no ritmo sostenible de largo plazo: la represa sostiene el escenario base ~14-40 años antes de agotarse, tras lo cual el volumen sostenible converge a 400-750/año salvo crecimiento poblacional/segmento dólar/expansión a más niveles socioeconómicos. Modelar curva de decaimiento, no meseta. Planear con BASE, financiar con BAJO, tratar ALTO como opción."
+    },
+    {
+      "id": "dolares",
+      "titulo": "Segmento en dólares — dimensionamiento (cruce desde San Diego)",
+      "columnas": [
+        "Variable",
+        "Valor",
+        "Marca",
+        "Nota"
+      ],
+      "filas": [
+        [
+          "Adultos 65+ en San Diego County",
+          "493,837",
+          "[dato]",
+          "Census ACS 2019-2023. ~99% con Medicare: cubiertos, SIN incentivo de cruzar por la cirugía base"
+        ],
+        [
+          "Cirugías totales/año en esa cohorte",
+          "~16,000",
+          "[estimación]",
+          "A tasa ~3%; elegibilidad teórica, NO demanda capturable (Medicare cubre la base)"
+        ],
+        [
+          "No asegurados en el condado (población general)",
+          "~196,000",
+          "[dato]",
+          "Población general <65, todas las edades; autopago EE.UU. 3,500-7,000 USD/ojo. Aquí hay incentivo, pero es bolsa de <65, no de 65+"
+        ],
+        [
+          "Adopción de lente premium (brecha Medicare)",
+          "15-18% de cirugías",
+          "[dato Market Scope]",
+          "MOTOR PRINCIPAL del cruce: pagan 2,000-4,000 USD de bolsillo por un lente que Medicare no cubre"
+        ],
+        [
+          "Fracción que realmente cruza por catarata",
+          "Desconocida",
+          "[hueco]",
+          "Sin dato; supuesto sobre supuesto"
+        ],
+        [
+          "Caída del turismo médico BC (1T 2025)",
+          "-20% a -40%",
+          "[dato]",
+          "Riesgo macro: aranceles, política, seguridad"
+        ],
+        [
+          "Ventaja de precio MxM vs CODET / vs San Diego",
+          "~49-58% / ~79% premium más barato",
+          "[estimación]",
+          "Si MxM cobrara en pesos; decisión comercial pendiente"
+        ]
+      ],
+      "nota": "Segmento de UPSIDE, no de base. El motor principal es la brecha de lente premium de Medicare (493,837 adultos 65+ están ~99% asegurados para la cirugía base); la bolsa de no-asegurados es de <65 años. La fracción que cruza es 100% supuesto. Las reseñas de Google de competidores son aproximación de VISIBILIDAD, no de volumen ni cuota. El cliente americano compra marca/reseñas además de precio; MxM entraría sin reputación transfronteriza."
+    },
+    {
+      "id": "accesibilidad",
+      "titulo": "Accesibilidad transfronteriza: tiempos a MAC vs al líder de turismo médico",
+      "columnas": [
+        "Origen",
+        "Destino",
+        "Garita lógica",
+        "Tiempo puerta a puerta",
+        "Marca"
+      ],
+      "filas": [
+        [
+          "San Diego centro",
+          "Hospitales MAC",
+          "Otay",
+          "~50-75 min",
+          "[estimación encadenada]"
+        ],
+        [
+          "San Diego centro",
+          "CODET / Zona Río",
+          "San Ysidro",
+          "~45-70 min",
+          "[estimación]"
+        ],
+        [
+          "Garita Otay (ya cruzado)",
+          "Hospitales MAC",
+          "Otay",
+          "~8-12 min",
+          "[estimación, de coordenadas]"
+        ],
+        [
+          "Garita San Ysidro (ya cruzado)",
+          "Zona Río (CODET/Ángeles)",
+          "San Ysidro",
+          "~8-15 min",
+          "[dato]"
+        ],
+        [
+          "Garita San Ysidro (ya cruzado)",
+          "Hospitales MAC",
+          "San Ysidro",
+          "~25-35 min (rodeo por Vía Rápida)",
+          "[estimación]"
+        ]
+      ],
+      "nota": "El factor dominante es SIEMPRE el tiempo de cruce, no la distancia mexicana: Otay suele ser 20-40 min más rápida que San Ysidro en día normal, pero ambas superan 2 horas en fines de semana y festivos. MAC está a ~4.3 km en línea recta de la garita Otay y ~3 km del aeropuerto [dato/estimación]. Lectura: MAC gana a Zona Río en cercanía SOLO si el paciente cruza por Otay; pierde si insiste en San Ysidro."
+    },
+    {
+      "id": "colonias-prioritarias",
+      "titulo": "Colonias prioritarias del paciente que sí financia (modelo por colonia)",
+      "columnas": [
+        "Colonia",
+        "Zona",
+        "Personas con catarata (modelo)",
+        "Las que financian (C+/C)",
+        "% en sistema público"
+      ],
+      "filas": [
+        [
+          "Playas de Tijuana (Dorado)",
+          "Poniente",
+          "~62",
+          "~33",
+          "81%"
+        ],
+        [
+          "Quinta Alta",
+          "Centro",
+          "~59",
+          "~28",
+          "79%"
+        ],
+        [
+          "Indeco Universidad",
+          "Centro",
+          "~52",
+          "~26",
+          "80%"
+        ],
+        [
+          "Playas de Tijuana (Costa Hermosa)",
+          "Poniente",
+          "~51",
+          "~24",
+          "79%"
+        ],
+        [
+          "Santa Anita",
+          "Centro-oriente",
+          "~45",
+          "~22",
+          "79%"
+        ],
+        [
+          "Rivera",
+          "Poniente",
+          "~43",
+          "~20",
+          "81%"
+        ],
+        [
+          "Alicia Carrillo",
+          "Centro-oriente",
+          "~43",
+          "~22",
+          "79%"
+        ],
+        [
+          "Lomas de Aguacaliente (5ª)",
+          "Centro",
+          "~43",
+          "~18",
+          "84%"
+        ],
+        [
+          "Playas de Tijuana (Coronado)",
+          "Poniente",
+          "~40",
+          "~21",
+          "82%"
+        ],
+        [
+          "Puerta de Hierro",
+          "Centro",
+          "~40",
+          "~16",
+          "84%"
+        ],
+        [
+          "Los Olivos",
+          "Centro-oriente",
+          "~34",
+          "~18",
+          "82%"
+        ]
+      ],
+      "nota": "[estimación] Conteos por colonia del modelo epidemiológico (60+ × prevalencia × nivel); son cifras pequeñas porque cada colonia es una zona chica — lo que importa es el orden y dónde están. Dos lecturas: (1) incluso en las colonias de mayor capacidad de pago, ~80% sigue afiliado al sistema público — el argumento de rapidez vs. la espera aplica a todo el mercado, no solo a quien tiene menos ingreso. (2) Estas colonias de mayor demanda solvente están en el poniente y el centro, no en el oriente donde está MAC: el oriente tiene menos demanda total pero está desatendido (ver mapa). MAC apuesta por la brecha de oferta, no por la mayor demanda."
+    },
+    {
+      "id": "financiamiento-nivel",
+      "titulo": "Capacidad de financiamiento del adulto mayor por nivel (ENIGH 2024)",
+      "columnas": [
+        "Nivel",
+        "Ingreso del hogar / mes",
+        "Con tarjeta de crédito",
+        "Con préstamo",
+        "Con pensión"
+      ],
+      "filas": [
+        [
+          "Alto",
+          "~$48,800",
+          "33%",
+          "2%",
+          "29%"
+        ],
+        [
+          "Medio alto",
+          "~$28,600",
+          "15%",
+          "3%",
+          "27%"
+        ],
+        [
+          "Medio bajo",
+          "~$21,600",
+          "7%",
+          "4%",
+          "15%"
+        ],
+        [
+          "Bajo",
+          "~$14,700",
+          "3%",
+          "5%",
+          "6%"
+        ]
+      ],
+      "nota": "[dato ENIGH 2024, % por nivel] A mayor nivel: más ingreso, más acceso a crédito (tarjeta/préstamo) y más pensión —el ingreso estable del adulto mayor. El segmento que financia (medio/medio-alto) tiene capacidad real de pagar la cirugía a plazos; el de contado es sensible al precio. Respalda con dato la recomendación de usar el financiamiento en pagos como herramienta de cierre. Porcentajes nacionales por nivel aplicados a Tijuana."
+    },
+    {
+      "id": "carga-visual-nivel",
+      "titulo": "Validación independiente: afiliación y carga visual real por nivel (ENIGH)",
+      "columnas": [
+        "Nivel",
+        "% en sistema público",
+        "% privado o sin cobertura",
+        "% con dificultad seria para ver (60+)"
+      ],
+      "filas": [
+        [
+          "Alto",
+          "86%",
+          "14%",
+          "~6%"
+        ],
+        [
+          "Medio alto",
+          "83%",
+          "17%",
+          "~8%"
+        ],
+        [
+          "Medio bajo",
+          "66%",
+          "34%",
+          "~10%"
+        ],
+        [
+          "Bajo",
+          "49%",
+          "51%",
+          "~12%"
+        ]
+      ],
+      "nota": "[dato ENIGH] La dificultad seria para ver entre los mayores de 60 (de ~6% a ~12% según nivel) coincide con la prevalencia de catarata estimada por la literatura — el tamaño del mercado se sostiene con un dato observado, no solo con un supuesto. La carga es mayor en los niveles bajos (menos acceso a atención temprana). La afiliación pública va de ~49% (bajo) a ~86% (alto): aun con ingreso, la mayoría depende del sistema público y de su espera."
+    },
+    {
+      "id": "visitacion",
+      "titulo": "Quién visita hoy a la competencia (señal de movilidad, un mes)",
+      "columnas": [
+        "Competidor / zona",
+        "Visitantes (señal)",
+        "Origen (distancia mediana)",
+        "% de nivel alto (AB+C+)",
+        "% sin domicilio local en BC"
+      ],
+      "filas": [
+        [
+          "Clúster Zona Río (CODET / Tijuana Eye / Más Luz)",
+          "~37,000",
+          "4.6 km",
+          "33%",
+          "32%"
+        ],
+        [
+          "Hospital Ángeles (Río)",
+          "~15,300",
+          "3.6 km",
+          "40%",
+          "25%"
+        ],
+        [
+          "Central Médica (Agua Caliente)",
+          "~11,000",
+          "3.4 km",
+          "31%",
+          "25%"
+        ],
+        [
+          "Serv. Médicos Oftalmológicos (Soler)",
+          "~6,400",
+          "2.3 km",
+          "28%",
+          "18%"
+        ],
+        [
+          "OftalmoVisión (Playas)",
+          "~3,200",
+          "3.5 km",
+          "39%",
+          "18%"
+        ]
+      ],
+      "nota": "[señal direccional, no es un conteo] Cifras de un panel de movilidad de un mes, sin escalar a población. El “% sin domicilio local” es una cota superior que mezcla residentes fuera de la cobertura del panel con posibles foráneos/EE.UU. — señal de afluencia transfronteriza, NO un conteo de turismo médico. La lectura útil: los competidores premium (Zona Río, Ángeles) atraen al paciente de mayor nivel desde el poniente acomodado, a varios kilómetros — confirman que juegan otro partido, lejos del oriente local de MAC."
+    }
+  ],
+  "recomendaciones": [
+    "Entrar por el paciente LOCAL en pesos como negocio principal; tratar el cruce en dólares como segunda línea oportunista (fase 2, 6-12 meses después). El oriente desatendido da volumen y sostenibilidad; el dólar da margen pero es volátil (cayó 20-40% en 1T 2025). No apostar la plaza a un flujo en contracción.",
+    "Apuntar el lanzamiento a la clase C-/C/C+ trabajadora financiada (~307,000 hogares C-/C/C+; el corazón social son ~187,000 hogares C-/D+), no a la clase D pura de contado. Es el segmento más ancho y el que mejor encaja con el precio de $18,500+IVA. Diseñar el financiamiento en pagos (esquema Salauno ~$955 MXN/mes a 24 meses) como herramienta de cierre estándar; atender a la clase D como segundo anillo con tarifa diferenciada para no chocar de frente con Mendoza Barbosa ($11,999) y el público gratuito.",
+    "Hacer del diagnóstico gratuito la palanca CENTRAL de captación, no un accesorio: es lo que llena las jornadas. ADVERTENCIA honesta: la conversión del modelo de unidades MÓVILES es históricamente baja (<20% en los primeros campamentos de Aravind); el 65% citado en otras fuentes corresponde a centros PERMANENTES (Vision Centres), un canal distinto. La conversión real del modelo móvil de MxM en Tijuana es DESCONOCIDA y es la variable #1 a validar con un piloto pequeño antes de comprometer capital de jornada.",
+    "No liderar el marketing con el precio. Construir el mensaje sobre tres pilares verificables: (a) los mismos lentes alemanes Zeiss/Alcon que los hospitales premium; (b) sin lista de espera, a diferencia del público —vender TIEMPO, 'recupere la vista en semanas, no en una lista sin fecha'; (c) el respaldo de volumen del equipo quirúrgico, una vez confirmado con el cliente. El precio se revela al final, para desactivar la percepción 'barato = malo' en un mercado educado a pagar en dólares. El mensaje complementa al sistema público, no lo ataca.",
+    "Diferenciarse de Fundación Mendoza Barbosa (el único competidor que podría disputar el segmento por abajo) por velocidad, sin lista de espera, trato digno y calidad premium verificable —no por precio, porque ellos son más baratos. Posicionar 'trato de familiar, sin evaluación socioeconómica que avergüence' como el diferenciador emocional, coherente con la filosofía de MxM.",
+    "Hacer due diligence de equipamiento y regulación ANTES de la primera jornada: (1) confirmar que el quirófano de MAC tiene —o que MxM aporta de forma portátil— microscopio quirúrgico oftalmológico y facoemulsificador; (2) confirmar si la 'anestesia general' del briefing es realmente general o sedación, y evaluar costo/riesgo/COFEPRIS frente al estándar mundial de anestesia tópica. Si es general, no usarla como argumento de venta.",
+    "Modelar la proyección financiera con CURVA DE DECAIMIENTO, no meseta plana: el SOM base (1,500-1,800/año) drena un stock finito y es ingreso de arranque para los años 2-4; el ritmo sostenible de largo plazo converge a 400-750 cirugías nuevas/año salvo crecimiento poblacional (el grupo 65+ se duplica a 2040), captación del segmento dólar o expansión a más niveles socioeconómicos. Financiar con el escenario bajo (~1,000/año, ~21 M MXN) como piso defendible.",
+    "Para el segmento en dólares, enfocar al paciente latino de San Diego sin seguro (afinidad cultural e idioma) en lugar de pelear el paciente anglo que CODET ya domina; comunicarlo siempre como 'cruce por Otay' (MAC le gana a Zona Río en cercanía solo por esa garita); y resolver primero la política de precio (pesos vs dólares con margen) antes de modelar el escenario alto.",
+    "Vigilar cinco métricas desde el día uno, por jornada: (1) tasa de conversión diagnóstico→cirugía; (2) % de ocupación vs umbral de rentabilidad; (3) costo de captación por paciente operado; (4) mezcla de pago (contado vs financiado) para calibrar el ajuste de segmento; (5) referidos/Net Promoter, motor de demanda del modelo. Sin estas cinco no se puede decidir si escalar o ajustar."
+  ],
+  "caveats": [
+    "No existe estudio epidemiológico local (RAAB) ni tasa de cirugía de catarata (CSR) publicada para Tijuana o Baja California. TODO el dimensionamiento local (prevalencia, ojos operables, casos nuevos, SOM) es extrapolación de tasas nacionales/globales con supuestos etarios. Se entregan rangos, nunca cifras puntuales; la dirección (demanda grande no atendida) es robusta, la magnitud exacta es incierta.",
+    "El SOM (1,000-2,500 ojos/año) excede el flujo fresco direccionable (400-750/año) porque drena la represa acumulada (stock finito de 20,000-32,000 ojos). Es ingreso de ARRANQUE (años 2-4), no ritmo sostenible de largo plazo: la represa sostiene el escenario base ~14-40 años antes de agotarse, tras lo cual el volumen sostenible converge hacia el flujo fresco. Cualquier proyección financiera multianual debe modelar esta curva de decaimiento, no una meseta plana.",
+    "El '6-18 meses' de espera pública es cifra BLANDA: ninguna fuente datada lo confirma para Baja California. Lo documentado con fecha es: rezago del 40% en ISSSTE (mayo 2024), ~19 semanas en estudio académico (2011, pre-COVID), capacidad de programas gratuitos <2,000 cirugías/año en todo BC (2025). El número EXACTO de pacientes en lista de espera IMSS/ISSSTE para catarata en Tijuana NO es público. El rezago es real y reconocido; su magnitud exacta no es dato duro.",
+    "Las reseñas de Google de los competidores (CODET ~3,015, etc., del briefing) reflejan VISIBILIDAD y antigüedad en línea, NO de volumen quirúrgico, calidad clínica ni cuota de mercado. No se pudieron verificar por fuentes abiertas (las plataformas muestran entre 10 y 1,090 reseñas según el sitio). No aparecen como tamaño de mercado en este dossier y no deben presentarse así. 'Cataratas Tijuana' y 'Vision Clinic' del briefing no se pudieron identificar como entidades verificables.",
+    "El segmento en dólares es upside, no base: el volumen es estructuralmente difícil de medir (los 3.5 M de visitantes médico-dentales de BC no se desglosan por oftalmología), la bolsa de 16,000 cirugías 65+ de San Diego está mayormente cubierta por Medicare (sin incentivo de cruzar), y el flujo cayó 20-40% en 1T 2025. La fracción que realmente cruza por catarata es desconocida (supuesto sobre supuesto).",
+    "Precio MxM (18,500 MXN+IVA), 70,000 cirugías/año de GVICOA, formación militar de los médicos, volumen por jornada y plazas actuales (Cruz Roja Polanco, MEDIMAC Ecatepec, Angelópolis) provienen del briefing/autoinforme del cliente y NO se verificaron en fuentes públicas (el sitio de MxM no publica el precio ni lista las plazas). Se usan como insumos del cliente; BlackPrint no los valida independientemente. El precio es el supuesto del que cuelga todo el análisis de accesibilidad.",
+    "La conversión real de 'diagnóstico gratuito → cirugía' para el modelo de unidades móviles de MxM en Tijuana es DESCONOCIDA y es la variable que más determina la rentabilidad de la jornada. Las referencias de análogos son de canales distintos: el 65% de Aravind es de centros permanentes (Vision Centres), no de campamentos móviles, cuyos primeros campamentos tuvieron <20%. Debe validarse con piloto local antes de escalar.",
+    "Dos due diligence pendientes que cambian el caso operativo: (1) si los quirófanos de MAC tienen microscopio quirúrgico oftalmológico y facoemulsificador instalados o si MxM debe aportar equipo portátil (impacta capex/logística); (2) si la 'anestesia general' del briefing es realmente general o sedación (impacta costo, riesgo clínico y requisitos COFEPRIS frente al estándar mundial de anestesia tópica).",
+    "Diabetes→catarata (validado jun-2026, fuentes primarias): el '60% de diabéticos desarrolla catarata antes de los 60' se confirmó SIN fuente primaria y se ELIMINA. La evidencia clínica revisada es: riesgo ~2 veces mayor en diabetes tipo 2 (Zhu 2014), 3-4 veces en menores de 65 años (pico entre los 45 y 49, Becker 2018), y ~1 de cada 4 diabéticos tipo 2 se opera de catarata en los 10 años posteriores al diagnóstico. La prevalencia de diabetes 20.7% [dato ENSANUT 2021-2024] es REGIONAL Pacífico Norte (no específica de BC), 2ª nacional, con 39.1% sin diagnóstico. Es factor cualitativo de aceleración, no multiplicador duro de demanda. Catarata = 2ª causa de ceguera en México (26.7%, GBD 2019) y la principal tratable/operable, no la primera.",
+    "Oferta de oftalmólogos en Tijuana (validado jun-2026): piso VERIFICADO de 106 oftalmólogos con domicilio en Tijuana (directorio del Colegio de Oftalmología de BC, conteo nominal) = ~49 por millón; techo estimado ~200 (~93/millón) sobre los 287 certificados estatales del CMO. Reemplaza la estimación previa de ~121-130/millón (que era de confianza baja). Las coordenadas del mapa se geocodificaron a nivel edificio/avenida con fuente primaria (jun-2026). La población base de los cálculos es el municipio (60+ del Censo 2020 = 169,282; municipio 2,151,740); la cifra metropolitana (~2.33M) es solo contexto.",
+    "Voz para tomadores de decisión de negocio, NO técnicos: cada cifra marcada como [dato], [estimación] o [supuesto]; sin jerga estadística ni términos técnicos de datos. Honestidad por encima de impresión: preferible un número con asterisco que una cifra redonda sin respaldo.",
+    "El modelo por colonia del deliverable (demanda 60+ × prevalencia × nivel por zona, jun-2026) es también una extrapolación, no un censo de pacientes: la prevalencia se ancla en tasas de referencia (LALES), no en un estudio local. Aterriza la demanda a zonas y a personas (~10,000 operables; ~3,800 que financian; ~1,500 desatendidos en el oriente), pero su magnitud es [estimación], igual que el rango de 20,000-32,000 ojos. Además, la demanda con más capacidad de pago vive en el poniente/centro; la apuesta por el oriente es por la brecha de oferta (desatención), no por mayor demanda solvente."
+  ],
+  "fuentes": [
+    {
+      "nombre": "CONAPO / GDI — Proyecciones demográficas Tijuana 2040 (población 2,151,740; 65+ 136,102; +126% a 2040)",
+      "url": "https://gobiernodigitaleinnovacion.com/blog/articulos/2026-01-30-tijuana-proyecciones-demograficas-2040",
+      "fecha": "enero 2026"
+    },
+    {
+      "nombre": "INEGI Censo 2020 / Telencuestas — estructura etaria Tijuana y BC (50+, 60+ por quinquenios)",
+      "url": "https://telencuestas.com/censos-de-poblacion/mexico/2020/baja-california/tijuana",
+      "fecha": "2020"
+    },
+    {
+      "nombre": "ENSANUT 2022 / INSP — prevalencia de diabetes región Pacífico Norte (20.7%) y nacional (18.3%)",
+      "url": "https://ensanut.insp.mx/encuestas/ensanutcontinua2022/doctos/analiticos/21-Diabetes-ENSANUT2022-14832-72458-2-10-20230619.pdf",
+      "fecha": "2023"
+    },
+    {
+      "nombre": "AMAI — Estimaciones NSE 2022 (Regla 2024): distribución por nivel socioeconómico ZM Tijuana",
+      "url": "https://www.amai.org/NSE/index.php?queVeo=NSE2024",
+      "fecha": "2022 (publicado 2024)"
+    },
+    {
+      "nombre": "CONEVAL / INEGI — Pobreza multidimensional BC 2024 (carencia seguridad social 32%, salud 23.3%)",
+      "url": "https://www.inegi.org.mx/contenidos/saladeprensa/boletines/2025/pm/pm2025_08.pdf",
+      "fecha": "agosto 2025"
+    },
+    {
+      "nombre": "IMSS — comunicado: 2.5 millones de derechohabientes en BC (2025)",
+      "url": "https://www.imss.gob.mx/prensa/archivo/202503/132",
+      "fecha": "marzo 2025"
+    },
+    {
+      "nombre": "Meta-análisis global de prevalencia de catarata por edad (PMC7376226): 54.4% en 60+",
+      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC7376226/",
+      "fecha": "2020"
+    },
+    {
+      "nombre": "Secretaría de Salud — Estrategia 'Ver por México' (760,000 con catarata; 1 de 3 sin acceso; 176 hospitales)",
+      "url": "https://www.gob.mx/salud/prensa/estrategia-nacional-de-cirugia-de-catarata-ver-por-mexico",
+      "fecha": "enero 2025"
+    },
+    {
+      "nombre": "Enlace Visual — CSR México (1,475-1,530/millón) y déficit quirúrgico vs meta OMS",
+      "url": "https://enlacevisual.com.mx/blog/cirugias-de-catarata-necesita-mexico/",
+      "fecha": "2024"
+    },
+    {
+      "nombre": "Salud Pública de México (ScIELO) — tiempos de espera quirúrgica en hospitales públicos (2011)",
+      "url": "https://www.scielo.org.mx/scielo.php?script=sci_arttext&pid=S0036-36342015000100006",
+      "fecha": "2015"
+    },
+    {
+      "nombre": "El Imparcial / IMSS — cierre 2025: +25% cirugías de catarata, -12 días de espera",
+      "url": "https://www.elimparcial.com/mexico/2026/01/13/imss-issste-e-imss-bienestar-reportan-record-de-consultas-y-cirugias-en-2025/",
+      "fecha": "enero 2026"
+    },
+    {
+      "nombre": "Excélsior — ISSSTE: rezago del 40% en cirugías, esperas de meses a más de un año (mayo 2024)",
+      "url": "https://www.excelsior.com.mx/opinion/ruth-rodriguez/esperando-en-el-quirofano-la-realidad-del-issste/1649486",
+      "fecha": "mayo 2024"
+    },
+    {
+      "nombre": "El Imparcial Tijuana — programa estatal BC catarata gratuita: 1,451 (2025), >4,400 acumulado",
+      "url": "https://www.elimparcial.com/tij/tijuana/2026/01/04/mas-de-4-mil-adultos-mayores-reciben-cirugias-gratuitas-de-cataratas/",
+      "fecha": "enero 2026"
+    },
+    {
+      "nombre": "Uniradio Baja California — JSST Tijuana: 167 cirugías de catarata Q1 2026, meta ≥300/año",
+      "url": "https://www.uniradiobaja.com/salud/realizan-tijuana-167-cirugias-cataratas-primer-trimestre-2026-n877425",
+      "fecha": "abril 2026"
+    },
+    {
+      "nombre": "La Crónica de Hoy — ISSSTE estrategia rezago quirúrgico: BC entre 8 estados, 2,477 cataratas jul-ago 2025",
+      "url": "https://www.cronica.com.mx/nacional/2025/07/01/issste-lanza-estrategia-para-reducir-rezago-quirurgico-en-cataratas-rodillas-y-urologia/",
+      "fecha": "julio 2025"
+    },
+    {
+      "nombre": "Bookimed — CODET y rango de mercado catarata Tijuana ($2,449-3,700/ojo)",
+      "url": "https://us-uk.bookimed.com/clinic/codet-vision-institute/",
+      "fecha": "marzo 2025"
+    },
+    {
+      "nombre": "MyMediTravel — precios catarata Tijuana (CODET $2,449, comparativa de clínicas)",
+      "url": "https://www.mymeditravel.com/cataract-surgery-procedures-in-tijuana-mexico",
+      "fecha": "2025-2026"
+    },
+    {
+      "nombre": "Tijuana Eye Center — cirugía femtosegundo $2,595 USD/ojo, perfil clínica",
+      "url": "https://www.tijuanaeyecenter.com/en/",
+      "fecha": "2025-2026"
+    },
+    {
+      "nombre": "MedicalMex — paquetes catarata ($2,300/ojo monofocal, $4,600 ambos, $6,995 multifocal)",
+      "url": "https://www.medicalmex.com/cataract-eye-surgery-mexico/",
+      "fecha": "2025"
+    },
+    {
+      "nombre": "Vision Méndez — precios catarata ($2,350 monofocal a $4,300 premium)",
+      "url": "https://visionmendez.com/prices/",
+      "fecha": "2025-2026"
+    },
+    {
+      "nombre": "CODET — Newsweek 2026: único hospital de BC en ranking de hospitales privados de Latam",
+      "url": "https://www.codetvision.com/blog/2026/01/30/newsweek-ranks-codet-among-latin-americas-top-private-hospitals-clinics-for-2026/",
+      "fecha": "enero 2026"
+    },
+    {
+      "nombre": "Gobierno de Tijuana — Fundación Mendoza Barbosa, programa 'Adiós Cataratas' con DIF",
+      "url": "https://apps.tijuana.gob.mx/webpanel/comunicado/comunicadoCompleto.aspx?iIdComunicado=+34837",
+      "fecha": "2024-2025"
+    },
+    {
+      "nombre": "Doctoralia — Dr. Edgar Muñoz Salinas (Oftacare, Hospital del Prado): 742 reseñas, +700 cirugías/año",
+      "url": "https://www.doctoralia.com.mx/edgar-arturo-munoz-salinas/oftalmologo/tijuana",
+      "fecha": "2025-2026"
+    },
+    {
+      "nombre": "Salauno — precios ($10,999-15,000 todo incluido), financiamiento $955/mes, consulta $299",
+      "url": "https://salauno.com.mx/cuanto-cuesta-una-cirugia-de-cataratas-en-mexico-precios-lo-que-incluye-y-opciones-accesibles/",
+      "fecha": "junio 2026"
+    },
+    {
+      "nombre": "cuantomecuesta.com — privado estándar México ($28,000-52,000) y premium ($38,000-80,000)",
+      "url": "https://cuantomecuesta.com/mx/operacion-cataratas/",
+      "fecha": "abril 2026"
+    },
+    {
+      "nombre": "quitateloslentes.com — rangos de precio catarata MX (monofocal/multifocal/trifocal)",
+      "url": "https://quitateloslentes.com/blog/cuanto-cuesta-una-cirugia-de-cataratas/",
+      "fecha": "2026"
+    },
+    {
+      "nombre": "newchoicehealth.com — San Diego mediana $2,311; rango $1,050-14,900",
+      "url": "https://www.newchoicehealth.com/places/california/san-diego/cataract/cataract-eye-surgery",
+      "fecha": "junio 2026"
+    },
+    {
+      "nombre": "Eye Care of San Diego — precios premium (trifocal+láser $4,790/ojo)",
+      "url": "https://www.eyecareofsandiego.com/cataract-pricing/",
+      "fecha": "junio 2026"
+    },
+    {
+      "nombre": "surgerycostguide.com — Medicare gasto de bolsillo ($384 ASC / $598 hospital)",
+      "url": "https://surgerycostguide.com/cataract-surgery-medicare-cost/",
+      "fecha": "2025-2026"
+    },
+    {
+      "nombre": "Mexico News Daily / Baja Health Cluster — 3.5M visitantes médico-dentales BC 2024; caída 20-40% 1T 2025",
+      "url": "https://mexiconewsdaily.com/travel/medical-tourism-baja-california-2025/",
+      "fecha": "2025"
+    },
+    {
+      "nombre": "Axios San Diego — ~537,000-565,000 adultos 65+ en San Diego County (2024)",
+      "url": "https://www.axios.com/local/san-diego/2024/07/16/san-diego-age-old-65",
+      "fecha": "2024"
+    },
+    {
+      "nombre": "Navigate Patient Solutions / Market Scope — adopción de lente premium 15-18% en EE.UU.",
+      "url": "https://navigatepatient.com/blog/how-many-cataract-patients-are-willing-to-pay-for-premium-surgery-a-data-driven-and-consumer-psychology-perspective/",
+      "fecha": "2023-2024"
+    },
+    {
+      "nombre": "Hospitales MAC / Info Mi Tijuana — apertura hospital nº 22 (feb 2025), dirección, 2 quirófanos, 28 consultorios",
+      "url": "https://infomitijuana.mx/2025/02/07/hospitales-mac-inaugura-su-hospital-numero-22-en-tijuana-consolidando-su-compromiso-con-la-salud-de-los-mexicanos/",
+      "fecha": "febrero 2025"
+    },
+    {
+      "nombre": "Wikipedia — Península Tijuana: coordenadas 32.513°N, 116.967°W (ubicación de MAC)",
+      "url": "https://en.wikipedia.org/wiki/Pen%C3%ADnsula_Tijuana",
+      "fecha": "2024-2025"
+    },
+    {
+      "nombre": "Hospitales MAC — página oficial Tijuana (especialidades, oftalmología en directorio)",
+      "url": "https://hospitalesmac.com/hospitales/hospital/tijuana",
+      "fecha": "2025-2026"
+    },
+    {
+      "nombre": "Semanario ZETA — Hospital General Zona Este Tijuana (626 MDP, 110 camas, 6 quirófanos, nov 2024)",
+      "url": "https://zetatijuana.com/2024/11/inauguran-hospital-general-en-zona-este-de-tijuana-se-invirtieron-626-mdp/",
+      "fecha": "noviembre 2024"
+    },
+    {
+      "nombre": "Hospital Ángeles Tijuana — departamento de oftalmología (Visión Ángeles); catarata desde $3,700 (Bookimed)",
+      "url": "https://hospitalangeles.com/tijuana/servicios/departamento-de-oftalmologia",
+      "fecha": "2025"
+    },
+    {
+      "nombre": "Colegio de Oftalmología de Baja California (COBC) — directorio de miembros",
+      "url": "http://www.cobc.org.mx/resultados.php?l=00",
+      "fecha": "junio 2026"
+    },
+    {
+      "nombre": "Sociedad Mexicana de Oftalmología / Infoofta — densidad nacional 23.3/millón vs ICO 31.7",
+      "url": "https://www.infoofta.com/secciones/articulo-especial/sociedad-mexicana-de-oftalmologia/",
+      "fecha": "2024"
+    },
+    {
+      "nombre": "mirandopormexico.com — sitio oficial MxM (Alcon/Zeiss, GVICOA 70,000 cirugías/año, 23 estados)",
+      "url": "https://www.mirandopormexico.com/",
+      "fecha": "junio 2026"
+    },
+    {
+      "nombre": "World Bank / IFC — caso Salauno: precio lanzamiento $6,500; 60% referidos; 70% primera vez en campañas",
+      "url": "https://documents1.worldbank.org/curated/en/470681500631725694/txt/115720-WP-MX-IFC-InclusiveBiz-SalaUno-PUBLIC.txt",
+      "fecha": "2017"
+    },
+    {
+      "nombre": "Aravind Eye Care System — +720,000 cirugías/año, 50% gratis/subsidiado, 2,500+ campamentos/año",
+      "url": "https://aravind.org/our-story/",
+      "fecha": "2024"
+    },
+    {
+      "nombre": "PMC — modelo Aravind: conversión Vision Centres 65% (campamentos de campo <20%)",
+      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC7003607/",
+      "fecha": "2020"
+    },
+    {
+      "nombre": "PMC9872216 — economías de escala: 500→800 cirugías/año por quirófano reduce costo ~23%",
+      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC9872216/",
+      "fecha": "2023"
+    },
+    {
+      "nombre": "IMSS — 'Ver por México' jornada Ecatepec: 2,079 cataratas en 5 días (mar 2025)",
+      "url": "https://www.imss.gob.mx/prensa/archivo/202503/153",
+      "fecha": "marzo 2025"
+    },
+    {
+      "nombre": "La Jornada / Littler — salario mínimo Zona Libre Frontera Norte 2026 ($440.87/día)",
+      "url": "https://www.jornada.com.mx/noticia/2026/01/02/politica/entra-en-vigor-alza-de-13-al-salario-minimo-en-zona-fronteriza-libre-crece-5",
+      "fecha": "enero 2026"
+    },
+    {
+      "nombre": "Semanario ZETA / CEIEG BC — ingreso de hogares ENIGH 2024 ($101,187/trimestre estatal)",
+      "url": "https://zetatijuana.com/2025/08/aumentan-ingresos-en-hogares-mas-pobres-y-se-estancan-los-mas-ricos-en-baja-california/",
+      "fecha": "agosto 2025"
+    },
+    {
+      "nombre": "El Sol de Tijuana / IMPLAN — hogar promedio Tijuana ~$25,000/mes, requiere ~$38,000",
+      "url": "https://oem.com.mx/elsoldetijuana/local/hogar-promedio-en-tijuana-gana-25-mil-pesos-pero-requiere-38-mil-para-vivir-dignamente-25069253",
+      "fecha": "agosto 2025"
+    },
+    {
+      "nombre": "MarketDataMéxico — perfil sociodemográfico Colonia Chapultepec Alamar (NSE D+, ~$15,000/hogar)",
+      "url": "https://www.marketdatamexico.com/es/article/Perfil-sociodemografico-Colonia-Chapultepec-Alamar-Tijuana-Baja-California/",
+      "fecha": "2020"
+    },
+    {
+      "nombre": "Hospital del Prado — sitio oficial (oftalmología, El Prado, oriente)",
+      "url": "https://www.hospitaldelprado.com/",
+      "fecha": "2025"
+    },
+    {
+      "nombre": "Médica de la Ciudad Tijuana — especialidades (oftalmología, Otay/aeropuerto)",
+      "url": "https://medicadelaciudad.com/especialidades/",
+      "fecha": "2025"
+    }
+  ],
+  "pendientesPrimarios": [
+    "Lista de espera real de catarata IMSS/ISSSTE/IMSS-Bienestar en Tijuana/BC (número de pacientes y meses, 2024-2026): requiere solicitud por la Plataforma Nacional de Transparencia o contacto directo con HGR No. 20 IMSS, Hospital ISSSTE Fray Junípero Serra y Hospital General Zona Este. Es el hueco que más afecta a P2; sin él, la 'bolsa de demanda pública' es argumento cualitativo, no cifra.",
+    "Due diligence de equipamiento en MAC Tijuana: confirmar si los 2 quirófanos tienen microscopio quirúrgico oftalmológico y facoemulsificador instalados, y si hay oftalmólogo/anestesiólogo de planta, o si MxM debe aportar equipo portátil propio. Cambia capex, logística de jornada y requisitos COFEPRIS. Requiere visita o confirmación del cliente/MAC.",
+    "Confirmación del cliente sobre los insumos del briefing de los que cuelga el análisis: (1) precio 18,500 MXN+IVA y qué incluye exactamente; (2) si la anestesia es general o sedación; (3) la relación contractual MxM-GVICOA (¿misma entidad, franquicia, alianza?) y si las 70,000 cirugías/año y la formación militar de los médicos son verificables. Sin esto, BlackPrint hereda el riesgo de cifras autoinformadas.",
+    "Piloto local para medir la tasa de conversión 'diagnóstico gratuito → cirugía' del modelo de unidades móviles en el contexto de frontera. No existe dato; es la variable que más mueve la rentabilidad del SOM. Debe generarse antes de comprometer cifras de volumen al cliente.",
+    "Precios verificados en fuente primaria (cotización directa o ventanilla) de los competidores del corredor oriente y del segmento accesible: Fundación Mendoza Barbosa (precio vigente 2026 en su sede TJ), Clínica CLC, Hospital del Prado, Médica de la Ciudad, Oftacare (Dr. Muñoz). Los actuales son de agregadores o redes sociales con temporalidad mezclada.",
+    "Geocodificación de las direcciones de todos los hospitales del mapa salvo MAC y la garita Otay (que son exactos): el clúster Zona Río y los del oriente están en coordenadas aproximadas y deben confirmarse con un servicio de rutas antes de publicar el mapa, para no mostrar puntos imprecisos.",
+    "Desglose de derechohabiencia real vs nominal en Tijuana (IMSS activo/cubierto vs sin cobertura efectiva) a nivel municipio, y confirmación de la participación de hospitales de BC/Tijuana en el programa federal 'Ver por México': definen el tamaño de la bolsa que NO puede ir a la pública y la oferta gratuita local que MxM complementa o con la que compite.",
+    "Datos del segmento dólar que hoy son supuesto: porcentaje del flujo de turismo médico de BC que corresponde a oftalmología/catarata, % de pacientes de CODET/Tijuana Eye Center que son de EE.UU., y volumen de cruces médicos por la garita Otay (vs San Ysidro). Sin alguno de estos, el dimensionamiento de P4 no pasa de especulación estructurada.",
+    "Decisión comercial del cliente (no dato externo): si MxM facturará en pesos (arbitraje imbatible) o en dólares con margen al paciente que cruza. Cambia por completo el ingreso del segmento dólar y la comparación de precios; debe resolverse antes de modelar el escenario alto."
+  ],
+  "puntosMapa": [
+    {
+      "nombre": "Hospitales MAC Tijuana",
+      "tipo": "sede",
+      "zona": "Oriente — Vía Rápida Ote.",
+      "lat": "32.5130",
+      "lng": "-116.9666",
+      "nota": "Sede MxM (objeto del estudio). Coordenadas exactas (Plaza Península, local H-01). 2 quirófanos, 28 consultorios. Abrió feb 2025."
+    },
+    {
+      "nombre": "Garita Otay",
+      "tipo": "cruce",
+      "zona": "Oriente",
+      "lat": "32.5489",
+      "lng": "-116.9506",
+      "nota": "Cruce sugerido para MAC y para el segmento en dólares. ~4.3 km en línea recta de MAC, ~8-12 min sin espera. Coordenadas exactas."
+    },
+    {
+      "nombre": "Garita San Ysidro",
+      "tipo": "cruce",
+      "zona": "Poniente",
+      "lat": "32.5421",
+      "lng": "-117.0298",
+      "nota": "La más transitada del mundo; alimenta Zona Río, no MAC. Aproximada."
+    },
+    {
+      "nombre": "Aeropuerto Internacional de Tijuana (TIJ)",
+      "tipo": "referencia",
+      "zona": "Oriente",
+      "lat": "32.5411",
+      "lng": "-116.9702",
+      "nota": "~3 km al norte de MAC. Aproximada."
+    },
+    {
+      "nombre": "Hospital del Prado",
+      "tipo": "aliado-posible",
+      "zona": "Oriente — El Prado",
+      "lat": "32.5160",
+      "lng": "-116.9760",
+      "nota": "Privado, oftalmología (consultorios). ~3 km de MAC. Posible aliado secundario. Coord. aproximada por dirección."
+    },
+    {
+      "nombre": "Médica de la Ciudad",
+      "tipo": "competidor",
+      "zona": "Oriente — Otay/Aeropuerto",
+      "lat": "32.5350",
+      "lng": "-116.9660",
+      "nota": "Privado bajo costo, oftalmología listada. ~2-3 km de MAC. Coord. aproximada."
+    },
+    {
+      "nombre": "Hospital General Zona Este",
+      "tipo": "publico",
+      "zona": "Oriente — Las Fuentes",
+      "lat": "32.4900",
+      "lng": "-116.9200",
+      "nota": "SSA, público, oftalmología pero con listas de espera. Inaugurado nov 2024. Coord. aproximada por colonia."
+    },
+    {
+      "nombre": "CODET Vision Institute",
+      "tipo": "competidor",
+      "zona": "Poniente — Zona Río",
+      "lat": "32.5240",
+      "lng": "-117.0150",
+      "nota": "Líder turismo médico (catarata $2,449-2,950 USD). Atiende al paciente de EE.UU. ~15 km por carretera de MAC. Coord. aproximada."
+    },
+    {
+      "nombre": "Tijuana Eye Center",
+      "tipo": "competidor",
+      "zona": "Poniente — Zona Río",
+      "lat": "32.5270",
+      "lng": "-117.0190",
+      "nota": "Turismo médico, femtosegundo $2,595 USD. Coord. aproximada."
+    },
+    {
+      "nombre": "Hospital Ángeles Tijuana",
+      "tipo": "competidor",
+      "zona": "Poniente — Zona Río",
+      "lat": "32.5270",
+      "lng": "-117.0220",
+      "nota": "Privado premium + oftalmología; catarata ~$3,700 USD. Coord. aproximada."
+    },
+    {
+      "nombre": "Vision Méndez",
+      "tipo": "competidor",
+      "zona": "Poniente — Zona Río",
+      "lat": "32.5260",
+      "lng": "-117.0180",
+      "nota": "Turismo médico, monofocal $2,350 USD. Coord. aproximada."
+    },
+    {
+      "nombre": "Hospital Excel / MediExcel",
+      "tipo": "competidor",
+      "zona": "Poniente — Zona Río",
+      "lat": "32.5280",
+      "lng": "-117.0240",
+      "nota": "Privado, alto volumen de pacientes EE.UU. (plan MediExcel). Coord. aproximada."
+    },
+    {
+      "nombre": "NewCity Medical Plaza",
+      "tipo": "competidor",
+      "zona": "Poniente — Zona Río",
+      "lat": "32.5320",
+      "lng": "-117.0380",
+      "nota": "Turismo médico premium, hotel anexo. Coord. aproximada."
+    },
+    {
+      "nombre": "Retina Center Tijuana",
+      "tipo": "competidor",
+      "zona": "Poniente — Zona Río",
+      "lat": "32.5320",
+      "lng": "-117.0380",
+      "nota": "Subespecialidad retina/catarata. Coord. aproximada."
+    },
+    {
+      "nombre": "Clínica de Ojos CLC",
+      "tipo": "aliado-posible",
+      "zona": "Centro/Zona Río",
+      "lat": "32.5230",
+      "lng": "-117.0100",
+      "nota": "Local accesible con quirófano ambulatorio propio (+2,000 cirugías). Posible aliado de capacidad. Coord. aproximada."
+    },
+    {
+      "nombre": "Fundación Mendoza Barbosa",
+      "tipo": "competidor",
+      "zona": "Centro — Torre Torela",
+      "lat": "32.5150",
+      "lng": "-117.0050",
+      "nota": "Competidor REAL del segmento accesible: tarifa solidaria ~$11,999 MXN con evaluación socioeconómica. Coord. aproximada."
+    },
+    {
+      "nombre": "Hospital Guadalajara",
+      "tipo": "competidor",
+      "zona": "Centro",
+      "lat": "32.5340",
+      "lng": "-117.0380",
+      "nota": "Privado costo medio; oftalmología no confirmada (contradicción de fuentes). Coord. aproximada."
+    },
+    {
+      "nombre": "Hospital General de Tijuana (SSA)",
+      "tipo": "publico",
+      "zona": "Poniente — Zona Río",
+      "lat": "32.5290",
+      "lng": "-117.0190",
+      "nota": "Público de referencia para no-asegurados; listas de espera de catarata. Coord. aproximada."
+    }
+  ]
+}

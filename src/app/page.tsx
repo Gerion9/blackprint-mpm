@@ -25,6 +25,7 @@ export default async function Page() {
             <a href="#recursos">Metodología</a>
             <a href="#priorizacion">Priorización</a>
             <a href="#plan">Plan</a>
+            <a href="/tijuana">Tijuana ◆</a>
           </nav>
 
           {/* HERO */}
@@ -61,6 +62,22 @@ export default async function Page() {
               <span aria-hidden="true">▾</span>
             </div>
           </header>
+
+          {/* Banner → estudio de plaza Tijuana */}
+          <a className="tj-promo reveal" href="/tijuana">
+            <div>
+              <span className="tp-tag">Nuevo · Estudio de plaza</span>
+              <div className="tp-h">
+                Tijuana: <em>dos mercados</em> bajo un mismo techo
+              </div>
+              <div className="tp-sub">
+                Site-selection dedicado para la apertura en Hospitales MAC: mercado local por nivel socioeconómico,
+                listas de espera públicas, mapa de precios, el segmento en dólares y un mapa real de los dos corredores
+                de la ciudad.
+              </div>
+            </div>
+            <span className="tp-go">Abrir estudio →</span>
+          </a>
 
           {/* §00.1 RESUMEN */}
           <SectionTitle {...SECTIONS["00.1"]!} id="resumen" />
