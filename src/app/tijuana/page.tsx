@@ -177,7 +177,7 @@ export default async function Page() {
     <>
       <ScrollFX />
       <main className="page-enter">
-        <div className="container">
+        <div className="container tj-report">
           <nav className="topnav" id="topnav" aria-label="Índice del estudio de Tijuana">
             <a href="/">← Nacional</a>
             <a href="#resumen">Resumen</a>
@@ -210,7 +210,7 @@ export default async function Page() {
                 <p className="hero-subtitle">{study.subtitulo}</p>
                 <div className="hero-pills">
                   <span className="pill navy">Hospitales MAC · corredor oriente</span>
-                  <span className="pill ghost">Las 6 preguntas del briefing — respondidas</span>
+                  <span className="pill ghost">Las 6 decisiones de la apertura</span>
                 </div>
               </div>
               <aside className="hero-aside">
@@ -222,7 +222,7 @@ export default async function Page() {
                 </p>
               </aside>
             </div>
-            <div className="hero-chevron hero-chevron--abs" aria-hidden="true">
+            <div className="hero-chevron" aria-hidden="true">
               <span>▾</span>
             </div>
           </header>

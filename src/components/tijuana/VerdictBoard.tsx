@@ -10,9 +10,9 @@ export default function VerdictBoard({ decisiones }: { decisiones: TijuanaDecisi
   return (
     <section className="verdict-board reveal" aria-label="Las seis respuestas del estudio">
       <div className="vb-head">
-        <span className="vb-eyebrow">La hoja de respuestas</span>
+        <span className="vb-eyebrow">El veredicto, de un vistazo</span>
         <h2 className="vb-title">
-          Las 6 preguntas del briefing, <em>respondidas</em>
+          Las 6 preguntas que decide esta apertura, <em>respondidas</em>
         </h2>
         <p className="vb-sub">
           Cada respuesta lleva su nivel de confianza. <b>Baja no es débil</b>: significa dirección robusta con magnitud

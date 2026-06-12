@@ -56,7 +56,10 @@ export function ChartFrame({ title, tag, children, note }: { title: string; tag?
         {tag ? <Tag tag={tag} /> : null}
       </figcaption>
       <p className="chart-key" aria-hidden="true">
-        borde verde = dato · azul = estimación · coral = supuesto
+        <span className="ck-lbl">borde de cada barra:</span>
+        <b style={{ borderLeftColor: C.success }}>dato</b>
+        <b style={{ borderLeftColor: C.blueDeep }}>estimación</b>
+        <b style={{ borderLeftColor: C.coralDeep }}>supuesto</b>
       </p>
       {children}
       {note ? <p className="chart-note">{note}</p> : null}

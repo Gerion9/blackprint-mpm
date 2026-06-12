@@ -52,15 +52,16 @@ export default function SomDecay({ viz }: { viz: TijuanaViz }) {
         <path d={upLine} fill="none" stroke={C.navy} strokeWidth="2" />
         {/* piso financiable */}
         <line x1={ml} y1={Y(d.piso)} x2={W - mr} y2={Y(d.piso)} stroke={C.blueDeep} strokeWidth="1.3" strokeDasharray="6 5" />
-        <text x={W - mr} y={Y(d.piso) - 6} textAnchor="end" fontFamily="var(--font-ui),sans-serif" fontSize="10.5" fontWeight="600" fill={C.blueDeep}>piso financiable ~{fmt(d.piso)}/año</text>
+        <text x={ml + 6} y={Y(d.piso) - 6} textAnchor="start" fontFamily="var(--font-ui),sans-serif" fontSize="10.5" fontWeight="600" fill={C.blueDeep}>piso financiable ~{fmt(d.piso)}/año</text>
         {/* divisoria arranque vs run-rate */}
         <line x1={X(8)} y1={mt} x2={X(8)} y2={mt + ph} stroke="#b7bcc0" strokeWidth="1" strokeDasharray="2 4" opacity="0.7" />
-        {/* anotaciones */}
-        <text x={X(2.4)} y={Y(d.arranqueMax) - 10} textAnchor="middle" fontFamily="var(--font-display),sans-serif" fontSize="12.5" fontWeight="700" fill={C.navy}>arranque {rng(d.arranqueMin, d.arranqueMax)}</text>
-        <text x={X(2.4)} y={Y(d.arranqueMax) + 6} textAnchor="middle" fontFamily="var(--font-mono),monospace" fontSize="9" fill={C.inkSoft}>años 2-4 · drena la represa</text>
-        <text x={X(13.6)} y={Y(d.runrateMax) - 12} textAnchor="end" fontFamily="var(--font-display),sans-serif" fontSize="12.5" fontWeight="700" fill={C.coralDeep}>ritmo sostenible {rng(d.runrateMin, d.runrateMax)}</text>
-        <text x={X(13.6)} y={Y(d.runrateMax) + 2} textAnchor="end" fontFamily="var(--font-mono),monospace" fontSize="9" fill={C.inkSoft}>demanda fresca sostenible</text>
-        <text x={X(8)} y={mt + 12} textAnchor="middle" fontFamily="var(--font-mono),monospace" fontSize="10.5" fill={C.inkMute}>la represa sostiene ~{d.ventanaAniosMin}-{d.ventanaAniosMax} años (incierto) · escala de años ilustrativa</text>
+        {/* anotaciones — cuatro anclas separadas para cero encimes */}
+        <text x={X(2.6)} y={Y(d.arranqueMax) - 16} textAnchor="middle" fontFamily="var(--font-display),sans-serif" fontSize="12.5" fontWeight="700" fill={C.navy}>arranque {rng(d.arranqueMin, d.arranqueMax)}</text>
+        <text x={X(2.6)} y={Y(d.arranqueMax) - 3} textAnchor="middle" fontFamily="var(--font-mono),monospace" fontSize="9" fill={C.inkSoft}>años 2-4 · drena la represa</text>
+        <text x={W - mr} y={Y(d.runrateMax) - 22} textAnchor="end" fontFamily="var(--font-display),sans-serif" fontSize="12.5" fontWeight="700" fill={C.coralDeep}>ritmo sostenible {rng(d.runrateMin, d.runrateMax)}</text>
+        <text x={W - mr} y={Y(d.runrateMax) - 9} textAnchor="end" fontFamily="var(--font-mono),monospace" fontSize="9" fill={C.inkSoft}>demanda fresca sostenible</text>
+        <text x={X(8) + 6} y={mt + 12} textAnchor="start" fontFamily="var(--font-mono),monospace" fontSize="9.5" fill={C.inkMute}>la represa se vacía →</text>
+        <text x={X(8) + 6} y={mt + 24} textAnchor="start" fontFamily="var(--font-mono),monospace" fontSize="8.5" fill={C.inkMute}>~{d.ventanaAniosMin}–{d.ventanaAniosMax} años (incierto)</text>
         {/* etiqueta eje Y */}
         <text x={14} y={mt + ph / 2} textAnchor="middle" fontFamily="var(--font-mono),monospace" fontSize="9.5" fill={C.inkMute} transform={`rotate(-90 14 ${mt + ph / 2})`}>cirugías / año</text>
       </svg>

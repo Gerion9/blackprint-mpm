@@ -76,7 +76,7 @@ body{padding:40px 40px 0;min-height:100vh;overflow-x:hidden}
 .hero h1{font-size:clamp(40px,6vw,72px);font-weight:700;line-height:.98;letter-spacing:-.035em;color:var(--ink);margin:0 0 14px;max-width:15ch}
 .hero h1 em{font-style:normal;color:var(--blue-p);font-weight:700}
 .hero--compact{position:relative}
-.hero--compact .hero-main{padding:28px 24px;align-items:start}
+.hero--compact .hero-main{padding:28px 24px 36px;align-items:start}
 .hero--compact .hero h1{font-size:clamp(34px,4.5vw,52px);max-width:20ch}
 /* chevron como overlay: deja de empujar el fold (~36px ganados) */
 .hero-chevron--abs{position:absolute;left:0;right:0;bottom:0;padding:0 0 8px;background:transparent;pointer-events:none}
@@ -562,7 +562,11 @@ table.ptable{border-collapse:collapse;width:100%;font-size:12.5px}
 }
 .num-tag.pq::before{content:""}
 /* prosa de secciones (markdown pre-renderizado) */
-.tj-prose{font-size:14.5px;color:var(--ink-soft);line-height:1.62;max-width:82ch;margin-bottom:10px}
+.tj-prose{font-size:15px;color:var(--ink-soft);line-height:1.66;max-width:82ch;margin-bottom:10px}
+/* reporte Tijuana: columna de lectura centrada (texto) y data-viz un poco más ancha; hero/kpis/veredicto/mapa quedan full-width */
+.tj-report .section-title,.tj-report .sec-rule,.tj-report .tj-prose,.tj-report .sec-purpose{max-width:820px;margin-left:auto;margin-right:auto}
+.tj-report .sec-headline{margin-left:auto;margin-right:auto}
+.tj-report .chart-block,.tj-report .tbl-block{max-width:900px;margin-left:auto;margin-right:auto}
 .tj-prose p{margin:0 0 13px}
 .tj-prose strong{color:var(--ink);font-weight:600}
 .tj-prose em{font-style:normal;color:var(--blue-deep);font-weight:600}
@@ -695,9 +699,10 @@ table.dt{border-collapse:collapse;width:100%;font-size:12.5px;background:var(--s
 .vb-card:hover .vb-go{color:var(--blue-p);transform:translateX(3px)}
 .vb-note{font-family:var(--font-mono),monospace;font-size:9.5px;color:var(--ink-note);line-height:1.45;border-top:1px dashed var(--line);padding-top:7px;margin-top:auto}
 /* ── gráficos SVG (Server Components) ── */
-.chart-block{margin:14px 0 20px;background:var(--surface);border:1px solid var(--line);border-radius:var(--r-md);box-shadow:var(--shadow-1);padding:16px 18px}
+.chart-block{margin:18px 0 26px;background:var(--surface);border:1px solid var(--line);border-radius:var(--r-md);box-shadow:var(--shadow-1);padding:22px 24px 18px}
 .chart-title{font-family:var(--font-display),sans-serif;font-weight:700;font-size:15.5px;color:var(--ink);margin:0 0 6px;display:flex;align-items:center;gap:10px;flex-wrap:wrap;line-height:1.2}
-.chart-key{font-family:var(--font-mono),monospace;font-size:10px;letter-spacing:.02em;color:var(--ink-mute);margin:0 0 12px}
+.chart-key{font-family:var(--font-mono),monospace;font-size:10px;letter-spacing:.02em;color:var(--ink-mute);margin:0 0 14px;display:flex;gap:13px;flex-wrap:wrap;align-items:center}
+.chart-key b{display:inline-flex;align-items:center;border-left:3px solid;padding-left:7px;font-weight:600;color:var(--ink-soft)}
 .chart-block{overflow-x:auto}
 .chart-svg{width:100%;min-width:560px;height:auto;display:block;overflow:visible}
 .chart-note{font-size:11px;color:var(--ink-note);line-height:1.55;margin:10px 2px 0;padding-left:12px;border-left:2px solid var(--coral)}

@@ -8,14 +8,14 @@ export default function TamSamSom({ viz }: { viz: TijuanaViz }) {
   const t = viz.tamSamSom;
   type Row = { label: string; min: number; max: number; tag: string; hl?: boolean };
   const fresco: Row[] = [
-    { label: "Direccionable fresco / año (SAM)", min: t.sam.min, max: t.sam.max, tag: t.sam.tag },
-    { label: "Casos nuevos / año (flujo TAM)", min: t.flujoTam.min, max: t.flujoTam.max, tag: t.flujoTam.tag },
+    { label: "Direccionable / año (SAM)", min: t.sam.min, max: t.sam.max, tag: t.sam.tag },
+    { label: "Casos nuevos / año (TAM)", min: t.flujoTam.min, max: t.flujoTam.max, tag: t.flujoTam.tag },
   ];
   const som: Row[] = t.som.map((s, i) => ({ label: s.label, min: s.min, max: s.max, tag: s.tag, hl: i === 1 }));
   const rows = [...fresco, ...som];
   const dividerAfter = fresco.length;
 
-  const W = 720, ml = 196, mr = 60, mt = 58, mb = 30, rowH = 30, divH = 22;
+  const W = 720, ml = 196, mr = 84, mt = 58, mb = 30, rowH = 30, divH = 22;
   const plotX0 = ml, plotX1 = W - mr, plotW = plotX1 - plotX0;
   const XMAX = 2600;
   const x = (v: number) => plotX0 + (Math.min(v, XMAX) / XMAX) * plotW;

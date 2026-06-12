@@ -15,7 +15,7 @@ const usd = (n: number) => "$" + Math.round(n).toLocaleString("en-US");
 
 export default function PriceLane({ viz }: { viz: TijuanaViz }) {
   const data = [...viz.precios].sort((a, b) => a.usdMin - b.usdMin || a.usdMax - b.usdMax);
-  const W = 720, ml = 182, mr = 64, mt = 44, mb = 36, rowH = 28;
+  const W = 720, ml = 182, mr = 80, mt = 44, mb = 36, rowH = 28;
   const plotX0 = ml, plotX1 = W - mr, plotW = plotX1 - plotX0;
   const XMAX = 6000;
   const H = mt + data.length * rowH + mb;
@@ -57,7 +57,7 @@ export default function PriceLane({ viz }: { viz: TijuanaViz }) {
               {gratis ? (
                 <>
                   <circle cx={x(0)} cy={y} r="5" fill="none" stroke={C.inkMute} strokeWidth="1.6" />
-                  <text x={x(0) + 12} y={y + 3.5} fontFamily="var(--font-mono),monospace" fontSize="9.5" fill={C.inkSoft}>gratis · espera de meses a +1 año, sin dato público para BC (fuera del eje de precio)</text>
+                  <text x={x(0) + 12} y={y + 3.5} fontFamily="var(--font-mono),monospace" fontSize="9.5" fill={C.inkSoft}>gratis · espera larga; fuera del eje de precio</text>
                 </>
               ) : d.usdMin === d.usdMax ? (
                 <>

@@ -202,7 +202,7 @@ const viz = {
 // supuestos por dato duro y, donde no es público, dejar la solicitud de transparencia exacta.
 const validacion = {
   resumen:
-    "Una 2ª pasada de validación con fuentes primarias blindó la demografía, el NSE, el poder adquisitivo y la carga clínica del estudio, y corrigió tres cifras. Los dos huecos centrales del briefing —el número/tiempo de la lista de espera pública (P2) y el volumen del cruce en dólares (P4)— siguen sin dato público, pero ahora con la ruta exacta para obtenerlos: 9 solicitudes de transparencia listas para enviar.",
+    "Una 2ª pasada de validación con fuentes primarias blindó la demografía, el NSE, el poder adquisitivo y la carga clínica del estudio, y corrigió tres cifras. Los dos huecos centrales del estudio —el número/tiempo de la lista de espera pública (P2) y el volumen del cruce en dólares (P4)— siguen sin dato público, pero ahora con la ruta exacta para obtenerlos: 9 solicitudes de transparencia listas para enviar.",
   eliminados: [
     { tema: "Población 60+ de Tijuana", antes: "~185,000 (proyección a mano)", ahora: "169,282 (Censo 2020 INEGI); 50+ = 363,025. La extrapolación previa sobreestimaba ~9%.", fuente: "INEGI Censo 2020", conf: "alta" },
     { tema: "Población 65+ (separar el año)", antes: "~136,102 sin año claro", ahora: "107,406 en Censo 2020 y 136,102 en proyección CONAPO 2025 (308,276 en 2040, +126%). No 'bajó': son años distintos.", fuente: "INEGI Censo 2020 + CONAPO 1990-2040", conf: "alta" },
@@ -216,7 +216,7 @@ const validacion = {
     { tema: "Geocodificación del mapa", antes: "16 de 18 puntos aproximados", ahora: "20 puntos geocodificados con fuente primaria. MAC 32.513004,-116.966635; garita Otay corregida a 32.5506,-116.9382.", fuente: "Wikipedia · OSM · sitios oficiales", conf: "alta" },
     { tema: "CSR objetivo (corrección de error)", antes: "CSR necesario 3,441/millón", ahora: "4,411/millón (Nuevo León) — el 3,441 era transposición de dígitos. CSR actual de México ~1,530/millón.", fuente: "JAMA Ophthalmology PMID 22892824", conf: "alta" },
     { tema: "Validación MxM/GVICOA", antes: "Precio, sedes, médicos militares y '70,000 cirugías/23 estados' como hechos", ahora: "Confirmado como AUTOINFORME no verificable: el sitio de MxM no publica nada de eso. GVICOA está registrada como DISTRIBUIDOR de equipo médico (SCIAN 435313), no como prestador quirúrgico.", fuente: "mirandopormexico.com · registro GVICOA", conf: "media" },
-    { tema: "Reseñas de competidores", antes: "CODET ~3,015 reseñas (briefing)", ahora: "No verificable; el máximo hallado fue ~1,090. Bajar el conteo o marcarlo como no verificado.", fuente: "Bookimed · QanoMed", conf: "media" },
+    { tema: "Reseñas de competidores", antes: "CODET ~3,015 reseñas (dato del cliente)", ahora: "No verificable; el máximo hallado fue ~1,090. Bajar el conteo o marcarlo como no verificado.", fuente: "Bookimed · QanoMed", conf: "media" },
   ],
   persisten: [
     { tema: "P2 · Nº de pacientes y tiempo en lista de espera de catarata IMSS/ISSSTE en Tijuana", ruta: "Solicitud de transparencia (PNT) a IMSS OOAD BC e ISSSTE — el IMSS no lo publica por procedimiento. Lo único público (rezago 500-600) es de TODAS las especialidades, mayoría ortopedia." },
