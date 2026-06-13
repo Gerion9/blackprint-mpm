@@ -27,9 +27,18 @@ function tagCls(tag: string) {
   if (t.startsWith("supuesto")) return "tg-sup";
   return "tg-hueco";
 }
-export function Tag({ tag }: { tag: string }) {
+export function Tag({ tag, href }: { tag: string; href?: string }) {
   const t = tag.toLowerCase();
-  return <span className={`tg ${tagCls(t)}`}>[{TAG_LABEL[t] ?? t}]</span>;
+  const cls = `tg ${tagCls(t)}`;
+  const label = `[${TAG_LABEL[t] ?? t}]`;
+  // con href, el tag salta a su fuente (click-a-fuente); sin él, es un chip estático.
+  return href ? (
+    <a className={`${cls} tgl`} href={href}>
+      {label}
+    </a>
+  ) : (
+    <span className={cls}>{label}</span>
+  );
 }
 /** color de borde del rango según el tag (para heredar la marca de confianza en el gráfico) */
 export function tagColor(tag: string) {
@@ -48,12 +57,24 @@ export function rng(min: number, max: number, pre = "") {
 }
 
 /** Marco común: título + [tag] heredado, el SVG, y la nota honesta debajo. */
-export function ChartFrame({ title, tag, children, note }: { title: string; tag?: string; children: ReactNode; note?: string }) {
+export function ChartFrame({
+  title,
+  tag,
+  children,
+  note,
+  tagHref,
+}: {
+  title: string;
+  tag?: string;
+  children: ReactNode;
+  note?: string;
+  tagHref?: string;
+}) {
   return (
     <figure className="chart-block reveal">
       <figcaption className="chart-title">
         {title}
-        {tag ? <Tag tag={tag} /> : null}
+        {tag ? <Tag tag={tag} href={tagHref} /> : null}
       </figcaption>
       <p className="chart-key" aria-hidden="true">
         <span className="ck-lbl">borde de cada barra:</span>

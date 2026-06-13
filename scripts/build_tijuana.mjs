@@ -31,14 +31,42 @@ function tagClass(w) {
   if (w.startsWith("hueco")) return "tg-hueco";
   return "tg-est";
 }
-function inl(raw, heading) {
+// Click-a-fuente: si un tag NOMBRA una fuente (p.ej. "[dato AMAI]"), se marca con su token para
+// enlazarlo a su fila exacta del footer. El índice se resuelve DESPUÉS de ensamblar las fuentes
+// (post-proceso al final). Orden específico→general; sin tocar el texto visible del tag.
+const SRC_TOKEN_RULES = [
+  [/del cliente/i, "cliente"],
+  [/amai/i, "amai"],
+  [/enigh/i, "enigh"],
+  [/denue/i, "denue"],
+  [/conapo/i, "conapo"],
+  [/lales/i, "lales"],
+  [/2021-2024|reyes/i, "ensanut2124"],
+  [/ensanut/i, "ensanut22"],
+  [/census|\bacs\b/i, "census"],
+  [/market scope/i, "mscope"],
+  [/bookimed|plataformas/i, "bookimed"],
+  [/censo 2020/i, "censo20"],
+  [/\bifc\b/i, "ifc"],
+];
+function srcToken(inner) {
+  for (const [re, key] of SRC_TOKEN_RULES) if (re.test(inner)) return key;
+  return null;
+}
+function inl(raw, heading, defaultSrc) {
   let t = esc(raw);
   t = t
     .replace(/\*\*\[(QUÉ pasa)\]\*\*/g, '<span class="cue q">QUÉ PASA</span>')
     .replace(/\*\*\[(POR CUÁNTO)\]\*\*/g, '<span class="cue">POR CUÁNTO</span>')
     .replace(/\*\*\[(QUÉ HACER)\]\*\*/g, '<span class="cue c">QUÉ HACER</span>');
-  t = t.replace(/\[((?:dato|estimaci[oó]n|supuesto|hueco)[^\]]*)\]/gi, (m, inner) => {
-    return '<span class="tg ' + tagClass(inner) + '">[' + inner + "]</span>";
+  t = t.replace(/\[((?:dato|estimaci[oó]n|supuesto|hueco)[^\]]*)\](?:\^([a-z0-9]+))?/gi, (m, inner, marker) => {
+    // Prioridad de fuente: marcador explícito ^token (atribución invisible por ocurrencia en prosa) >
+    // fuente NOMBRADA en el tag > fuente de la FILA (defaultSrc) > lista general ("*"). El ^token se
+    // consume (no se muestra). [estimación]/[supuesto]/[hueco] sin fuente NO enlaza (no es verificable).
+    const tok = marker || srcToken(inner);
+    const src = tok || (/^dato/i.test(inner.trim()) ? defaultSrc || "*" : "");
+    const attr = src ? ' data-src="' + src + '"' : "";
+    return '<span class="tg ' + tagClass(inner) + '"' + attr + ">[" + inner + "]</span>";
   });
   t = t.replace(/\*\*([^*]+)\*\*/g, heading ? "<em>$1</em>" : "<strong>$1</strong>");
   t = t.replace(/\*([^*]+)\*/g, "<em>$1</em>");
@@ -104,11 +132,39 @@ const secciones = D.secciones.map((s) => {
   };
 });
 
+// Atribución FILA-POR-FILA de los [dato] pelón en tablas, por el nombre en la 1ª celda (sin tocar
+// el texto visible): la fila de cada clínica/variable enlaza su [dato] a su fuente exacta del footer.
+const TABLE_ROW_SRC = {
+  precios: (n) => {
+    if (/imss|ver por m/.test(n)) return "verxmex";
+    if (/mendoza/.test(n)) return "mendoza";
+    if (/salauno/.test(n)) return "salauno";
+    if (/medicalmex/.test(n)) return "medicalmex";
+    if (/tijuana eye/.test(n)) return "tijeye";
+    if (/autopago san diego/.test(n)) return "sandiego";
+    if (/devlyn|privado est|premium mx|abc|christus/.test(n)) return "privmx";
+    return null;
+  },
+  dolares: (n) => {
+    if (/65\+ en san diego/.test(n)) return "census";
+    if (/turismo m/.test(n)) return "turismomx";
+    return null;
+  },
+  "embudo-local": (n) => (/poblaci.n 60\+/.test(n) ? "censo20" : null),
+};
+function rowSrcFor(tableId, row) {
+  const fn = TABLE_ROW_SRC[tableId];
+  return fn ? fn(String(row[0] || "").toLowerCase()) : null;
+}
+
 const tablas = D.tablas.map((t) => ({
   id: t.id,
   titulo: t.titulo,
   columnas: t.columnas,
-  filas: t.filas.map((row) => row.map((c) => inl(c))),
+  filas: t.filas.map((row) => {
+    const src = rowSrcFor(t.id, row);
+    return row.map((c) => inl(c, false, src));
+  }),
   notaHtml: t.nota ? inl(t.nota) : "",
 }));
 
@@ -196,6 +252,41 @@ const viz = {
       { label: "SOM alto · opción fase 2", min: 2500, max: 2500, tag: "estimacion", nota: "Requiere segmento dólar" },
     ],
   },
+  // ── Capas de data-viz (charts que acompañan tablas densas) ──
+  // Embudo del dólar: COLAPSA a un hueco (red-team). Solo el censo es barra real; el resto se
+  // tacha/anota; el final es hueco SIN cifra. Encuadre ya corregido en la 2ª pasada (validacion):
+  // el 493,837 está ~99% asegurado; el motor real es la brecha del lente premium, no la falta de seguro.
+  dolaresFunnel: {
+    peldanos: [
+      { label: "Adultos 65+ en San Diego County", valor: "493,837", sub: "el universo que suena enorme", tipo: "barra", tag: "dato", srcTok: "census" },
+      { label: "~99% ya con Medicare", valor: "", sub: "cubiertos por la cirugía base — sin incentivo de cruzar", tipo: "tachado", tag: "dato", srcTok: "census" },
+      { label: "Elegibilidad teórica", valor: "≈16,000/año", sub: "elegibilidad, no demanda · no capturable", tipo: "anotacion", tag: "estimacion" },
+      { label: "El motor real: la brecha del lente premium", valor: "15–18%", sub: "pagan 2,000–4,000 USD de su bolsillo por un lente que Medicare no cubre", tipo: "motor", tag: "dato", srcTok: "mscope" },
+      { label: "No asegurados <65 (otra bolsa)", valor: "≈196,000", sub: "autopago 3,500–7,000 USD · población <65, no suma a los 65+", tipo: "anotacion", tag: "dato" },
+      { label: "Fracción que cruza por catarata", valor: "", sub: "sin dato público — supuesto sobre supuesto", tipo: "hueco", tag: "hueco" },
+    ],
+    macroNota: "Y encima, el turismo médico de BC cayó −20% a −40% en el 1T-2025",
+  },
+  // Perfil de pago por nivel: capacidad ↓ mientras necesidad ↑. % por nivel de ENIGH 2024.
+  porNivel: {
+    niveles: ["Alto", "Medio alto", "Medio bajo", "Bajo"],
+    refMxN: 21460,
+    paneles: [
+      { titulo: "Ingreso del hogar / mes", unidad: "$", valores: [48800, 28600, 21600, 14700], sentido: "baja", tag: "dato", nota: "el precio MxM (~$21,460) ≈ un mes de ingreso del nivel medio-bajo" },
+      { titulo: "Puede financiar (tarjeta)", unidad: "%", valores: [33, 15, 7, 3], sentido: "baja", tag: "dato", nota: "% del adulto mayor con tarjeta de crédito" },
+      { titulo: "Dificultad seria para ver (60+)", unidad: "%", valores: [6, 8, 10, 12], sentido: "sube", tag: "dato", nota: "la necesidad sube justo donde la capacidad baja" },
+    ],
+  },
+  // Tiempos puerta a puerta: el cruce manda, no la distancia mexicana. Bandas min-max.
+  accesibilidad: {
+    rutas: [
+      { origen: "Centro de San Diego", destino: "Hospitales MAC (vía Otay)", min: 50, max: 75, cruza: true, tag: "estimacion", nota: "" },
+      { origen: "Centro de San Diego", destino: "CODET / Zona Río (vía San Ysidro)", min: 45, max: 70, cruza: true, tag: "estimacion", nota: "casi igual: MAC no está más lejos" },
+      { origen: "Garita Otay (ya cruzado)", destino: "Hospitales MAC", min: 8, max: 12, cruza: false, tag: "estimacion", nota: "" },
+      { origen: "Garita San Ysidro (ya cruzado)", destino: "Zona Río (CODET / Ángeles)", min: 8, max: 15, cruza: false, tag: "dato", nota: "" },
+      { origen: "Garita San Ysidro (ya cruzado)", destino: "Hospitales MAC", min: 25, max: 35, cruza: false, tag: "estimacion", nota: "rodeo por Vía Rápida" },
+    ],
+  },
 };
 
 // VALIDACIÓN PRIMARIA (jun-2026): 2ª pasada de 17 agentes (~1,357 búsquedas) para reemplazar
@@ -276,6 +367,80 @@ const out = {
   viz,
   validacion,
 };
+
+// ── Click-a-fuente: resolver los marcadores data-src de los tags a anclas del footer. ──
+// Cada tag que nombra una fuente salta a su fila exacta (#src-N); el [dato] pelón ("*"), a la
+// lista de fuentes (#fuentes). Se hace aquí, ya con el array final de fuentes, buscando el índice
+// por NOMBRE (robusto a reordenamientos), no a mano. No cambia el texto visible del tag.
+const findSrc = (re) => out.fuentes.findIndex((f) => re.test(f.nombre));
+const TOKEN_TO_IDX = {
+  cliente: findSrc(/mirandopormexico/i),
+  amai: findSrc(/AMAI/i),
+  enigh: findSrc(/ENIGH 2024 — financ/i),
+  denue: findSrc(/DENUE/i),
+  conapo: findSrc(/CONAPO \/ GDI/i),
+  lales: findSrc(/LALES/i),
+  ensanut2124: findSrc(/Reyes-Garc/i),
+  ensanut22: findSrc(/ENSANUT 2022/i),
+  census: findSrc(/U\.S\. Census ACS/i),
+  mscope: findSrc(/Market Scope/i),
+  bookimed: findSrc(/Bookimed/i),
+  censo20: findSrc(/Censo de Población y Vivienda 2020/i),
+  ifc: findSrc(/World Bank/i),
+  // atribución fila-por-fila de las tablas de precios / dólares
+  verxmex: findSrc(/Ver por México/i),
+  mendoza: findSrc(/Mendoza Barbosa/i),
+  salauno: findSrc(/Salauno/i),
+  privmx: findSrc(/cuantomecuesta/i),
+  medicalmex: findSrc(/MedicalMex/i),
+  tijeye: findSrc(/Tijuana Eye Center/i),
+  sandiego: findSrc(/newchoicehealth/i),
+  turismomx: findSrc(/Baja Health Cluster|Mexico News Daily/i),
+  // atribución por ocurrencia en prosa (marcador ^token)
+  salmin: findSrc(/salario mínimo Zona Libre/i),
+  mktdata: findSrc(/MarketData/i),
+  imss: findSrc(/2\.5 millones de derechohab/i),
+  issste: findSrc(/Excélsior — ISSSTE/i),
+  imss2025: findSrc(/El Imparcial \/ IMSS/i),
+  jsst: findSrc(/Uniradio/i),
+  vmendez: findSrc(/Vision Méndez — precios/i),
+  macloc: findSrc(/Hospitales MAC \/ Info/i),
+  doctoralia: findSrc(/Doctoralia/i),
+  progbc: findSrc(/El Imparcial Tijuana — programa estatal/i),
+  aravind: findSrc(/Aravind Eye Care System/i),
+  escala: findSrc(/PMC9872216/i),
+  wikicoord: findSrc(/Wikipedia — Península Tijuana/i),
+  modelo: findSrc(/Modelo de demanda por colonia/i),
+};
+function linkTags(html) {
+  return html.replace(
+    /<span class="tg ([^"]*)" data-src="([^"]*)">(\[[^\]]*\])<\/span>/g,
+    (m, cls, src, label) => {
+      const idx = src === "*" ? -1 : TOKEN_TO_IDX[src];
+      const href = idx != null && idx >= 0 ? "#src-" + idx : "#fuentes";
+      return '<a class="tg ' + cls + ' tgl" href="' + href + '">' + label + "</a>";
+    },
+  );
+}
+function deepLink(v) {
+  if (typeof v === "string") return linkTags(v);
+  if (Array.isArray(v)) return v.map(deepLink);
+  if (v && typeof v === "object") {
+    for (const k in v) v[k] = deepLink(v[k]);
+    return v;
+  }
+  return v;
+}
+deepLink(out);
+
+// Fuentes verificables de los charts (token → ancla #src-N) para los Server Components SVG.
+const tokHref = (tok) => {
+  const i = tok === "*" ? -1 : TOKEN_TO_IDX[tok];
+  return i != null && i >= 0 ? "#src-" + i : "#fuentes";
+};
+if (out.viz && out.viz.porNivel) out.viz.porNivel.fuenteHref = tokHref("enigh");
+if (out.viz && out.viz.dolaresFunnel)
+  for (const p of out.viz.dolaresFunnel.peldanos) if (p.srcTok) p.srcHref = tokHref(p.srcTok);
 
 writeFileSync(OUT, JSON.stringify(out, null, 2), "utf8");
 const kb = (readFileSync(OUT, "utf8").length / 1024).toFixed(0);

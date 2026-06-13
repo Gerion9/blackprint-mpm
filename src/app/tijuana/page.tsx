@@ -9,6 +9,13 @@ import SomDecay from "@/components/tijuana/charts/SomDecay";
 import PriceLane from "@/components/tijuana/charts/PriceLane";
 import MarketFunnel from "@/components/tijuana/charts/MarketFunnel";
 import TamSamSom from "@/components/tijuana/charts/TamSamSom";
+import CaptureThermo from "@/components/tijuana/charts/CaptureThermo";
+import DollarFunnel from "@/components/tijuana/charts/DollarFunnel";
+import LevelProfile from "@/components/tijuana/charts/LevelProfile";
+import CrossTime from "@/components/tijuana/charts/CrossTime";
+import RiskMatrix from "@/components/tijuana/charts/RiskMatrix";
+import MarketMoney from "@/components/tijuana/MarketMoney";
+import { deriveMarketMoney } from "@/components/tijuana/charts/marketMoney";
 import type { TijuanaSeccion, TijuanaTabla, TijuanaViz } from "@/lib/schema";
 
 export const metadata: Metadata = {
@@ -42,6 +49,17 @@ const REC_GROUPS: { titulo: string; idx: number[] }[] = [
   { titulo: "Qué confirmar antes de comprometer capital", idx: [5] },
 ];
 const KPI_ACCENT = ["", "coral", "green", "", "pink", "coral"];
+// Mapa curado dato→fuente (índice en study.fuentes) para el click-a-fuente de cada KPI.
+// Render-time, sin tocar el pipeline: cada cifra del hero salta a su fila exacta del footer.
+// Solo apunta a fuentes datadas reales; ninguna KPI es [hueco] (eso iría a §08, no a una fuente).
+const KPI_SRC: (number | null)[] = [
+  39, // $18,500+IVA MxM (todo incluido) → mirandopormexico.com (dato del cliente)
+  15, // $2,449–2,950 USD CODET → Bookimed (CODET, rango de mercado Tijuana)
+  27, // $3,500–7,000 USD EE.UU. autopago premium → Eye Care of San Diego (premium)
+  11, // 6–18 meses espera / rezago 40% ISSSTE → Excélsior (ISSSTE rezago quirúrgico)
+  66, // 20,000–32,000 ojos operables → Modelo de demanda por colonia (BlackPrint)
+  66, // ~1,500–1,800 cirugías/año (≈$32–39 M MXN) → Modelo de demanda por colonia (BlackPrint)
+];
 
 function confLabel(c: string) {
   return c.charAt(0).toUpperCase() + c.slice(1);
@@ -53,11 +71,21 @@ function isHighlightRow(firstCellHtml: string) {
 /** gráficos que anteceden a la tabla de una sección (solo si hay datos viz) */
 function ChartsFor({ sid, viz }: { sid: string; viz?: TijuanaViz }) {
   if (!viz) return null;
-  if (sid === "p1-mercado-local") return <MarketFunnel viz={viz} />;
+  if (sid === "p1-mercado-local")
+    return (
+      <>
+        <MarketFunnel viz={viz} />
+        <LevelProfile viz={viz} />
+      </>
+    );
   if (sid === "p3-precios") return <PriceLane viz={viz} />;
+  if (sid === "p4-dolares") return <DollarFunnel viz={viz} />;
+  if (sid === "geografia") return <CrossTime viz={viz} />;
+  if (sid === "riesgos") return <RiskMatrix />;
   if (sid === "escenarios")
     return (
       <>
+        <CaptureThermo viz={viz} />
         <SomDecay viz={viz} />
         <TamSamSom viz={viz} />
       </>
@@ -172,6 +200,7 @@ export default async function Page() {
 
   const secById = new Map(study.secciones.map((s) => [s.id, s] as const));
   const tblById = new Map(study.tablas.map((t) => [t.id, t] as const));
+  const money = study.viz ? deriveMarketMoney(study.viz) : null;
 
   return (
     <>
@@ -180,6 +209,7 @@ export default async function Page() {
         <div className="container tj-report">
           <nav className="topnav" id="topnav" aria-label="Índice del estudio de Tijuana">
             <a href="/">← Nacional</a>
+            <a href="#dinero">El mercado $</a>
             <a href="#resumen">Resumen</a>
             {CHAPTERS.map((ch) => (
               <a key={ch.num} href={`#ch${ch.num}`}>
@@ -187,7 +217,7 @@ export default async function Page() {
               </a>
             ))}
             <a href="#recomendaciones">Qué hacer</a>
-            {study.validacion ? <a href="#validacion">Validación</a> : null}
+            {study.validacion ? <a href="#validacion">Lo que falta</a> : null}
             <a href="#notas">Notas</a>
           </nav>
 
@@ -220,6 +250,16 @@ export default async function Page() {
                   segunda línea oportunista. El oriente desatendido da el <strong>volumen</strong>; la frontera, el{" "}
                   <strong>margen</strong>.
                 </p>
+                {money ? (
+                  <p className="ha-money">
+                    <span className="ha-money-tag">A cuánto da acceso</span>
+                    <span className="ha-money-body">
+                      ~{money.baseMXN} MXN al año en el local (años 2-4) <span className="tg tg-est">[est.]</span>;{" "}
+                      el cruce en dólares es prima, no base <span className="tg tg-sup">[sup.]</span>.{" "}
+                      <a className="cite" href="#dinero" title="Ver el desglose del mercado en dinero">desglose ↓</a>
+                    </span>
+                  </p>
+                ) : null}
               </aside>
             </div>
             <div className="hero-chevron" aria-hidden="true">
@@ -231,7 +271,8 @@ export default async function Page() {
           <div className="tg-legend tg-legend--slim reveal">
             <span className="lbl">Cómo leer las cifras</span>
             <span className="it">
-              <span className="tg tg-dato">[dato]</span> verificado en fuente
+              <a className="tg tg-dato tgl" href="#fuentes">[dato]</a> verificado en fuente —{" "}
+              <em className="legend-hint">toca cualquiera para ver su fuente</em>
             </span>
             <span className="it">
               <span className="tg tg-est">[estimación]</span> cálculo con supuestos
@@ -244,19 +285,30 @@ export default async function Page() {
             </span>
           </div>
 
-          {/* KPIs */}
+          {/* KPIs — cada cifra enlaza a su fuente exacta al pie (#src-N) para corroborar rápido */}
           <div className="kpis k6">
-            {study.kpis.map((k, i) => (
-              <div key={k.label} className={`kpi reveal ${KPI_ACCENT[i] ?? ""}`}>
-                <span className="kpi-label">{k.label}</span>
-                <span className="kpi-value">{k.valor}</span>
-                <Html as="span" className="kpi-sub" html={k.subHtml} />
-              </div>
-            ))}
+            {study.kpis.map((k, i) => {
+              const src = KPI_SRC[i];
+              return (
+                <div key={k.label} className={`kpi reveal ${KPI_ACCENT[i] ?? ""}`}>
+                  <span className="kpi-label">{k.label}</span>
+                  <span className="kpi-value">{k.valor}</span>
+                  <Html as="span" className="kpi-sub" html={k.subHtml} />
+                  {src != null && study.fuentes[src] ? (
+                    <a className="kpi-cite cite" href={`#src-${src}`} title="Ver la fuente de esta cifra al pie del estudio">
+                      fuente ↓
+                    </a>
+                  ) : null}
+                </div>
+              );
+            })}
           </div>
 
           {/* TABLERO DE VEREDICTOS (answer-first) */}
           {study.decisiones ? <VerdictBoard decisiones={study.decisiones} /> : null}
+
+          {/* EL MERCADO, EN DINERO (tamaño del mercado en $: pesos = motor, dólar = prima) */}
+          <MarketMoney viz={study.viz} />
 
           {/* RESUMEN */}
           <section className="section-title reveal" id="resumen" data-sec>
@@ -330,7 +382,7 @@ export default async function Page() {
             <>
               <div className="chapter-divider" id="validacion" data-sec>
                 <span className="chapter-num">08</span>
-                <span className="chapter-label">Validación primaria · datos duros y transparencia</span>
+                <span className="chapter-label">Lo que falta · huecos con ruta y solicitudes de transparencia</span>
               </div>
               <Validacion v={study.validacion} />
             </>
@@ -391,10 +443,10 @@ export default async function Page() {
               dimensionamiento con rangos, mapeo geográfico, revisión crítica de integridad y síntesis editorial. No
               sustituye due diligence clínica, regulatoria ni de equipamiento.
             </p>
-            <div className="tbl-title">Fuentes ({study.fuentes.length})</div>
+            <div className="tbl-title" id="fuentes">Fuentes ({study.fuentes.length})</div>
             <div className="tj-srcs">
               {study.fuentes.map((f, i) => (
-                <div key={i} className="s">
+                <div key={i} className="s" id={`src-${i}`}>
                   {f.url ? (
                     <a href={f.url} target="_blank" rel="noopener noreferrer">
                       {f.nombre}

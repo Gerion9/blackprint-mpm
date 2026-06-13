@@ -175,7 +175,11 @@ export default function MapCanvas(props: Props) {
         maxBounds: MEXICO_MAXBOUNDS,
         dragRotate: false,
         attributionControl: false,
-        cooperativeGestures: false,
+        // En móvil, sin gestos cooperativos el arrastre sobre el mapa secuestra el scroll
+        // de la página (el lector queda "atrapado" en el mapa). true → un dedo hace scroll,
+        // dos dedos mueven el mapa; en escritorio el zoom pide ctrl/⌘+rueda. Coincide con
+        // TijuanaMapCanvas (donde ya estaba marcado como crítico para móvil).
+        cooperativeGestures: true,
       });
       mapRef.current = map;
       popupRef.current = new maplibregl.Popup({ closeButton: true, closeOnClick: true, maxWidth: "280px", className: "clin-popup-wrap" });

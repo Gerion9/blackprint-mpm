@@ -313,6 +313,61 @@ export const TijuanaVizSchema = z.object({
     sam: TijuanaRangoSchema,
     som: z.array(TijuanaRangoSchema),
   }),
+  // ── Capas de data-viz que acompañan tablas densas (charts SVG). Opcionales/no-breaking;
+  //    el loader cae a fallback si faltan. Single-source: el chart cita el MISMO dato tipado. ──
+  // Embudo del dólar que COLAPSA a un hueco: solo el peldaño censal es barra; lo demás se
+  // tacha/anota; el final es hueco SIN cifra (red-team: jamás una barra acotada a un volumen [hueco]).
+  dolaresFunnel: z
+    .object({
+      peldanos: z.array(
+        z.object({
+          label: z.string(),
+          valor: z.string(), // "493,837"; "" en el hueco (no se dibuja ancho ni cifra)
+          sub: z.string().optional().default(""),
+          tipo: z.enum(["barra", "tachado", "motor", "anotacion", "hueco"]),
+          tag: z.string(),
+          srcTok: z.string().optional(), // token de fuente verificable; el build lo resuelve a srcHref
+          srcHref: z.string().optional(), // ancla #src-N resuelta en build (solo peldaños [dato] verificables)
+        }),
+      ),
+      macroNota: z.string(),
+    })
+    .optional(),
+  // Perfil de pago por nivel socioeconómico (small-multiples): la capacidad baja mientras la
+  // necesidad sube. % por nivel de ENIGH (declarar alcance en la nota, no repetir el error AMAI).
+  porNivel: z
+    .object({
+      niveles: z.array(z.string()),
+      refMxN: z.number().optional(),
+      fuenteHref: z.string().optional(), // ancla #src-N de la fuente del chart (ENIGH), resuelta en build
+      paneles: z.array(
+        z.object({
+          titulo: z.string(),
+          unidad: z.string(),
+          valores: z.array(z.number()),
+          sentido: z.enum(["baja", "sube"]),
+          tag: z.string(),
+          nota: z.string().optional().default(""),
+        }),
+      ),
+    })
+    .optional(),
+  // Tiempos puerta a puerta: el cruce manda, no la distancia mexicana. Bandas min-max (nunca punto).
+  accesibilidad: z
+    .object({
+      rutas: z.array(
+        z.object({
+          origen: z.string(),
+          destino: z.string(),
+          min: z.number(),
+          max: z.number(),
+          cruza: z.boolean(), // incluye el cruce (el cuello) vs ya cruzado (solo lado MX)
+          tag: z.string(),
+          nota: z.string().optional().default(""),
+        }),
+      ),
+    })
+    .optional(),
 });
 
 // Validación primaria (2ª pasada jun-2026): supuestos reemplazados por dato duro + solicitudes de transparencia.
