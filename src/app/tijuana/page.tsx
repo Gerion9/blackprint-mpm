@@ -130,7 +130,7 @@ const FIGS: Record<string, { src: string; alt: string; caption: string }[]> = {
       src: "/img/tijuana/mapa_origen_competidores.png",
       alt: "Mapa de orígenes de los visitantes al clúster de turismo médico de Zona Río.",
       caption:
-        "De dónde llegan los visitantes al clúster de Zona Río: un radio amplio del poniente acomodado y de la franja fronteriza — el perfil que ya capta la competencia premium, lejos del oriente local de MAC.",
+        "De dónde llegan los visitantes al clúster de Zona Río: el poniente acomodado y la franja fronteriza — el paciente en dólares ya tiene quién lo atienda, y no llega por el oriente. Otra razón para tratar el cruce como prima, no como base.",
     },
   ],
 };
@@ -278,8 +278,8 @@ export default async function Page() {
                   <p className="ha-money">
                     <span className="ha-money-tag">A cuánto da acceso</span>
                     <span className="ha-money-body">
-                      ~{money.baseMXN} MXN al año en el local (años 2-4) <span className="tg tg-est">[est.]</span>;{" "}
-                      el cruce en dólares es prima, no base <span className="tg tg-sup">[sup.]</span>.{" "}
+                      ~{money.baseMXN} MXN al año en el local (años 2-4) <span className="tg tg-est">[estimación]</span>;{" "}
+                      el cruce en dólares es prima, no base <span className="tg tg-sup">[supuesto]</span>.{" "}
                       <a className="cite" href="#dinero" title="Ver el desglose del mercado en dinero">desglose ↓</a>
                     </span>
                   </p>

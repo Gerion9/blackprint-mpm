@@ -46,7 +46,7 @@ export default function ReadingGuide() {
             <div><dt>Bolsa pública</dt><dd>Quienes hoy esperan en el sistema público (IMSS/ISSSTE) — la palanca base de ~74% del mercado.</dd></div>
             <div><dt>Oriente desatendido</dt><dd>Zona donde la cirugía más cercana queda fuera del radio que la gente viaja → captura geográfica sin competencia.</dd></div>
             <div><dt>Radio de captación</dt><dd>Qué tan lejos viaja de verdad la gente para atenderse (~4 km, medido con datos de movilidad).</dd></div>
-            <div><dt>Escalado / factor k</dt><dd>El ajuste que convierte la muestra de movilidad en un estimado de población real (personas, no celulares).</dd></div>
+            <div><dt>Escalado / factor k</dt><dd>El ajuste que convierte una muestra de movilidad en un estimado de población real — de cuántos aparecen en los datos a cuántas personas son en realidad.</dd></div>
             <div><dt>Confianza alta/media/baja</dt><dd>Qué tan firme es la cifra. <strong>Baja no es débil</strong>: dirección robusta, magnitud incierta.</dd></div>
           </dl>
         </div>

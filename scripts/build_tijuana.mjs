@@ -208,7 +208,7 @@ const puntosMapa = D.puntosMapa.map((p) => {
 // Tablero answer-first: las 6 preguntas del briefing respondidas en una frase de negocio.
 const decisiones = [
   { pregunta: "Tamaño del mercado local por nivel socioeconómico", respuesta: "Grande y financiable: ~40% de los hogares son clase media que sí paga el modelo.", numero: "20,000–32,000 ojos operables", conf: "media", confNota: "Dirección robusta; magnitud incierta (no hay estudio local).", anclaId: "p1-mercado-local" },
-  { pregunta: "Lista de espera pública en BC", respuesta: "Demanda represada real; la capacidad gratuita es una gota frente a la bolsa.", numero: "<2,000 cirugías/año de programas abiertos en BC", conf: "baja", confNota: "El rezago es real y reconocido; su magnitud exacta no es dato público.", anclaId: "p2-lista-espera" },
+  { pregunta: "Lista de espera pública en BC", respuesta: "Demanda represada real; la capacidad gratuita es una gota frente a la bolsa.", numero: "<2,000 cirugías gratuitas/año en todo BC", conf: "baja", confNota: "El rezago es real y reconocido; su magnitud exacta no es dato público.", anclaId: "p2-lista-espera" },
   { pregunta: "Precios de la competencia", respuesta: "MxM tiene un carril propio entre lo gratis-solidario y el dólar.", numero: "~49–58% bajo CODET", conf: "media", confNota: "Rangos sólidos; precios exactos vienen de plataformas intermediarias.", anclaId: "p3-precios" },
   { pregunta: "Segmento en dólares (pacientes que cruzan)", respuesta: "Brecha de precio enorme, volumen incierto: es upside, no la base del negocio.", numero: "~79% bajo San Diego premium", conf: "baja", confNota: "El tamaño es cadena de supuestos; el flujo cayó 20–40% en 2025.", anclaId: "p4-dolares" },
   { pregunta: "Hospitales y oftalmólogos cerca de MAC", respuesta: "El corredor oriente está despejado: nadie opera alto volumen accesible confirmado ahí.", numero: "sin rival accesible confirmado", conf: "media", confNota: "Coordenadas mayormente aproximadas; falta due diligence de equipo.", anclaId: "p5-hospitales" },
@@ -337,7 +337,7 @@ const validacion = {
  * Cada cifra del modelo va [estimación]; la afiliación/ingreso/crédito es [dato ENIGH]. */
 const audiencias = {
   introHtml: inl(
-    "Hasta aquí, el mercado fue un tamaño. Cruzando **cómo paga** (financia o de contado), **a qué salud está afiliado** (público o privado directo) y **dónde vive**, ese tamaño se vuelve audiencias concretas: a quién llamar, en qué colonias, con qué palanca y qué oferta. Las cifras de cada audiencia son [estimación] del modelo por colonia: priorizan y dimensionan la lista, no son un padrón de pacientes.",
+    "Hasta aquí, el mercado fue un tamaño y una decisión. Ahora se vuelve operativo. Cruzando **cómo paga** (financia o de contado), **a qué salud está afiliado** (público o privado directo) y **dónde vive**, esos ~10,000 pacientes operables se ordenan en audiencias concretas: a quién llamar, en qué colonias, con qué palanca y qué oferta. Las cifras de cada audiencia son [estimación] del modelo por colonia: sirven para priorizar y dimensionar la lista, no son un padrón de pacientes.",
   ),
   segmentos: [
     {
@@ -349,7 +349,7 @@ const audiencias = {
       prioridad: "alta",
       grupo: "A",
       porQueHtml: inl(
-        "**Sí puede pagar y aún así está esperando** en la lista pública (83% afiliado): no le vendes precio, le vendes salir de la fila esta semana en vez de en años. La conversión más fácil y la de mayor valor — por eso encabeza la lista.",
+        "**Sí puede pagar y aún así está esperando** en la lista pública (83% afiliado): no le vendes precio, le vendes salir de la fila esta semana en vez de en años. La conversión de mayor valor — por eso encabeza la lista por bolsillo. La contra: vive en el poniente, donde la competencia premium ya está; con este grupo MxM compite de tú a tú, no desde la ventaja del oriente.",
       ),
     },
     {
@@ -407,7 +407,7 @@ const audiencias = {
       alcance: "~74% del mercado",
       rol: "mensaje base",
       porQueHtml: inl(
-        "3 de cada 4 personas con catarata operable: el **mensaje raíz**. Todos afiliados al público, todos frente a la misma lista (rezago ~7 años [estimación]). No es un grupo aparte: es **la frase que abre toda llamada** —«recupere la vista en semanas, no en una lista sin fecha»— afinada por bolsillo y zona.",
+        "3 de cada 4 personas con catarata operable: el **mensaje raíz**. Todos afiliados al público, todos frente a la misma lista (que el sector público tardaría de 7 a 16 años en vaciar [estimación]). No es un grupo aparte: es **la frase que abre toda llamada** —«recupere la vista en semanas, no en una lista sin fecha»— afinada por bolsillo y zona.",
       ),
     },
   ],
@@ -422,7 +422,7 @@ const audiencias = {
     "[dato ENIGH 2024, por estrato nacional aplicado a Tijuana] El segmento A tiene ingreso ~2× y crédito ~4× el de B: por eso financia. El B, con mayor carga visual pero menos crédito, exige contado de bajo monto. Las dos capas transversales heredan el perfil de A o B según la colonia.",
   ),
   arranqueHtml: inl(
-    "**Arranque sugerido.** Si hay que escoger dos listas para la primera campaña, el dato apunta a **A1 · Premium poniente** (puede financiar, ya está esperando y es el grupo más grande de los que pagan) y al **Oriente desatendido** (captura geográfica casi sin disputa). Son **palancas que el dato sustenta**, no guiones de campaña: el copy final de cada llamada queda a criterio del cliente.",
+    "**Arranque sugerido.** Dos listas para la primera campaña, y conviene leerlas juntas. Por capacidad de pago, la lista más rica es **A1 · Premium poniente**: financia, ya está esperando y es el grupo más grande de los que pagan — pero vive lejos de MAC, donde la competencia premium ya está instalada. Por cercanía, la ventaja propia de MAC es el **Oriente desatendido**: captura geográfica casi sin disputa. La jugada fina es **el cruce de ambas** —el paciente del oriente que sí financia—, donde coinciden el bolsillo y el mapa. Son **palancas que el dato sustenta**, no guiones de campaña: el copy final de cada llamada queda a criterio del cliente.",
   ),
 };
 
