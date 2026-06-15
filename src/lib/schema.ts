@@ -378,6 +378,43 @@ export const TijuanaValidacionSchema = z.object({
   solicitudes: z.array(z.object({ institucion: z.string(), texto: z.string() })),
 });
 
+/* SEGMENTACIÓN DE AUDIENCIAS (deliverable §7 "telemarketing") — petición del cliente: traducir el
+ * mercado a audiencias de campaña. 4 segmentos base (A1/A2/B1/B2) + 2 overlays transversales
+ * (oriente desatendido, bolsa pública). Los *Html ya vienen procesados (tags de integridad) del build. */
+export const TijuanaPrioridadSchema = z.enum(["alta", "media-alta", "media", "media-baja"]);
+export const TijuanaAudSegSchema = z.object({
+  id: z.string(),
+  nombre: z.string(),
+  tam: z.string(),
+  colonias: z.string(),
+  oferta: z.string(),
+  prioridad: TijuanaPrioridadSchema,
+  grupo: z.enum(["A", "B"]),
+  porQueHtml: z.string(),
+});
+export const TijuanaAudOverlaySchema = z.object({
+  id: z.string(),
+  nombre: z.string(),
+  tam: z.string(),
+  alcance: z.string(),
+  rol: z.string(),
+  porQueHtml: z.string(),
+});
+export const TijuanaAudPerfilSchema = z.object({
+  indicador: z.string(),
+  segA: z.string(),
+  segB: z.string(),
+  lectura: z.string(),
+});
+export const TijuanaAudienciasSchema = z.object({
+  introHtml: z.string(),
+  segmentos: z.array(TijuanaAudSegSchema),
+  overlays: z.array(TijuanaAudOverlaySchema),
+  perfil: z.array(TijuanaAudPerfilSchema),
+  perfilNotaHtml: z.string(),
+  arranqueHtml: z.string(),
+});
+
 export const TijuanaStudySchema = z.object({
   generatedAt: z.string(),
   titulo: z.string(),
@@ -391,10 +428,11 @@ export const TijuanaStudySchema = z.object({
   caveats: z.array(z.string()),
   fuentes: z.array(TijuanaFuenteSchema),
   pendientes: z.array(TijuanaPendienteSchema),
-  // viz/decisiones/validacion: aditivos opcionales (el loader cae a fallback si faltan)
+  // viz/decisiones/validacion/audiencias: aditivos opcionales (el loader cae a fallback si faltan)
   decisiones: z.array(TijuanaDecisionSchema).optional(),
   viz: TijuanaVizSchema.optional(),
   validacion: TijuanaValidacionSchema.optional(),
+  audiencias: TijuanaAudienciasSchema.optional(),
 });
 
 export type Estado = z.infer<typeof EstadoSchema>;
@@ -426,4 +464,7 @@ export type TijuanaPrecio = z.infer<typeof TijuanaPrecioSchema>;
 export type TijuanaEmbudoNivel = z.infer<typeof TijuanaEmbudoNivelSchema>;
 export type TijuanaRango = z.infer<typeof TijuanaRangoSchema>;
 export type TijuanaValidacion = z.infer<typeof TijuanaValidacionSchema>;
+export type TijuanaAudiencias = z.infer<typeof TijuanaAudienciasSchema>;
+export type TijuanaAudSeg = z.infer<typeof TijuanaAudSegSchema>;
+export type TijuanaAudOverlay = z.infer<typeof TijuanaAudOverlaySchema>;
 export type TijuanaAgeb = z.infer<typeof TijuanaAgebSchema>;

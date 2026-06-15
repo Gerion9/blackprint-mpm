@@ -746,17 +746,105 @@ table.dt{border-collapse:collapse;width:100%;font-size:12.5px;background:var(--s
 .vb-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
 @media(max-width:980px){.vb-grid{grid-template-columns:repeat(2,1fr)}}
 @media(max-width:620px){.vb-grid{grid-template-columns:1fr}}
-.vb-card{display:flex;flex-direction:column;gap:7px;padding:16px 18px;background:var(--surface);border:1px solid var(--line);border-top:3px solid var(--mpm-navy);border-radius:var(--r-md);box-shadow:var(--shadow-1);transition:var(--transition-smooth)}
+.vb-card{display:flex;flex-direction:column;gap:5px;padding:16px 18px;background:var(--surface);border:1px solid var(--line);border-top:3px solid var(--mpm-navy);border-radius:var(--r-md);box-shadow:var(--shadow-1);transition:var(--transition-smooth)}
 .vb-card:hover{box-shadow:var(--shadow-3);transform:translateY(-2px);border-top-color:var(--blue-p)}
-.vb-q{font-family:var(--font-mono),monospace;font-size:10px;letter-spacing:.05em;text-transform:uppercase;color:var(--ink-mute);display:flex;align-items:center;gap:7px;line-height:1.4}
-.vb-q-n{font-weight:700;color:#fff;background:var(--mpm-navy);border-radius:var(--r-xs);padding:1px 6px;font-size:9.5px;flex-shrink:0}
-.vb-a{font-family:var(--font-display),sans-serif;font-weight:700;font-size:15px;line-height:1.25;color:var(--ink);letter-spacing:-.01em}
-.vb-num{font-family:var(--font-display),sans-serif;font-weight:700;font-size:18px;color:var(--mpm-navy);letter-spacing:-.01em}
+/* Pregunta LEGIBLE como pregunta (no metadato): Work Sans 13px sentence-case, tinta plena (cumple AA);
+   la respuesta sigue dominando por tamaño+navy, separada por una línea Q→A. Antes la pregunta iba en
+   mono 10px gris (--ink-mute ~2.9:1, fallaba AA) y "no se alcanzaba a ver". */
+.vb-q{font-family:var(--font-body),"Work Sans",sans-serif;font-size:13px;font-weight:600;letter-spacing:-.005em;text-transform:none;color:var(--ink);display:flex;align-items:flex-start;gap:8px;line-height:1.35;min-height:2.7em}
+.vb-q-n{font-family:var(--font-mono),monospace;font-weight:700;color:#fff;background:var(--mpm-navy);border-radius:var(--r-xs);padding:2px 6px;font-size:10px;line-height:1.3;flex-shrink:0;margin-top:1px}
+.vb-a{font-family:var(--font-display),sans-serif;font-weight:700;font-size:15px;line-height:1.28;color:var(--mpm-navy);letter-spacing:-.01em;padding-top:7px;border-top:1px solid var(--mpm-navy-soft)}
+.vb-num{font-family:var(--font-display),sans-serif;font-weight:700;font-size:18px;color:var(--blue-p);letter-spacing:-.01em}
 .vb-foot{display:flex;align-items:center;gap:8px;margin-top:2px}
 .vb-foot .conf-badge{margin-left:0}
 .vb-go{margin-left:auto;color:var(--depth-3);font-weight:700;transition:transform .15s,color .15s}
 .vb-card:hover .vb-go{color:var(--blue-p);transform:translateX(3px)}
 .vb-note{font-family:var(--font-mono),monospace;font-size:9.5px;color:var(--ink-note);line-height:1.45;border-top:1px dashed var(--line);padding-top:7px;margin-top:auto}
+
+/* ── hint de una línea bajo los KPIs (reemplaza la leyenda permanente del fold) ── */
+.kpi-legend-hint{font-family:var(--font-mono),monospace;font-size:10.5px;color:var(--ink-note);text-align:right;margin:-10px 0 24px}
+
+/* ── guía de lectura + glosario (colapsable, 0-JS vía <details>) ──────────────── */
+.rguide{margin:0 0 30px;border:1px solid var(--line);border-radius:var(--r-md);background:var(--surface-2);overflow:hidden}
+.rguide[open]{box-shadow:var(--shadow-1);background:var(--surface)}
+.rguide-sum{display:flex;align-items:center;gap:10px;padding:11px 16px;cursor:pointer;list-style:none;user-select:none}
+.rguide-sum::-webkit-details-marker{display:none}
+.rguide-ic{display:grid;place-items:center;width:20px;height:20px;border-radius:50%;background:var(--blue-p);color:#fff;font-family:var(--font-display),sans-serif;font-weight:700;font-size:12px;flex-shrink:0}
+.rguide-t{font-family:var(--font-display),sans-serif;font-weight:700;font-size:14px;color:var(--ink)}
+.rguide-meta{font-family:var(--font-mono),monospace;font-size:10px;letter-spacing:.06em;color:var(--ink-mute);text-transform:uppercase}
+.rguide-chev{margin-left:auto;color:var(--ink-mute);transition:transform .2s}
+.rguide[open] .rguide-chev{transform:rotate(180deg)}
+.rguide-sum:hover .rguide-t{color:var(--blue-deep)}
+.rguide-sum:focus-visible{outline:2px solid var(--blue-p);outline-offset:-2px}
+.rguide-body{padding:4px 16px 16px;display:grid;grid-template-columns:repeat(3,1fr);gap:22px;border-top:1px solid var(--line);margin-top:2px;padding-top:14px}
+@media(max-width:860px){.rguide-body{grid-template-columns:1fr;gap:16px}}
+.rguide-h{font-family:var(--font-mono),monospace;font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--coral);font-weight:700;margin:0 0 9px}
+.rguide-levels{display:flex;flex-direction:column;gap:10px}
+.rg-lvl{display:flex;gap:10px;align-items:flex-start}
+.rg-lvl-n{flex-shrink:0;font-family:var(--font-mono),monospace;font-size:10px;font-weight:700;color:var(--mpm-navy);background:var(--mpm-navy-soft);border-radius:var(--r-xs);padding:3px 7px;min-width:46px;text-align:center}
+.rg-lvl p{font-size:12px;line-height:1.5;color:var(--ink-soft);margin:0}
+.rg-lvl strong{color:var(--ink);font-weight:600}
+.rguide-tags{display:flex;flex-direction:column;gap:8px}
+.rg-tag{font-size:11.5px;line-height:1.5;color:var(--ink-soft);display:flex;gap:7px;align-items:baseline;flex-wrap:wrap}
+.rguide-gloss{display:flex;flex-direction:column;gap:8px;margin:0}
+.rguide-gloss>div{display:flex;flex-direction:column;gap:1px}
+.rguide-gloss dt{font-family:var(--font-ui),"Inter",sans-serif;font-size:11.5px;font-weight:700;color:var(--mpm-navy)}
+.rguide-gloss dd{font-size:11.5px;line-height:1.45;color:var(--ink-soft);margin:0}
+.rguide-gloss dd em{font-style:normal;color:var(--blue-deep);font-weight:600}
+.rguide-gloss strong{color:var(--ink);font-weight:700}
+
+/* ── §08 Segmentación de audiencias (3 capas: overlays · segmentos base · perfil) ── */
+.aud{margin:8px 0 34px}
+.aud-intro{font-size:14px;line-height:1.65;color:var(--ink-soft);max-width:80ch;margin:0 0 22px}
+.aud-intro strong{color:var(--ink);font-weight:600}
+/* CAPA 1 · overlays transversales (fondo rayado = otra "especie", cf. .mm-dollar) */
+.aud-overlays{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+@media(max-width:760px){.aud-overlays{grid-template-columns:1fr}}
+.aud-ov{padding:15px 18px;border:1px solid var(--line);border-left:4px solid var(--coral);border-radius:var(--r-md);
+  background:repeating-linear-gradient(135deg,var(--surface),var(--surface) 10px,rgba(255,111,97,.06) 10px,rgba(255,111,97,.06) 20px);
+  box-shadow:var(--shadow-1);display:flex;flex-direction:column;gap:6px}
+.aud-ov-h{display:flex;align-items:center;gap:9px}
+.aud-ov-mark{font-family:var(--font-mono),monospace;font-weight:700;font-size:15px;color:var(--coral)}
+.aud-ov-kind{font-family:var(--font-mono),monospace;font-size:9.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--coral);font-weight:700}
+.aud-ov-tam{margin-left:auto;font-family:var(--font-display),sans-serif;font-weight:700;font-size:22px;color:var(--mpm-navy);letter-spacing:-.01em}
+.aud-ov-name{font-family:var(--font-display),sans-serif;font-weight:700;font-size:16px;color:var(--ink);line-height:1.2}
+.aud-ov-body{font-size:13px;line-height:1.55;color:var(--ink-soft);margin:0}
+.aud-ov-body strong{color:var(--ink);font-weight:600}
+.aud-ov-foot{font-family:var(--font-mono),monospace;font-size:10px;color:var(--ink-note);line-height:1.45;border-top:1px dashed var(--line);padding-top:7px;margin-top:auto}
+.aud-bridge{font-size:12.5px;color:var(--ink-soft);line-height:1.5;text-align:center;margin:13px auto;max-width:62ch}
+.aud-bridge em{font-style:normal;color:var(--coral);font-weight:700}
+/* CAPA 2 · 4 segmentos base (fondo sólido; borde superior = prioridad) */
+.aud-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+@media(max-width:760px){.aud-grid{grid-template-columns:1fr}}
+.aud-card{background:var(--surface);border:1px solid var(--line);border-top:3px solid var(--depth-3);
+  border-radius:var(--r-md);box-shadow:var(--shadow-1);padding:16px 18px;display:flex;flex-direction:column;gap:10px;transition:var(--transition-smooth)}
+.aud-card:hover{box-shadow:var(--shadow-2);transform:translateY(-2px)}
+.aud-card.prio-alta{border-top-color:var(--pink-p)}
+.aud-card.prio-media-alta{border-top-color:var(--blue-p)}
+.aud-card.prio-media{border-top-color:var(--mpm-navy)}
+.aud-card.prio-media-baja{border-top-color:var(--depth-3)}
+.aud-card-h{display:flex;align-items:baseline;gap:9px;flex-wrap:wrap}
+.aud-tag{font-family:var(--font-mono),monospace;font-weight:700;font-size:11px;color:#fff;background:var(--mpm-navy);border-radius:var(--r-xs);padding:2px 7px;letter-spacing:.04em}
+.aud-name{font-family:var(--font-display),sans-serif;font-weight:700;font-size:16px;color:var(--ink);margin:0;letter-spacing:-.01em}
+.aud-tam{margin-left:auto;font-family:var(--font-display),sans-serif;font-weight:700;font-size:24px;color:var(--mpm-navy);letter-spacing:-.02em;line-height:1;display:flex;flex-direction:column;align-items:flex-end}
+.aud-tam small{font-family:var(--font-mono),monospace;font-size:9px;font-weight:500;color:var(--ink-mute);text-transform:uppercase;letter-spacing:.08em}
+.aud-prio{align-self:flex-start}
+.prio-b-alta{background:rgba(254,43,124,.12);color:var(--pink-p)}
+.prio-b-media-alta{background:rgba(8,117,227,.12);color:var(--blue-deep)}
+.prio-b-media{background:rgba(6,17,75,.1);color:var(--mpm-navy)}
+.prio-b-media-baja{background:var(--surface-2);color:var(--ink-note);border:1px solid var(--line)}
+.aud-why{font-size:12.5px;line-height:1.55;color:var(--ink-soft);margin:0}
+.aud-why strong{color:var(--ink);font-weight:600}
+.aud-meta{display:flex;flex-direction:column;gap:8px;margin:0}
+.aud-meta>div{display:grid;grid-template-columns:60px 1fr;gap:10px;align-items:baseline}
+.aud-meta dt{font-family:var(--font-mono),monospace;font-size:9.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-mute)}
+.aud-meta dd{font-size:12.5px;line-height:1.45;color:var(--ink-soft);margin:0}
+.aud-meta .aud-offer{font-weight:600;color:var(--ink)}
+/* CAPA 3 · perfil colapsable + arranque sugerido */
+.aud-profile{margin-top:18px}
+.aud-arranque{font-size:13.5px;line-height:1.6;color:var(--ink-soft);max-width:80ch;margin:18px 0 0;
+  padding:13px 17px;background:rgba(8,117,227,.05);border-left:3px solid var(--blue-p);border-radius:0 var(--r-sm) var(--r-sm) 0}
+.aud-arranque strong{color:var(--ink);font-weight:700}
 /* ── el mercado, en dinero (tamaño de mercado en $: pesos = motor, dólar = prima) ── */
 .market-money{margin:8px 0 34px;background:linear-gradient(180deg,var(--mpm-navy-soft),var(--surface));border:1px solid var(--line);border-radius:var(--r-lg);padding:22px 24px 18px;box-shadow:var(--shadow-1)}
 .mm-head{margin-bottom:16px}

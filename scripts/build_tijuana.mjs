@@ -330,6 +330,102 @@ const validacion = {
   ],
 };
 
+/* ---------- SEGMENTACIÓN DE AUDIENCIAS (deliverable §7 telemarketing) ----------
+ * El cliente pidió una sección SOLO de segmentación para sus campañas. 4 segmentos base
+ * (pago × afiliación) + 2 overlays transversales (oriente desatendido, bolsa pública).
+ * Tamaños = personas con catarata operable del modelo por colonia (audiencias_telemarketing.csv).
+ * Cada cifra del modelo va [estimación]; la afiliación/ingreso/crédito es [dato ENIGH]. */
+const audiencias = {
+  introHtml: inl(
+    "Hasta aquí, el mercado fue un tamaño. Cruzando **cómo paga** (financia o de contado), **a qué salud está afiliado** (público o privado directo) y **dónde vive**, ese tamaño se vuelve audiencias concretas: a quién llamar, en qué colonias, con qué palanca y qué oferta. Las cifras de cada audiencia son [estimación] del modelo por colonia: priorizan y dimensionan la lista, no son un padrón de pacientes.",
+  ),
+  segmentos: [
+    {
+      id: "A1",
+      nombre: "Premium poniente",
+      tam: "2,857",
+      colonias: "Playas Secc Dorado · Quinta Alta · Indeco Universidad",
+      oferta: "Financiamiento / parcialidades",
+      prioridad: "alta",
+      grupo: "A",
+      porQueHtml: inl(
+        "**Sí puede pagar y aún así está esperando** en la lista pública (83% afiliado): no le vendes precio, le vendes salir de la fila esta semana en vez de en años. La conversión más fácil y la de mayor valor — por eso encabeza la lista.",
+      ),
+    },
+    {
+      id: "A2",
+      nombre: "Privado directo",
+      tam: "929",
+      colonias: "Playas Secc Dorado · Quinta Alta · Del Otay · Indeco Universidad",
+      oferta: "Financiamiento",
+      prioridad: "media-alta",
+      grupo: "A",
+      porQueHtml: inl(
+        "Ya decidió pagar de su bolsillo —no espera a nadie—, pero hoy elige entre el dólar de Zona Río y lo gratuito con filtro. Tú eres **calidad privada sin precio de dólar**. Pocos, pero listos para comprar.",
+      ),
+    },
+    {
+      id: "B1",
+      nombre: "Contado público",
+      tam: "2,209",
+      colonias: "Del. Centro · Federal · Anexa Divina Providencia",
+      oferta: "Contado accesible",
+      prioridad: "media",
+      grupo: "B",
+      porQueHtml: inl(
+        "Afiliado al público, la espera le pesa el doble: cada mes sin ver es un mes sin trabajar. Le ofreces lo de la pública —un contado que sí alcanza— **sin la lista de espera**. Convierte cuando junta el dinero: ciclo más largo, demanda real.",
+      ),
+    },
+    {
+      id: "B2",
+      nombre: "Contado directo",
+      tam: "815",
+      colonias: "Federal · Del. Centro · Anexa Divina Providencia",
+      oferta: "Contado accesible",
+      prioridad: "media-baja",
+      grupo: "B",
+      porQueHtml: inl(
+        "Sin cobertura: paga de contado o no se opera. Aquí ganan **la cercanía y el precio**, no el discurso. Es el corazón social del modelo, pero el de cierre más lento: trabájalo cuando el embudo de arriba ya esté lleno.",
+      ),
+    },
+  ],
+  overlays: [
+    {
+      id: "oriente",
+      nombre: "Oriente desatendido",
+      tam: "4,751",
+      alcance: "capa geográfica",
+      rol: "se cruza con A y B",
+      porQueHtml: inl(
+        "No es un segmento de bolsillo, es una **ventaja de mapa**: 2 de cada 3 colonias del oriente tienen su cirugía más cercana fuera del radio que la gente recorre (~4 km [estimación]), casi sin competidor a la mano. Eres lo más cercano que tienen: **aquí mismo, sin cruzar la ciudad y a precio justo**.",
+      ),
+    },
+    {
+      id: "bolsa",
+      nombre: "Bolsa pública",
+      tam: "7,423",
+      alcance: "~74% del mercado",
+      rol: "mensaje base",
+      porQueHtml: inl(
+        "3 de cada 4 personas con catarata operable: el **mensaje raíz**. Todos afiliados al público, todos frente a la misma lista (rezago ~7 años [estimación]). No es un grupo aparte: es **la frase que abre toda llamada** —«recupere la vista en semanas, no en una lista sin fecha»— afinada por bolsillo y zona.",
+      ),
+    },
+  ],
+  perfil: [
+    { indicador: "Nivel socioeconómico", segA: "Medio-alto (C+/C)", segB: "Bajo (D)", lectura: "—" },
+    { indicador: "Ingreso del hogar / mes", segA: "$28,562", segB: "$14,674", lectura: "A ≈ 2× B" },
+    { indicador: "Acceso a crédito (tarjeta)", segA: "14.6%", segB: "3.3%", lectura: "A ≈ 4× B → financia" },
+    { indicador: "Con pensión", segA: "26.8%", segB: "5.5%", lectura: "ingreso estable del 60+" },
+    { indicador: "Carga visual seria (catarata)", segA: "8.4%", segB: "11.9%", lectura: "más necesidad en B" },
+  ],
+  perfilNotaHtml: inl(
+    "[dato ENIGH 2024, por estrato nacional aplicado a Tijuana] El segmento A tiene ingreso ~2× y crédito ~4× el de B: por eso financia. El B, con mayor carga visual pero menos crédito, exige contado de bajo monto. Las dos capas transversales heredan el perfil de A o B según la colonia.",
+  ),
+  arranqueHtml: inl(
+    "**Arranque sugerido.** Si hay que escoger dos listas para la primera campaña, el dato apunta a **A1 · Premium poniente** (puede financiar, ya está esperando y es el grupo más grande de los que pagan) y al **Oriente desatendido** (captura geográfica casi sin disputa). Son **palancas que el dato sustenta**, no guiones de campaña: el copy final de cada llamada queda a criterio del cliente.",
+  ),
+};
+
 const FUENTES_NUEVAS = [
   { nombre: "INEGI — Censo de Población y Vivienda 2020 (estructura por edad, Tijuana)", url: "https://www.inegi.org.mx/programas/ccpv/2020/", fecha: "2020" },
   { nombre: "CONAPO — Proyecciones de la población de los municipios 1990-2040", url: "https://www.gob.mx/conapo/articulos/reconstruccion-y-proyecciones-de-la-poblacion-de-los-municipios-de-mexico", fecha: "2024" },
@@ -347,7 +443,7 @@ const FUENTES_NUEVAS = [
   // Metodología del modelo por colonia (deliverable "mirando_por_mexico", jun-2026)
   { nombre: "DENUE INEGI — inventario geolocalizado de oferta de la vista en Tijuana (oftalmología, ópticas, hospitales) y crecimiento 2020-2026", url: "https://www.inegi.org.mx/app/mapa/denue/default.aspx", fecha: "may-2026" },
   { nombre: "INEGI ENIGH 2024 — financiamiento, afiliación a salud y carga visual del adulto mayor por nivel socioeconómico", url: "https://www.inegi.org.mx/programas/enigh/nc/2024/", fecha: "2024" },
-  { nombre: "Modelo de demanda por colonia (BlackPrint, jun-2026) — 60+ (Censo 2020) × prevalencia por edad (LALES) × nivel socioeconómico, por AGEB; cruce demanda × oferta a 2 km", url: "", fecha: "jun-2026" },
+  { nombre: "Modelo de demanda por colonia (BlackPrint, jun-2026) — 60+ (Censo 2020) × prevalencia por edad (LALES) × nivel socioeconómico, por AGEB; cruce demanda × oferta al radio de captación observado (~4 km)", url: "", fecha: "jun-2026" },
 ];
 
 const out = {
@@ -366,6 +462,7 @@ const out = {
   decisiones,
   viz,
   validacion,
+  audiencias,
 };
 
 // ── Click-a-fuente: resolver los marcadores data-src de los tags a anclas del footer. ──
@@ -457,7 +554,7 @@ const AGEB_OUT = path.join(ROOT, "public", "data", "tijuana_agebs.json");
 const csv = readFileSync(AGEB_SRC, "utf8").trim().split(/\r?\n/);
 const hdr = csv[0].split(",");
 const ix = (name) => hdr.indexOf(name);
-const [iLat, iLon, iDem, iOf] = [ix("centroid_lat"), ix("centroid_lon"), ix("demanda"), ix("oferta_2km")];
+const [iLat, iLon, iDem, iDesat] = [ix("centroid_lat"), ix("centroid_lon"), ix("demanda"), ix("desat_obs")];
 const agebs = [];
 for (let r = 1; r < csv.length; r++) {
   const c = csv[r].split(",");
@@ -465,8 +562,9 @@ for (let r = 1; r < csv.length; r++) {
   const lat = parseFloat(c[iLat]);
   const lng = parseFloat(c[iLon]);
   if (!(dem > 0) || !Number.isFinite(lat) || !Number.isFinite(lng)) continue;
-  // sin = sin cirugía de catarata a 2 km (oferta_2km == 0) → el cinturón desatendido del oriente
-  agebs.push({ lng: Math.round(lng * 1e5) / 1e5, lat: Math.round(lat * 1e5) / 1e5, dem: Math.round(dem * 10) / 10, sin: parseFloat(c[iOf]) === 0 });
+  // sin = desatendida al RADIO DE CAPTACIÓN OBSERVADO (~4 km, mediana de la movilidad real), medido
+  // solo contra los proveedores que de verdad operan catarata — criterio del reporte (2): 67% / 4,751.
+  agebs.push({ lng: Math.round(lng * 1e5) / 1e5, lat: Math.round(lat * 1e5) / 1e5, dem: Math.round(dem * 10) / 10, sin: parseFloat(c[iDesat]) === 1 });
 }
 writeFileSync(AGEB_OUT, JSON.stringify(agebs), "utf8");
-console.log(`WROTE public/data/tijuana_agebs.json (${agebs.length} colonias · ${agebs.filter((a) => a.sin).length} sin cirugía a 2km)`);
+console.log(`WROTE public/data/tijuana_agebs.json (${agebs.length} colonias · ${agebs.filter((a) => a.sin).length} fuera del radio ~4km)`);

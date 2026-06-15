@@ -16,6 +16,8 @@ import CrossTime from "@/components/tijuana/charts/CrossTime";
 import RiskMatrix from "@/components/tijuana/charts/RiskMatrix";
 import MarketMoney from "@/components/tijuana/MarketMoney";
 import { deriveMarketMoney } from "@/components/tijuana/charts/marketMoney";
+import ReadingGuide from "@/components/tijuana/ReadingGuide";
+import AudienceSegments from "@/components/tijuana/AudienceSegments";
 import type { TijuanaSeccion, TijuanaTabla, TijuanaViz } from "@/lib/schema";
 
 export const metadata: Metadata = {
@@ -36,7 +38,7 @@ const CHAPTERS: { num: string; label: string; nav: string; secs: string[] }[] = 
 // cada tabla sigue a su sección; cada gráfico ANTECEDE a su tabla (evidencia auditable debajo)
 const TABLES_AFTER: Record<string, string[]> = {
   "p1-mercado-local": ["embudo-local", "nse", "financiamiento-nivel", "carga-visual-nivel"],
-  geografia: ["accesibilidad", "colonias-prioritarias"],
+  geografia: ["desatencion-radio", "accesibilidad", "colonias-prioritarias"],
   "p5-hospitales": ["visitacion"],
   "p4-dolares": ["dolares"],
   escenarios: ["tam-sam-som"],
@@ -98,9 +100,29 @@ const FIGS: Record<string, { src: string; alt: string; caption: string }[]> = {
   geografia: [
     {
       src: "/img/tijuana/mapa_competitivo.png",
-      alt: "Mapa de Tijuana: oferta de cirugía de catarata frente a las colonias con demanda sin atención a 2 km, concentradas en el oriente.",
+      alt: "Mapa de Tijuana: los proveedores que operan cirugía de catarata frente a las colonias desatendidas al radio de captación real (~4 km), concentradas en el oriente.",
       caption:
-        "La oferta de cirugía se concentra en el poniente y el centro; en rojo, las colonias con demanda y sin cirugía a 2 km — el cinturón desatendido del oriente, justo donde está MAC.",
+        "La cirugía se concentra en el poniente y el centro; en rojo, las colonias cuya cirugía más cercana queda fuera del radio que la gente realmente recorre (~4 km) — 67% de las colonias, 4,751 personas, sobre todo en el oriente, justo donde está MAC.",
+    },
+    {
+      src: "/img/tijuana/od_calles_cluster.png",
+      alt: "Flujos de origen-destino ruteados por las calles reales de Tijuana hacia el clúster de turismo médico de Zona Río, sobre imagen satelital.",
+      caption:
+        "Los flujos reales —ruteados por calle, no líneas rectas— hacia el clúster de Zona Río: llegan desde un radio amplio del poniente y la frontera (~75,736 visitas/mes). Otro mercado, lejos del oriente de MAC.",
+    },
+  ],
+  "p5-hospitales": [
+    {
+      src: "/img/tijuana/mapa_sitio_mac.png",
+      alt: "Mapa del sitio de Hospitales MAC en el oriente de Tijuana con su radio de captación de ~4 km, sin proveedores de cirugía de catarata dentro.",
+      caption:
+        "El sitio de MAC en el oriente: 0 competidores de cirugía dentro de ~4 km (el más cercano, a 4.1 km), sobre un mercado de 1,917 personas con catarata operable — el oriente prácticamente para sí.",
+    },
+    {
+      src: "/img/tijuana/od_calles_mac.png",
+      alt: "Flujos de origen-destino ruteados por calles reales hacia Hospitales MAC, sobre imagen satelital, con un público mayoritariamente local del oriente.",
+      caption:
+        "Quién pasa hoy por MAC, ruteado por calles reales: ~7,653 visitas/mes, 88% con hogar en Baja California — público local del oriente, no de cruce fronterizo.",
     },
   ],
   "p4-dolares": [
@@ -209,6 +231,7 @@ export default async function Page() {
         <div className="container tj-report">
           <nav className="topnav" id="topnav" aria-label="Índice del estudio de Tijuana">
             <a href="/">← Nacional</a>
+            <a href="#como-leer">Cómo leer</a>
             <a href="#dinero">El mercado $</a>
             <a href="#resumen">Resumen</a>
             {CHAPTERS.map((ch) => (
@@ -217,6 +240,7 @@ export default async function Page() {
               </a>
             ))}
             <a href="#recomendaciones">Qué hacer</a>
+            {study.audiencias ? <a href="#audiencias">Audiencias</a> : null}
             {study.validacion ? <a href="#validacion">Lo que falta</a> : null}
             <a href="#notas">Notas</a>
           </nav>
@@ -267,24 +291,6 @@ export default async function Page() {
             </div>
           </header>
 
-          {/* leyenda de integridad (antes de las KPIs: enseña a leer las cifras que vienen) */}
-          <div className="tg-legend tg-legend--slim reveal">
-            <span className="lbl">Cómo leer las cifras</span>
-            <span className="it">
-              <a className="tg tg-dato tgl" href="#fuentes">[dato]</a> verificado en fuente —{" "}
-              <em className="legend-hint">toca cualquiera para ver su fuente</em>
-            </span>
-            <span className="it">
-              <span className="tg tg-est">[estimación]</span> cálculo con supuestos
-            </span>
-            <span className="it">
-              <span className="tg tg-sup">[supuesto]</span> sin dato duro
-            </span>
-            <span className="it">
-              <span className="tg tg-hueco">[hueco]</span> falta el dato
-            </span>
-          </div>
-
           {/* KPIs — cada cifra enlaza a su fuente exacta al pie (#src-N) para corroborar rápido */}
           <div className="kpis k6">
             {study.kpis.map((k, i) => {
@@ -304,11 +310,16 @@ export default async function Page() {
             })}
           </div>
 
+          {/* hint de una línea: cómo leer las cifras (reemplaza la leyenda permanente del fold) */}
+          <p className="kpi-legend-hint">
+            Cada cifra enlaza a su fuente. <a className="cite" href="#como-leer">¿Cómo leer las cifras? ↓</a>
+          </p>
+
+          {/* GUÍA DE LECTURA + GLOSARIO (colapsable; absorbe la antigua leyenda de integridad) */}
+          <ReadingGuide />
+
           {/* TABLERO DE VEREDICTOS (answer-first) */}
           {study.decisiones ? <VerdictBoard decisiones={study.decisiones} /> : null}
-
-          {/* EL MERCADO, EN DINERO (tamaño del mercado en $: pesos = motor, dólar = prima) */}
-          <MarketMoney viz={study.viz} />
 
           {/* RESUMEN */}
           <section className="section-title reveal" id="resumen" data-sec>
@@ -326,6 +337,9 @@ export default async function Page() {
                 <span className="chapter-num">{ch.num}</span>
                 <span className="chapter-label">{ch.label}</span>
               </div>
+
+              {/* ACTO 2 abre con el tamaño del mercado en dinero (movido del fold para aligerar el inicio) */}
+              {ch.num === "02" ? <MarketMoney viz={study.viz} /> : null}
 
               {/* ACTO 3 abre con el mapa como héroe del argumento geográfico */}
               {ch.num === "03" ? (
@@ -377,11 +391,26 @@ export default async function Page() {
             </div>
           ))}
 
+          {/* AUDIENCIAS PARA CAMPAÑA (segmentación de telemarketing — petición explícita del cliente) */}
+          {study.audiencias ? (
+            <>
+              <div className="chapter-divider" id="audiencias" data-sec>
+                <span className="chapter-num">08</span>
+                <span className="chapter-label">Audiencias · segmentación para telemarketing</span>
+              </div>
+              <div className="sec-purpose reveal">
+                A quién llamar primero, en qué colonias, con qué palanca y qué oferta. Seis audiencias que salen de cruzar{" "}
+                <b>capacidad de pago × afiliación a salud × territorio</b> — el insumo directo para las campañas.
+              </div>
+              <AudienceSegments aud={study.audiencias} />
+            </>
+          ) : null}
+
           {/* VALIDACIÓN PRIMARIA (2ª pasada) */}
           {study.validacion ? (
             <>
               <div className="chapter-divider" id="validacion" data-sec>
-                <span className="chapter-num">08</span>
+                <span className="chapter-num">09</span>
                 <span className="chapter-label">Lo que falta · huecos con ruta y solicitudes de transparencia</span>
               </div>
               <Validacion v={study.validacion} />
@@ -390,7 +419,7 @@ export default async function Page() {
 
           {/* NOTAS DE INTEGRIDAD */}
           <div className="chapter-divider" id="notas" data-sec>
-            <span className="chapter-num">09</span>
+            <span className="chapter-num">10</span>
             <span className="chapter-label">Integridad · caveats y pendientes</span>
           </div>
           <div className="sec-purpose reveal">
