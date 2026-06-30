@@ -954,7 +954,7 @@ summary.tbl-title:hover::after{color:var(--blue-p)}
 
 /* ═══════════════ COMPETIDORES (/tijuana/competidores) ═══════════════
    Apéndice scoped — re-skin Polaris de la inteligencia competitiva. Reutiliza
-   .hero/.kpis/.rguide/.aud-card/.formula/.callout/.integrity-banner/.tg/.tjm-*/.dt/.mode-switch/
+   .hero, .kpis, .rguide, .aud-card, .formula, .callout, .integrity-banner, .tg, .tjm-x, .dt, .mode-switch,
    .ctx-scale; SOLO añade lo que las capas circle de MapLibre y la tabla numérica no cubren.
    Todo bajo el scope .cmp / clases .cmp-* → cero regresión visual en /tijuana. */
 /* (a) marcador HTML de garitas/aeropuerto: aro punteado que circle-stroke-dasharray no soporta en capa circle */
