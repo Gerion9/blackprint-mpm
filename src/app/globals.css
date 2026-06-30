@@ -951,3 +951,26 @@ summary.tbl-title:hover::after{color:var(--blue-p)}
 .sol-item[open] summary::after{content:"▴"}
 .sol-item summary:hover{background:var(--surface-2)}
 .sol-item p{padding:0 13px 13px;font-size:12px;color:var(--ink-soft);line-height:1.55}
+
+/* ═══════════════ COMPETIDORES (/tijuana/competidores) ═══════════════
+   Apéndice scoped — re-skin Polaris de la inteligencia competitiva. Reutiliza
+   .hero/.kpis/.rguide/.aud-card/.formula/.callout/.integrity-banner/.tg/.tjm-*/.dt/.mode-switch/
+   .ctx-scale; SOLO añade lo que las capas circle de MapLibre y la tabla numérica no cubren.
+   Todo bajo el scope .cmp / clases .cmp-* → cero regresión visual en /tijuana. */
+/* (a) marcador HTML de garitas/aeropuerto: aro punteado que circle-stroke-dasharray no soporta en capa circle */
+.cmp-anchor{appearance:none;-webkit-appearance:none;margin:0;padding:0;position:relative;cursor:pointer;
+  width:13px;height:13px;border-radius:50%;background:var(--depth-5);border:1.5px dashed #fff;
+  box-shadow:0 0 0 1px rgba(0,0,0,.15);display:block}
+.cmp-anchor:hover{transform:scale(1.18);z-index:5}
+.cmp-anchor .tjm-pinlbl{font-size:9.5px;color:var(--ink-soft);background:rgba(255,255,255,.82)}
+/* (b) la .dt es left por defecto; los numéricos de la comparativa van a la derecha */
+.cmp .dt td.num,.cmp .dt th.num{text-align:right;font-variant-numeric:tabular-nums}
+/* (c) barra downstream de las fichas (a dónde va: frontera/aeropuerto/otro). Texto/foot en #b3402f (AA) */
+.cmp-flow{display:flex;height:14px;border-radius:6px;overflow:hidden;border:1px solid var(--line);background:var(--surface-2)}
+.cmp-seg{font-size:9px;min-width:0}
+.cmp-seg.front{background:var(--coral)}
+.cmp-seg.aero{background:var(--blue-p)}
+.cmp-seg.otro{background:var(--depth-1)}
+/* (d) ficha por competidor: hereda .aud-card; el border-top de zona se fija inline desde el componente */
+.cmp-ficha{gap:9px}
+.cmp-ficha .aud-card-h{align-items:flex-start}

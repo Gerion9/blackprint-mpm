@@ -10,6 +10,7 @@ import {
   SensitivitySchema,
   TijuanaStudySchema,
   TijuanaAgebSchema,
+  CompetidoresSchema,
   type Estado,
   type Meta,
   type Source,
@@ -18,6 +19,7 @@ import {
   type Sensitivity,
   type TijuanaStudy,
   type TijuanaAgeb,
+  type Competidores,
 } from "./schema";
 
 /**
@@ -76,4 +78,10 @@ export function loadTijuana(): Promise<TijuanaStudy | null> {
 /** Capa de demanda/desatención por colonia del deliverable (tijuana_agebs.json). [] si falta. */
 export function loadTijuanaAgebs(): Promise<ReadonlyArray<TijuanaAgeb>> {
   return readValidated("tijuana_agebs.json", z.array(TijuanaAgebSchema), []);
+}
+
+/** Inteligencia competitiva Tijuana (build_competidores → competidores_tijuana.json). null si falta:
+ *  la página muestra el aviso «genera con pnpm competidores», igual que loadTijuana. */
+export function loadCompetidores(): Promise<Competidores | null> {
+  return readValidated("competidores_tijuana.json", CompetidoresSchema, null);
 }

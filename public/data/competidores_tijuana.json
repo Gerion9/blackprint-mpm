@@ -1,0 +1,1932 @@
+{
+  "generatedAt": "2026-06-30",
+  "titulo": "Tijuana · Inteligencia competitiva (catarata)",
+  "subtitulo": "Cuánta cirugía de catarata representa hoy el público de cada competidor, de dónde llega y a dónde sigue — con datos de movilidad real (mayo 2024, ~1 mes).",
+  "glanceHtml": "<b>De un vistazo.</b> Hoy nadie es dueño de la catarata en Tijuana: los 15 competidores juntos captan solo una fracción del mercado y el corredor oriente está casi sin oferta. Entre todos suman del orden de <b>~100 operaciones de catarata al mes</b> (~1,200 al año) <span class=\"tg tg-est\">[estimación]</span>, frente a un techo de <b>~10,007 personas con catarata operable</b> <span class=\"tg tg-est\">[estimación]</span> y ~462 al año que hoy resuelve el sector público. Las clínicas de oftalmología encabezan —Clínica de Ojos CLC, ~44/mes—; los hospitales apenas rozan la catarata. <b>Qué hacer:</b> entrar por el oriente, donde el competidor más cercano queda lejos, y competir por captar mercado, no por arrebatar una plaza saturada.",
+  "meta": {
+    "ventana": "mayo 2024 (~1 mes)",
+    "tz": "UTC-7",
+    "kFactor": 2.4,
+    "kBounds": [
+      0.6,
+      9.6
+    ],
+    "devicesHomeBC": 1103395,
+    "mapCenter": {
+      "lat": 32.5256978,
+      "lng": -116.9957428
+    },
+    "mapZoom": 12
+  },
+  "clusters": [
+    {
+      "key": "oriente",
+      "label": "Corredor oriente · paciente local"
+    },
+    {
+      "key": "zona_rio",
+      "label": "Zona Río · dólares"
+    },
+    {
+      "key": "centro",
+      "label": "Centro · accesible"
+    }
+  ],
+  "tipos": [
+    {
+      "key": "hospital_general",
+      "label": "Hospital general (servicio de ojo)",
+      "oftSharePct": 0.06,
+      "cirugiaPct": 0.12,
+      "catarataPct": 0.6
+    },
+    {
+      "key": "clinica_oftalmologica",
+      "label": "Clínica oftalmológica general",
+      "oftSharePct": 0.95,
+      "cirugiaPct": 0.25,
+      "catarataPct": 0.62
+    },
+    {
+      "key": "centro_retina",
+      "label": "Centro de retina",
+      "oftSharePct": 0.95,
+      "cirugiaPct": 0.25,
+      "catarataPct": 0.28
+    },
+    {
+      "key": "refractivo_lasik",
+      "label": "Refractivo / LASIK",
+      "oftSharePct": 0.95,
+      "cirugiaPct": 0.3,
+      "catarataPct": 0.15
+    }
+  ],
+  "funnel": {
+    "formula": "operaciones/mes = personas × %oftalmología × 50% pacientes × P(cirugía|tipo) × P(catarata|cirugía|tipo)",
+    "footfallPatientPct": 0.5,
+    "notas": [
+      "origins/dests son TOP-8 muestreados; sus sumas NO reproducen pctLocal/pctFrontera (esos vienen del total)."
+    ],
+    "fuentes": [
+      {
+        "label": "NHS RCOphth — oftalmología, mayor especialidad ambulatoria (~8.5%)",
+        "url": "https://www.rcophth.ac.uk/wp-content/uploads/2025/10/Position-statement-Shifting-ophthalmology-led-care-October-2025.pdf"
+      },
+      {
+        "label": "India — 56.8% catarata | cirugía",
+        "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC11068979/"
+      },
+      {
+        "label": "Israel — 66.9% catarata | cirugía",
+        "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC13054969/"
+      },
+      {
+        "label": "Shanghái — 44% catarata | cirugía",
+        "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC8487503/"
+      },
+      {
+        "label": "Edad de catarata ~67 vs LASIK ~27",
+        "url": "https://www.medicalnewstoday.com/articles/average-age-for-cataract-surgery"
+      },
+      {
+        "label": "AAO — lente intraocular premium",
+        "url": "https://www.aao.org/eyenet/article/premium-iols-a-legal-and-ethical-guide"
+      },
+      {
+        "label": "RAAB Nuevo León — cobertura quirúrgica",
+        "url": "https://pubmed.ncbi.nlm.nih.gov/30081687/"
+      }
+    ]
+  },
+  "benchmarks": {
+    "setOpsMes": 100,
+    "setOpsAno": 1202,
+    "publicoAno": 462,
+    "techoStock": 10007,
+    "nota": "flujo del set DEDUPLICADO vs stock/techo; nunca sumar como demanda ni restar techo − flujo."
+  },
+  "competitors": [
+    {
+      "key": "clc",
+      "name": "Clínica de Ojos CLC",
+      "tipo": "clinica_oftalmologica",
+      "zone": "Zona Río (geocode) · Centro (asignación)",
+      "cluster": "centro",
+      "lat": 32.51859,
+      "lng": -117.01095,
+      "isSede": false,
+      "mismoEdificio": null,
+      "abrioDespuesVentana": false,
+      "n2panel": 398,
+      "n2exp": 593,
+      "opsMes": 43.6,
+      "opsAno": 524,
+      "pctLocal": 36,
+      "pctForaneo": 18,
+      "pctFrontera": 6,
+      "pctAero": 2,
+      "rank": 1,
+      "od": {
+        "origins": [
+          {
+            "lat": 32.46654,
+            "lng": -116.88471,
+            "dev": 12,
+            "nse": 0.3726
+          },
+          {
+            "lat": 32.52643,
+            "lng": -117.00382,
+            "dev": 16,
+            "nse": 0.5201
+          },
+          {
+            "lat": 32.50485,
+            "lng": -116.85278,
+            "dev": 8,
+            "nse": 0.5092
+          },
+          {
+            "lat": 32.43615,
+            "lng": -117.06605,
+            "dev": 8,
+            "nse": 0.8752
+          },
+          {
+            "lat": 32.51713,
+            "lng": -117.00662,
+            "dev": 20,
+            "nse": 0.7607
+          },
+          {
+            "lat": 32.485,
+            "lng": -116.95733,
+            "dev": 6,
+            "nse": 0.6445
+          },
+          {
+            "lat": 32.52541,
+            "lng": -117.08538,
+            "dev": 6,
+            "nse": 0.5103
+          },
+          {
+            "lat": 32.43836,
+            "lng": -117.04955,
+            "dev": 4,
+            "nse": 0.5425
+          }
+        ],
+        "dests": [
+          {
+            "lat": 32.52779,
+            "lng": -117.01948,
+            "dev": 10,
+            "cls": "otro"
+          },
+          {
+            "lat": 32.52506,
+            "lng": -117.00158,
+            "dev": 6,
+            "cls": "otro"
+          },
+          {
+            "lat": 32.51951,
+            "lng": -117.0127,
+            "dev": 5,
+            "cls": "otro"
+          },
+          {
+            "lat": 32.52363,
+            "lng": -117.01789,
+            "dev": 5,
+            "cls": "otro"
+          },
+          {
+            "lat": 32.51724,
+            "lng": -117.01113,
+            "dev": 5,
+            "cls": "otro"
+          },
+          {
+            "lat": 32.49334,
+            "lng": -116.95575,
+            "dev": 4,
+            "cls": "otro"
+          },
+          {
+            "lat": 32.52783,
+            "lng": -117.01035,
+            "dev": 4,
+            "cls": "otro"
+          },
+          {
+            "lat": 32.51904,
+            "lng": -117.01,
+            "dev": 3,
+            "cls": "otro"
+          }
+        ]
+      }
+    },
+    {
+      "key": "retina",
+      "name": "Retina Center Tijuana",
+      "tipo": "centro_retina",
+      "zone": "Zona Río",
+      "cluster": "zona_rio",
+      "lat": 32.53625,
+      "lng": -117.02283,
+      "isSede": false,
+      "mismoEdificio": "newcity",
+      "abrioDespuesVentana": false,
+      "n2panel": 407,
+      "n2exp": 595,
+      "opsMes": 19.8,
+      "opsAno": 237,
+      "pctLocal": 39,
+      "pctForaneo": 16,
+      "pctFrontera": 71,
+      "pctAero": 0,
+      "rank": 2,
+      "od": {
+        "origins": [
+          {
+            "lat": 32.42493,
+            "lng": -116.96457,
+            "dev": 10,
+            "nse": 0.2862
+          },
+          {
+            "lat": 32.53351,
+            "lng": -117.0235,
+            "dev": 29,
+            "nse": 0.577
+          },
+          {
+            "lat": 32.48684,
+            "lng": -116.85623,
+            "dev": 7,
+            "nse": 0.5886
+          },
+          {
+            "lat": 32.54135,
+            "lng": -117.0039,
+            "dev": 6,
+            "nse": 0.4012
+          },
+          {
+            "lat": 32.5207,
+            "lng": -116.93319,
+            "dev": 6,
+            "nse": 0.5553
+          },
+          {
+            "lat": 32.49368,
+            "lng": -116.97986,
+            "dev": 11,
+            "nse": 0.8406
+          },
+          {
+            "lat": 32.51182,
+            "lng": -116.86203,
+            "dev": 7,
+            "nse": 0.6996
+          },
+          {
+            "lat": 32.5344,
+            "lng": -117.07951,
+            "dev": 6,
+            "nse": 0.5281
+          }
+        ],
+        "dests": [
+          {
+            "lat": 32.53746,
+            "lng": -117.02325,
+            "dev": 23,
+            "cls": "frontera"
+          },
+          {
+            "lat": 32.52098,
+            "lng": -116.97938,
+            "dev": 2,
+            "cls": "otro"
+          },
+          {
+            "lat": 32.53417,
+            "lng": -117.02225,
+            "dev": 2,
+            "cls": "frontera"
+          },
+          {
+            "lat": 32.5358,
+            "lng": -117.08167,
+            "dev": 1,
+            "cls": "otro"
+          },
+          {
+            "lat": 32.49192,
+            "lng": -116.98228,
+            "dev": 1,
+            "cls": "otro"
+          },
+          {
+            "lat": 32.52779,
+            "lng": -117.01948,
+            "dev": 1,
+            "cls": "otro"
+          },
+          {
+            "lat": 32.53557,
+            "lng": -117.01984,
+            "dev": 1,
+            "cls": "frontera"
+          },
+          {
+            "lat": 32.5373,
+            "lng": -117.01948,
+            "dev": 1,
+            "cls": "frontera"
+          }
+        ]
+      }
+    },
+    {
+      "key": "tij_eye",
+      "name": "Tijuana Eye Center",
+      "tipo": "refractivo_lasik",
+      "zone": "Zona Río",
+      "cluster": "zona_rio",
+      "lat": 32.52892,
+      "lng": -117.02474,
+      "isSede": false,
+      "mismoEdificio": null,
+      "abrioDespuesVentana": false,
+      "n2panel": 460,
+      "n2exp": 739,
+      "opsMes": 15.8,
+      "opsAno": 190,
+      "pctLocal": 38,
+      "pctForaneo": 18,
+      "pctFrontera": 8,
+      "pctAero": 0,
+      "rank": 3,
+      "od": {
+        "origins": [
+          {
+            "lat": 32.48595,
+            "lng": -117.08395,
+            "dev": 15,
+            "nse": 0.4333
+          },
+          {
+            "lat": 32.45979,
+            "lng": -116.87201,
+            "dev": 10,
+            "nse": 0.6171
+          },
+          {
+            "lat": 32.50262,
+            "lng": -116.85774,
+            "dev": 14,
+            "nse": 0.541
+          },
+          {
+            "lat": 32.4861,
+            "lng": -116.9028,
+            "dev": 7,
+            "nse": 0.6953
+          },
+          {
+            "lat": 32.43611,
+            "lng": -117.02906,
+            "dev": 7,
+            "nse": 0.6558
+          },
+          {
+            "lat": 32.36609,
+            "lng": -116.92012,
+            "dev": 2,
+            "nse": 0.2104
+          },
+          {
+            "lat": 32.50797,
+            "lng": -116.85855,
+            "dev": 6,
+            "nse": 0.585
+          },
+          {
+            "lat": 32.42434,
+            "lng": -116.97038,
+            "dev": 4,
+            "nse": 0.2899
+          }
+        ],
+        "dests": [
+          {
+            "lat": 32.52836,
+            "lng": -117.02493,
+            "dev": 20,
+            "cls": "otro"
+          },
+          {
+            "lat": 32.52779,
+            "lng": -117.01948,
+            "dev": 13,
+            "cls": "otro"
+          },
+          {
+            "lat": 32.50172,
+            "lng": -116.85544,
+            "dev": 10,
+            "cls": "otro"
+          },
+          {
+            "lat": 32.48317,
+            "lng": -117.08513,
+            "dev": 5,
+            "cls": "otro"
+          },
+          {
+            "lat": 32.52442,
+            "lng": -117.0143,
+            "dev": 4,
+            "cls": "otro"
+          },
+          {
+            "lat": 32.53009,
+            "lng": -117.02698,
+            "dev": 3,
+            "cls": "frontera"
+          },
+          {
+            "lat": 32.49534,
+            "lng": -116.95519,
+            "dev": 3,
+            "cls": "otro"
+          },
+          {
+            "lat": 32.49454,
+            "lng": -116.93355,
+            "dev": 3,
+            "cls": "otro"
+          }
+        ]
+      }
+    },
+    {
+      "key": "codet",
+      "name": "CODET Vision Institute",
+      "tipo": "refractivo_lasik",
+      "zone": "Zona Río",
+      "cluster": "zona_rio",
+      "lat": 32.53301,
+      "lng": -117.01568,
+      "isSede": false,
+      "mismoEdificio": null,
+      "abrioDespuesVentana": false,
+      "n2panel": 229,
+      "n2exp": 309,
+      "opsMes": 6.6,
+      "opsAno": 79,
+      "pctLocal": 39,
+      "pctForaneo": 24,
+      "pctFrontera": 5,
+      "pctAero": 0,
+      "rank": 4,
+      "od": {
+        "origins": [
+          {
+            "lat": 32.50668,
+            "lng": -116.9425,
+            "dev": 12,
+            "nse": 0.6041
+          },
+          {
+            "lat": 32.40267,
+            "lng": -117.03878,
+            "dev": 2,
+            "nse": 0.3108
+          },
+          {
+            "lat": 32.50512,
+            "lng": -117.07851,
+            "dev": 3,
+            "nse": 0.3218
+          },
+          {
+            "lat": 32.48307,
+            "lng": -116.5824,
+            "dev": 1,
+            "nse": 0.1654
+          },
+          {
+            "lat": 32.45623,
+            "lng": -116.92636,
+            "dev": 3,
+            "nse": 0.3849
+          },
+          {
+            "lat": 32.53351,
+            "lng": -117.0235,
+            "dev": 8,
+            "nse": 0.577
+          },
+          {
+            "lat": 32.53517,
+            "lng": -116.98097,
+            "dev": 3,
+            "nse": 0.423
+          },
+          {
+            "lat": 32.52071,
+            "lng": -117.01834,
+            "dev": 10,
+            "nse": 0.4875
+          }
+        ],
+        "dests": [
+          {
+            "lat": 32.51995,
+            "lng": -117.01506,
+            "dev": 9,
+            "cls": "otro"
+          },
+          {
+            "lat": 32.50609,
+            "lng": -116.94076,
+            "dev": 5,
+            "cls": "otro"
+          },
+          {
+            "lat": 32.52779,
+            "lng": -117.01948,
+            "dev": 4,
+            "cls": "otro"
+          },
+          {
+            "lat": 32.50416,
+            "lng": -116.99497,
+            "dev": 4,
+            "cls": "otro"
+          },
+          {
+            "lat": 32.53147,
+            "lng": -117.01477,
+            "dev": 3,
+            "cls": "otro"
+          },
+          {
+            "lat": 32.49665,
+            "lng": -117.00568,
+            "dev": 3,
+            "cls": "otro"
+          },
+          {
+            "lat": 32.5327,
+            "lng": -117.01414,
+            "dev": 3,
+            "cls": "otro"
+          },
+          {
+            "lat": 32.51155,
+            "lng": -117.03671,
+            "dev": 2,
+            "cls": "otro"
+          }
+        ]
+      }
+    },
+    {
+      "key": "vision_mendez",
+      "name": "Visión Méndez",
+      "tipo": "clinica_oftalmologica",
+      "zone": "Zona Río",
+      "cluster": "zona_rio",
+      "lat": 32.53435,
+      "lng": -117.02954,
+      "isSede": false,
+      "mismoEdificio": null,
+      "abrioDespuesVentana": false,
+      "n2panel": 57,
+      "n2exp": 60,
+      "opsMes": 4.5,
+      "opsAno": 53,
+      "pctLocal": 11,
+      "pctForaneo": 33,
+      "pctFrontera": 0,
+      "pctAero": 0,
+      "rank": 5,
+      "od": {
+        "origins": [
+          {
+            "lat": 32.40392,
+            "lng": -116.73081,
+            "dev": 1,
+            "nse": 0.0664
+          },
+          {
+            "lat": 32.37068,
+            "lng": -117.04275,
+            "dev": 1,
+            "nse": 0.3563
+          },
+          {
+            "lat": 32.52844,
+            "lng": -117.05156,
+            "dev": 2,
+            "nse": 0.4252
+          },
+          {
+            "lat": 32.47967,
+            "lng": -117.07055,
+            "dev": 1,
+            "nse": 0.2874
+          },
+          {
+            "lat": 32.34625,
+            "lng": -117.058,
+            "dev": 1,
+            "nse": 0.3967
+          },
+          {
+            "lat": 32.53905,
+            "lng": -117.03345,
+            "dev": 3,
+            "nse": 0.1245
+          },
+          {
+            "lat": 32.4666,
+            "lng": -117.00014,
+            "dev": 1,
+            "nse": 0.5608
+          },
+          {
+            "lat": 32.46537,
+            "lng": -116.85986,
+            "dev": 1,
+            "nse": 0.4911
+          }
+        ],
+        "dests": []
+      }
+    },
+    {
+      "key": "angeles",
+      "name": "Hospital Ángeles Tijuana",
+      "tipo": "hospital_general",
+      "zone": "Zona Río",
+      "cluster": "zona_rio",
+      "lat": 32.51812,
+      "lng": -117.00777,
+      "isSede": false,
+      "mismoEdificio": null,
+      "abrioDespuesVentana": false,
+      "n2panel": 949,
+      "n2exp": 1279,
+      "opsMes": 2.8,
+      "opsAno": 33,
+      "pctLocal": 34,
+      "pctForaneo": 20,
+      "pctFrontera": 3,
+      "pctAero": 1,
+      "rank": 6,
+      "od": {
+        "origins": [
+          {
+            "lat": 32.49633,
+            "lng": -117.00532,
+            "dev": 43,
+            "nse": 0.9164
+          },
+          {
+            "lat": 32.51202,
+            "lng": -117.11492,
+            "dev": 15,
+            "nse": 0.692
+          },
+          {
+            "lat": 32.47406,
+            "lng": -116.93737,
+            "dev": 6,
+            "nse": 0.4588
+          },
+          {
+            "lat": 32.49368,
+            "lng": -116.97986,
+            "dev": 12,
+            "nse": 0.8406
+          },
+          {
+            "lat": 32.50787,
+            "lng": -117.02845,
+            "dev": 18,
+            "nse": 0.7354
+          },
+          {
+            "lat": 32.48688,
+            "lng": -116.99573,
+            "dev": 12,
+            "nse": 0.8471
+          },
+          {
+            "lat": 32.51949,
+            "lng": -116.98941,
+            "dev": 14,
+            "nse": 0.4921
+          },
+          {
+            "lat": 32.48912,
+            "lng": -117.0058,
+            "dev": 14,
+            "nse": 0.566
+          }
+        ],
+        "dests": [
+          {
+            "lat": 32.51619,
+            "lng": -117.00867,
+            "dev": 31,
+            "cls": "otro"
+          },
+          {
+            "lat": 32.51843,
+            "lng": -117.0086,
+            "dev": 22,
+            "cls": "otro"
+          },
+          {
+            "lat": 32.48746,
+            "lng": -116.99689,
+            "dev": 19,
+            "cls": "otro"
+          },
+          {
+            "lat": 32.51559,
+            "lng": -117.00448,
+            "dev": 18,
+            "cls": "otro"
+          },
+          {
+            "lat": 32.52779,
+            "lng": -117.01948,
+            "dev": 13,
+            "cls": "otro"
+          },
+          {
+            "lat": 32.49831,
+            "lng": -117.01023,
+            "dev": 12,
+            "cls": "otro"
+          },
+          {
+            "lat": 32.51745,
+            "lng": -117.00668,
+            "dev": 12,
+            "cls": "otro"
+          },
+          {
+            "lat": 32.48701,
+            "lng": -116.99952,
+            "dev": 10,
+            "cls": "otro"
+          }
+        ]
+      }
+    },
+    {
+      "key": "excel",
+      "name": "Hospital Excel (MediExcel)",
+      "tipo": "hospital_general",
+      "zone": "Zona Río",
+      "cluster": "zona_rio",
+      "lat": 32.52065,
+      "lng": -117.01196,
+      "isSede": false,
+      "mismoEdificio": null,
+      "abrioDespuesVentana": false,
+      "n2panel": 823,
+      "n2exp": 1144,
+      "opsMes": 2.5,
+      "opsAno": 30,
+      "pctLocal": 31,
+      "pctForaneo": 22,
+      "pctFrontera": 8,
+      "pctAero": 1,
+      "rank": 7,
+      "od": {
+        "origins": [
+          {
+            "lat": 32.36694,
+            "lng": -117.04782,
+            "dev": 8,
+            "nse": 0.4289
+          },
+          {
+            "lat": 32.53445,
+            "lng": -117.04273,
+            "dev": 12,
+            "nse": 0.2049
+          },
+          {
+            "lat": 32.47968,
+            "lng": -116.96415,
+            "dev": 8,
+            "nse": 0.8081
+          },
+          {
+            "lat": 32.52415,
+            "lng": -117.0894,
+            "dev": 9,
+            "nse": 0.458
+          },
+          {
+            "lat": 32.49221,
+            "lng": -116.84499,
+            "dev": 8,
+            "nse": 0.6099
+          },
+          {
+            "lat": 32.52094,
+            "lng": -117.10311,
+            "dev": 10,
+            "nse": 0.724
+          },
+          {
+            "lat": 32.4864,
+            "lng": -116.98777,
+            "dev": 9,
+            "nse": 0.8148
+          },
+          {
+            "lat": 32.48893,
+            "lng": -116.82784,
+            "dev": 4,
+            "nse": 0.2698
+          }
+        ],
+        "dests": [
+          {
+            "lat": 32.52164,
+            "lng": -117.01097,
+            "dev": 15,
+            "cls": "otro"
+          },
+          {
+            "lat": 32.52779,
+            "lng": -117.01948,
+            "dev": 13,
+            "cls": "otro"
+          },
+          {
+            "lat": 32.50984,
+            "lng": -117.00551,
+            "dev": 8,
+            "cls": "otro"
+          },
+          {
+            "lat": 32.52097,
+            "lng": -117.01349,
+            "dev": 7,
+            "cls": "otro"
+          },
+          {
+            "lat": 32.51724,
+            "lng": -117.01113,
+            "dev": 7,
+            "cls": "otro"
+          },
+          {
+            "lat": 32.5204,
+            "lng": -117.01279,
+            "dev": 7,
+            "cls": "otro"
+          },
+          {
+            "lat": 32.51989,
+            "lng": -117.08631,
+            "dev": 6,
+            "cls": "otro"
+          },
+          {
+            "lat": 32.47905,
+            "lng": -116.95919,
+            "dev": 6,
+            "cls": "otro"
+          }
+        ]
+      }
+    },
+    {
+      "key": "prado",
+      "name": "Hospital del Prado",
+      "tipo": "hospital_general",
+      "zone": "Corredor oriente",
+      "cluster": "oriente",
+      "lat": 32.51001,
+      "lng": -116.99007,
+      "isSede": false,
+      "mismoEdificio": null,
+      "abrioDespuesVentana": false,
+      "n2panel": 571,
+      "n2exp": 843,
+      "opsMes": 1.8,
+      "opsAno": 22,
+      "pctLocal": 43,
+      "pctForaneo": 17,
+      "pctFrontera": 2,
+      "pctAero": 1,
+      "rank": 8,
+      "od": {
+        "origins": [
+          {
+            "lat": 32.4666,
+            "lng": -117.00014,
+            "dev": 7,
+            "nse": 0.5608
+          },
+          {
+            "lat": 32.53992,
+            "lng": -117.01908,
+            "dev": 8,
+            "nse": 0.3807
+          },
+          {
+            "lat": 32.4864,
+            "lng": -116.98777,
+            "dev": 9,
+            "nse": 0.8148
+          },
+          {
+            "lat": 32.51415,
+            "lng": -116.97693,
+            "dev": 6,
+            "nse": 0.5129
+          },
+          {
+            "lat": 32.49299,
+            "lng": -116.99794,
+            "dev": 12,
+            "nse": 0.8031
+          },
+          {
+            "lat": 32.4868,
+            "lng": -117.04197,
+            "dev": 9,
+            "nse": 0.4028
+          },
+          {
+            "lat": 31.87061,
+            "lng": -116.65436,
+            "dev": 5,
+            "nse": 0.8549
+          },
+          {
+            "lat": 32.47031,
+            "lng": -116.9545,
+            "dev": 4,
+            "nse": 0.4617
+          }
+        ],
+        "dests": [
+          {
+            "lat": 32.50416,
+            "lng": -116.99497,
+            "dev": 8,
+            "cls": "otro"
+          },
+          {
+            "lat": 32.44875,
+            "lng": -117.02969,
+            "dev": 6,
+            "cls": "otro"
+          },
+          {
+            "lat": 32.51805,
+            "lng": -117.00787,
+            "dev": 6,
+            "cls": "otro"
+          },
+          {
+            "lat": 32.50717,
+            "lng": -116.98328,
+            "dev": 5,
+            "cls": "otro"
+          },
+          {
+            "lat": 32.50109,
+            "lng": -117.02943,
+            "dev": 5,
+            "cls": "otro"
+          },
+          {
+            "lat": 32.50741,
+            "lng": -116.98867,
+            "dev": 4,
+            "cls": "otro"
+          },
+          {
+            "lat": 32.50971,
+            "lng": -116.98916,
+            "dev": 4,
+            "cls": "otro"
+          },
+          {
+            "lat": 32.49026,
+            "lng": -116.99666,
+            "dev": 4,
+            "cls": "otro"
+          }
+        ]
+      }
+    },
+    {
+      "key": "guadalajara",
+      "name": "Hospital Guadalajara",
+      "tipo": "hospital_general",
+      "zone": "Centro",
+      "cluster": "centro",
+      "lat": 32.53444,
+      "lng": -117.04665,
+      "isSede": false,
+      "mismoEdificio": null,
+      "abrioDespuesVentana": false,
+      "n2panel": 493,
+      "n2exp": 599,
+      "opsMes": 1.3,
+      "opsAno": 16,
+      "pctLocal": 42,
+      "pctForaneo": 31,
+      "pctFrontera": 17,
+      "pctAero": 0,
+      "rank": 9,
+      "od": {
+        "origins": [
+          {
+            "lat": 32.53432,
+            "lng": -117.06681,
+            "dev": 13,
+            "nse": 0.4082
+          },
+          {
+            "lat": 32.52488,
+            "lng": -116.97195,
+            "dev": 13,
+            "nse": 0.6045
+          },
+          {
+            "lat": 32.53445,
+            "lng": -117.04273,
+            "dev": 12,
+            "nse": 0.2049
+          },
+          {
+            "lat": 32.51915,
+            "lng": -117.11175,
+            "dev": 6,
+            "nse": 0.7685
+          },
+          {
+            "lat": 32.53694,
+            "lng": -117.06113,
+            "dev": 5,
+            "nse": 0.4077
+          },
+          {
+            "lat": 32.53682,
+            "lng": -117.05091,
+            "dev": 6,
+            "nse": 0.273
+          },
+          {
+            "lat": 32.5053,
+            "lng": -117.06576,
+            "dev": 5,
+            "nse": 0.3902
+          },
+          {
+            "lat": 32.51415,
+            "lng": -116.97693,
+            "dev": 4,
+            "nse": 0.5129
+          }
+        ],
+        "dests": [
+          {
+            "lat": 32.52461,
+            "lng": -117.01618,
+            "dev": 11,
+            "cls": "otro"
+          },
+          {
+            "lat": 32.52329,
+            "lng": -116.97598,
+            "dev": 10,
+            "cls": "otro"
+          },
+          {
+            "lat": 32.5326,
+            "lng": -117.0692,
+            "dev": 9,
+            "cls": "otro"
+          },
+          {
+            "lat": 32.5353,
+            "lng": -117.04631,
+            "dev": 4,
+            "cls": "frontera"
+          },
+          {
+            "lat": 32.53514,
+            "lng": -117.04817,
+            "dev": 3,
+            "cls": "otro"
+          },
+          {
+            "lat": 32.53578,
+            "lng": -117.03756,
+            "dev": 3,
+            "cls": "frontera"
+          },
+          {
+            "lat": 32.53186,
+            "lng": -117.02541,
+            "dev": 3,
+            "cls": "frontera"
+          },
+          {
+            "lat": 32.52779,
+            "lng": -117.01948,
+            "dev": 3,
+            "cls": "otro"
+          }
+        ]
+      }
+    },
+    {
+      "key": "newcity",
+      "name": "NewCity Medical Plaza",
+      "tipo": "hospital_general",
+      "zone": "Zona Río",
+      "cluster": "zona_rio",
+      "lat": 32.53625,
+      "lng": -117.02283,
+      "isSede": false,
+      "mismoEdificio": "retina",
+      "abrioDespuesVentana": false,
+      "n2panel": 407,
+      "n2exp": 595,
+      "opsMes": 1.3,
+      "opsAno": 15,
+      "pctLocal": 39,
+      "pctForaneo": 16,
+      "pctFrontera": 71,
+      "pctAero": 0,
+      "rank": 10,
+      "od": {
+        "origins": [
+          {
+            "lat": 32.42493,
+            "lng": -116.96457,
+            "dev": 10,
+            "nse": 0.2862
+          },
+          {
+            "lat": 32.53351,
+            "lng": -117.0235,
+            "dev": 29,
+            "nse": 0.577
+          },
+          {
+            "lat": 32.48684,
+            "lng": -116.85623,
+            "dev": 7,
+            "nse": 0.5886
+          },
+          {
+            "lat": 32.54135,
+            "lng": -117.0039,
+            "dev": 6,
+            "nse": 0.4012
+          },
+          {
+            "lat": 32.5207,
+            "lng": -116.93319,
+            "dev": 6,
+            "nse": 0.5553
+          },
+          {
+            "lat": 32.49368,
+            "lng": -116.97986,
+            "dev": 11,
+            "nse": 0.8406
+          },
+          {
+            "lat": 32.51182,
+            "lng": -116.86203,
+            "dev": 7,
+            "nse": 0.6996
+          },
+          {
+            "lat": 32.5344,
+            "lng": -117.07951,
+            "dev": 6,
+            "nse": 0.5281
+          }
+        ],
+        "dests": [
+          {
+            "lat": 32.53746,
+            "lng": -117.02325,
+            "dev": 23,
+            "cls": "frontera"
+          },
+          {
+            "lat": 32.52098,
+            "lng": -116.97938,
+            "dev": 2,
+            "cls": "otro"
+          },
+          {
+            "lat": 32.53417,
+            "lng": -117.02225,
+            "dev": 2,
+            "cls": "frontera"
+          },
+          {
+            "lat": 32.49192,
+            "lng": -116.98228,
+            "dev": 1,
+            "cls": "otro"
+          },
+          {
+            "lat": 32.42665,
+            "lng": -116.96119,
+            "dev": 1,
+            "cls": "otro"
+          },
+          {
+            "lat": 32.52034,
+            "lng": -117.00888,
+            "dev": 1,
+            "cls": "otro"
+          },
+          {
+            "lat": 32.51377,
+            "lng": -117.00734,
+            "dev": 1,
+            "cls": "otro"
+          },
+          {
+            "lat": 32.53362,
+            "lng": -117.02148,
+            "dev": 1,
+            "cls": "frontera"
+          }
+        ]
+      }
+    },
+    {
+      "key": "hgt",
+      "name": "Hospital General de Tijuana (Av. Centenario)",
+      "tipo": "hospital_general",
+      "zone": "Zona Río",
+      "cluster": "zona_rio",
+      "lat": 32.52657,
+      "lng": -117.00971,
+      "isSede": false,
+      "mismoEdificio": null,
+      "abrioDespuesVentana": false,
+      "n2panel": 220,
+      "n2exp": 367,
+      "opsMes": 0.8,
+      "opsAno": 10,
+      "pctLocal": 33,
+      "pctForaneo": 20,
+      "pctFrontera": 3,
+      "pctAero": 0,
+      "rank": 11,
+      "od": {
+        "origins": [
+          {
+            "lat": 32.51676,
+            "lng": -116.83222,
+            "dev": 10,
+            "nse": 0.2951
+          },
+          {
+            "lat": 32.48507,
+            "lng": -116.82617,
+            "dev": 7,
+            "nse": 0.3315
+          },
+          {
+            "lat": 32.43913,
+            "lng": -116.92176,
+            "dev": 3,
+            "nse": 0.4384
+          },
+          {
+            "lat": 32.52415,
+            "lng": -117.0894,
+            "dev": 4,
+            "nse": 0.458
+          },
+          {
+            "lat": 32.49963,
+            "lng": -116.88598,
+            "dev": 5,
+            "nse": 0.4941
+          },
+          {
+            "lat": 32.51603,
+            "lng": -116.92646,
+            "dev": 4,
+            "nse": 0.6878
+          },
+          {
+            "lat": 32.47114,
+            "lng": -116.96365,
+            "dev": 2,
+            "nse": 0.4098
+          },
+          {
+            "lat": 32.48626,
+            "lng": -117.09484,
+            "dev": 2,
+            "nse": 0.313
+          }
+        ],
+        "dests": [
+          {
+            "lat": 32.52783,
+            "lng": -117.01035,
+            "dev": 8,
+            "cls": "otro"
+          },
+          {
+            "lat": 32.52736,
+            "lng": -117.01206,
+            "dev": 4,
+            "cls": "otro"
+          },
+          {
+            "lat": 32.51967,
+            "lng": -116.91674,
+            "dev": 3,
+            "cls": "otro"
+          },
+          {
+            "lat": 32.44192,
+            "lng": -117.06003,
+            "dev": 2,
+            "cls": "otro"
+          },
+          {
+            "lat": 32.52393,
+            "lng": -117.01353,
+            "dev": 2,
+            "cls": "otro"
+          },
+          {
+            "lat": 32.52684,
+            "lng": -117.00152,
+            "dev": 2,
+            "cls": "otro"
+          },
+          {
+            "lat": 32.48879,
+            "lng": -116.99166,
+            "dev": 1,
+            "cls": "otro"
+          },
+          {
+            "lat": 32.49298,
+            "lng": -116.87827,
+            "dev": 1,
+            "cls": "otro"
+          }
+        ]
+      }
+    },
+    {
+      "key": "mendoza_barbosa",
+      "name": "Fundación Mendoza Barbosa (Torre Torela)",
+      "tipo": "hospital_general",
+      "zone": "Agua Caliente",
+      "cluster": "centro",
+      "lat": 32.51786,
+      "lng": -117.01746,
+      "isSede": false,
+      "mismoEdificio": null,
+      "abrioDespuesVentana": false,
+      "n2panel": 119,
+      "n2exp": 168,
+      "opsMes": 0.4,
+      "opsAno": 4,
+      "pctLocal": 33,
+      "pctForaneo": 15,
+      "pctFrontera": 0,
+      "pctAero": 0,
+      "rank": 12,
+      "od": {
+        "origins": [
+          {
+            "lat": 32.51652,
+            "lng": -117.02057,
+            "dev": 23,
+            "nse": 0.7177
+          },
+          {
+            "lat": 32.55329,
+            "lng": -116.88254,
+            "dev": 1,
+            "nse": 0.2973
+          },
+          {
+            "lat": 32.53579,
+            "lng": -117.00584,
+            "dev": 6,
+            "nse": 0.4824
+          },
+          {
+            "lat": 32.55902,
+            "lng": -116.59794,
+            "dev": 1,
+            "nse": 0.3765
+          },
+          {
+            "lat": 32.59064,
+            "lng": -115.51732,
+            "dev": 1,
+            "nse": 0.3859
+          },
+          {
+            "lat": 32.51415,
+            "lng": -116.97693,
+            "dev": 2,
+            "nse": 0.5129
+          },
+          {
+            "lat": 32.36385,
+            "lng": -117.05326,
+            "dev": 1,
+            "nse": 0.4498
+          }
+        ],
+        "dests": [
+          {
+            "lat": 32.51795,
+            "lng": -117.01841,
+            "dev": 10,
+            "cls": "otro"
+          },
+          {
+            "lat": 32.53683,
+            "lng": -117.01577,
+            "dev": 4,
+            "cls": "otro"
+          },
+          {
+            "lat": 32.52779,
+            "lng": -117.01948,
+            "dev": 3,
+            "cls": "otro"
+          },
+          {
+            "lat": 32.52153,
+            "lng": -117.01425,
+            "dev": 2,
+            "cls": "otro"
+          },
+          {
+            "lat": 32.46444,
+            "lng": -116.86587,
+            "dev": 2,
+            "cls": "otro"
+          },
+          {
+            "lat": 32.53622,
+            "lng": -117.01032,
+            "dev": 2,
+            "cls": "otro"
+          },
+          {
+            "lat": 32.52237,
+            "lng": -117.0164,
+            "dev": 1,
+            "cls": "otro"
+          },
+          {
+            "lat": 32.49665,
+            "lng": -116.8602,
+            "dev": 1,
+            "cls": "otro"
+          }
+        ]
+      }
+    },
+    {
+      "key": "medica_ciudad",
+      "name": "Médica de la Ciudad",
+      "tipo": "hospital_general",
+      "zone": "Corredor oriente",
+      "cluster": "oriente",
+      "lat": 32.53101,
+      "lng": -116.95239,
+      "isSede": false,
+      "mismoEdificio": null,
+      "abrioDespuesVentana": false,
+      "n2panel": 61,
+      "n2exp": 137,
+      "opsMes": 0.3,
+      "opsAno": 4,
+      "pctLocal": 57,
+      "pctForaneo": 20,
+      "pctFrontera": 5,
+      "pctAero": 3,
+      "rank": 13,
+      "od": {
+        "origins": [
+          {
+            "lat": 32.37274,
+            "lng": -116.93465,
+            "dev": 4,
+            "nse": 0.2161
+          },
+          {
+            "lat": 32.54934,
+            "lng": -116.89195,
+            "dev": 4,
+            "nse": 0.2579
+          },
+          {
+            "lat": 32.48169,
+            "lng": -116.84335,
+            "dev": 5,
+            "nse": 0.3123
+          },
+          {
+            "lat": 32.4809,
+            "lng": -116.87466,
+            "dev": 5,
+            "nse": 0.3442
+          },
+          {
+            "lat": 32.40392,
+            "lng": -116.73081,
+            "dev": 1,
+            "nse": 0.0664
+          },
+          {
+            "lat": 32.39091,
+            "lng": -116.93685,
+            "dev": 1,
+            "nse": 0.1682
+          },
+          {
+            "lat": 32.53517,
+            "lng": -116.98097,
+            "dev": 3,
+            "nse": 0.423
+          },
+          {
+            "lat": 32.53225,
+            "lng": -116.97416,
+            "dev": 3,
+            "nse": 0.7252
+          }
+        ],
+        "dests": [
+          {
+            "lat": 32.53216,
+            "lng": -116.9551,
+            "dev": 12,
+            "cls": "otro"
+          },
+          {
+            "lat": 32.48442,
+            "lng": -116.87523,
+            "dev": 6,
+            "cls": "otro"
+          },
+          {
+            "lat": 32.53178,
+            "lng": -116.94816,
+            "dev": 5,
+            "cls": "otro"
+          },
+          {
+            "lat": 32.52692,
+            "lng": -116.95292,
+            "dev": 4,
+            "cls": "otro"
+          },
+          {
+            "lat": 32.37366,
+            "lng": -116.93314,
+            "dev": 3,
+            "cls": "otro"
+          },
+          {
+            "lat": 32.52667,
+            "lng": -116.9479,
+            "dev": 2,
+            "cls": "otro"
+          },
+          {
+            "lat": 32.54087,
+            "lng": -116.89563,
+            "dev": 2,
+            "cls": "otro"
+          },
+          {
+            "lat": 32.51718,
+            "lng": -116.95236,
+            "dev": 2,
+            "cls": "otro"
+          }
+        ]
+      }
+    },
+    {
+      "key": "mac",
+      "name": "Hospitales MAC Tijuana",
+      "tipo": "hospital_general",
+      "zone": "Corredor oriente",
+      "cluster": "oriente",
+      "lat": 32.51332,
+      "lng": -116.96481,
+      "isSede": true,
+      "mismoEdificio": null,
+      "abrioDespuesVentana": false,
+      "n2panel": 19,
+      "n2exp": 36,
+      "opsMes": 0.1,
+      "opsAno": 1,
+      "pctLocal": 42,
+      "pctForaneo": 11,
+      "pctFrontera": 0,
+      "pctAero": 0,
+      "rank": 14,
+      "od": {
+        "origins": [
+          {
+            "lat": 32.52409,
+            "lng": -116.86676,
+            "dev": 5,
+            "nse": 0.3514
+          },
+          {
+            "lat": 32.51562,
+            "lng": -116.95512,
+            "dev": 3,
+            "nse": 0.4512
+          },
+          {
+            "lat": 32.52089,
+            "lng": -116.94263,
+            "dev": 2,
+            "nse": 0.4077
+          },
+          {
+            "lat": 32.50512,
+            "lng": -117.07851,
+            "dev": 1,
+            "nse": 0.3218
+          },
+          {
+            "lat": 32.48129,
+            "lng": -116.96952,
+            "dev": 1,
+            "nse": 0.4989
+          },
+          {
+            "lat": 32.52744,
+            "lng": -117.03592,
+            "dev": 3,
+            "nse": 0.3665
+          },
+          {
+            "lat": 32.45856,
+            "lng": -116.82705,
+            "dev": 1,
+            "nse": 0.6395
+          },
+          {
+            "lat": 32.52745,
+            "lng": -117.02997,
+            "dev": 1,
+            "nse": 0.3685
+          }
+        ],
+        "dests": [
+          {
+            "lat": 32.52505,
+            "lng": -117.03793,
+            "dev": 4,
+            "cls": "otro"
+          },
+          {
+            "lat": 32.51631,
+            "lng": -116.96609,
+            "dev": 3,
+            "cls": "otro"
+          },
+          {
+            "lat": 32.50092,
+            "lng": -116.96748,
+            "dev": 2,
+            "cls": "otro"
+          },
+          {
+            "lat": 32.52515,
+            "lng": -116.86892,
+            "dev": 2,
+            "cls": "otro"
+          },
+          {
+            "lat": 32.51279,
+            "lng": -116.95869,
+            "dev": 2,
+            "cls": "otro"
+          },
+          {
+            "lat": 32.52615,
+            "lng": -117.03668,
+            "dev": 1,
+            "cls": "otro"
+          },
+          {
+            "lat": 32.52363,
+            "lng": -117.01789,
+            "dev": 1,
+            "cls": "otro"
+          },
+          {
+            "lat": 32.50044,
+            "lng": -117.08549,
+            "dev": 1,
+            "cls": "otro"
+          }
+        ]
+      }
+    },
+    {
+      "key": "hg_zona_este",
+      "name": "Hospital General Zona Este (Las Fuentes)",
+      "tipo": "hospital_general",
+      "zone": "Corredor oriente",
+      "cluster": "oriente",
+      "lat": 32.4712,
+      "lng": -116.8535,
+      "isSede": false,
+      "mismoEdificio": null,
+      "abrioDespuesVentana": true,
+      "n2panel": 1,
+      "n2exp": 4,
+      "opsMes": 0,
+      "opsAno": 0,
+      "pctLocal": 0,
+      "pctForaneo": 0,
+      "pctFrontera": 0,
+      "pctAero": 0,
+      "rank": 15,
+      "od": {
+        "origins": [
+          {
+            "lat": 32.46515,
+            "lng": -116.84953,
+            "dev": 1,
+            "nse": 0.4773
+          }
+        ],
+        "dests": []
+      }
+    }
+  ],
+  "anchors": [
+    {
+      "name": "Garita San Ysidro (El Chaparral)",
+      "lat": 32.54104,
+      "lng": -117.03378,
+      "kind": "garita"
+    },
+    {
+      "name": "Garita Otay (Puerta México)",
+      "lat": 32.54861,
+      "lng": -116.93853,
+      "kind": "garita"
+    },
+    {
+      "name": "Aeropuerto Internacional de Tijuana (TIJ)",
+      "lat": 32.54236,
+      "lng": -116.97017,
+      "kind": "aeropuerto"
+    }
+  ],
+  "validacionCruzada": [
+    {
+      "key": "newcity",
+      "capMin": 12000,
+      "capMax": 18000,
+      "ratioPct": 4
+    },
+    {
+      "key": "hgt",
+      "capMin": 8000,
+      "capMax": 10000,
+      "ratioPct": 4
+    },
+    {
+      "key": "angeles",
+      "capMin": 3500,
+      "capMax": 5000,
+      "ratioPct": 30
+    },
+    {
+      "key": "hg_zona_este",
+      "capMin": 3000,
+      "capMax": 5000,
+      "ratioPct": 0
+    },
+    {
+      "key": "excel",
+      "capMin": 2500,
+      "capMax": 4000,
+      "ratioPct": 35
+    },
+    {
+      "key": "mac",
+      "capMin": 2000,
+      "capMax": 3500,
+      "ratioPct": 1
+    },
+    {
+      "key": "medica_ciudad",
+      "capMin": 1500,
+      "capMax": 3000,
+      "ratioPct": 6
+    },
+    {
+      "key": "prado",
+      "capMin": 1500,
+      "capMax": 3000,
+      "ratioPct": 37
+    },
+    {
+      "key": "mendoza_barbosa",
+      "capMin": 1500,
+      "capMax": 2500,
+      "ratioPct": 8
+    },
+    {
+      "key": "guadalajara",
+      "capMin": 1000,
+      "capMax": 2000,
+      "ratioPct": 40
+    },
+    {
+      "key": "codet",
+      "capMin": 400,
+      "capMax": 800,
+      "ratioPct": 51
+    },
+    {
+      "key": "tij_eye",
+      "capMin": 300,
+      "capMax": 600,
+      "ratioPct": 164
+    },
+    {
+      "key": "vision_mendez",
+      "capMin": 300,
+      "capMax": 600,
+      "ratioPct": 13
+    },
+    {
+      "key": "clc",
+      "capMin": 200,
+      "capMax": 500,
+      "ratioPct": 169
+    },
+    {
+      "key": "retina",
+      "capMin": 200,
+      "capMax": 400,
+      "ratioPct": 198
+    }
+  ],
+  "caveats": [
+    "Cada visita = un teléfono que se DETUVO a ≤50 m del punto (no de paso).",
+    "GPS + geocodificación dan ~20-50 m de error → se usa un radio de 50 m (nivel edificio).",
+    "Presencia ⊇ Visita ⊇ Visita prolongada: cada nivel incluye al siguiente; nunca se suman.",
+    "Es panel (muestra), no censo; los absolutos SUBestiman el total; la expansión a personas (k ≈ 2.4) va acotada a [k/4, k·4].",
+    "Los foráneos están SUBrepresentados (línea de EE. UU. poco visible) → el % foráneo es señal relativa, probablemente corta.",
+    "El destino se mide a grano de manzana; «frontera»/«aeropuerto» = destino a ≤1.5 km de una garita o del aeropuerto.",
+    "NewCity y Retina ocupan el MISMO edificio (las mismas ~595 personas): jamás se suman como capturas independientes.",
+    "Hospital General Zona Este abrió en noviembre de 2024 (después de mayo de 2024): su ~0 refleja la zona en esa ventana, no el hospital."
+  ]
+}

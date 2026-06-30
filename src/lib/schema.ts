@@ -468,3 +468,171 @@ export type TijuanaAudiencias = z.infer<typeof TijuanaAudienciasSchema>;
 export type TijuanaAudSeg = z.infer<typeof TijuanaAudSegSchema>;
 export type TijuanaAudOverlay = z.infer<typeof TijuanaAudOverlaySchema>;
 export type TijuanaAgeb = z.infer<typeof TijuanaAgebSchema>;
+
+/**
+ * INTELIGENCIA COMPETITIVA — TIJUANA (catarata). Sub-ruta /tijuana/competidores.
+ * Salida de scripts/build_competidores.mjs (gemelo de build_tijuana) que extrae
+ * MARKERS/ODATA/ODANCHORS + tabla del documento interno de movilidad → JSON validado.
+ *
+ * REGLA DE INTEGRIDAD: todo «operaciones de catarata captables», «personas/mes» y los
+ * porcentajes son ESTIMACIONES (panel de celulares × factor k≈2.4), para COMPARAR
+ * competidores entre sí, no conteos exactos. El JSON guarda SEMÁNTICA (cluster/cls/nse);
+ * la presentación (color/píxeles) se deriva en el componente (palette.ts), nunca aquí —
+ * por eso NO hay campos color/popupHtml/r. competitors[] es la tabla de hechos (15);
+ * clusters[]/tipos[] son dimensiones; od va ANIDADO por competidor para que el dropdown
+ * del mapa nunca se desincronice de la fila.
+ */
+export const CompClusterSchema = z.enum(["oriente", "zona_rio", "centro"]);
+export const CompTipoSchema = z.enum([
+  "hospital_general",
+  "clinica_oftalmologica",
+  "centro_retina",
+  "refractivo_lasik",
+]);
+export const CompDestClsSchema = z.enum(["frontera", "aeropuerto", "otro"]);
+export const CompAnchorKindSchema = z.enum(["garita", "aeropuerto"]);
+
+// Origen/destino muestreados (TOP-8): sus sumas NO reproducen pctLocal/pctFrontera (vienen del total).
+export const CompOriginSchema = z.object({
+  lat: z.number(),
+  lng: z.number(),
+  dev: z.number().int().nonnegative(),
+  nse: z.number().min(0).max(1).nullable(),
+});
+export const CompDestSchema = z.object({
+  lat: z.number(),
+  lng: z.number(),
+  dev: z.number().int().nonnegative(),
+  cls: CompDestClsSchema,
+});
+export const CompOdSchema = z.object({
+  origins: z.array(CompOriginSchema).default([]),
+  dests: z.array(CompDestSchema).default([]),
+});
+
+// Detalle por ficha (Fase 2) — OPCIONAL, no-breaking: la ficha cae a render básico si falta.
+export const CompRadioSchema = z.object({
+  r: z.number(),
+  personas: z.number(),
+  ops: z.number(),
+  pacCatarata: z.number(),
+});
+export const CompDetalleSchema = z.object({
+  n1: z.number().nonnegative(),
+  n3: z.number().nonnegative(),
+  segmento: z.object({
+    recurrentes: z.number(),
+    oneShot: z.number(),
+    sinHomeBc: z.number(),
+    nsePct: z.number(),
+    dwellMedianoMin: z.number(),
+    distCentroideM: z.number(),
+  }),
+  flujoSalienteN: z.number(),
+  pctOtro: z.number(),
+  radios: z.array(CompRadioSchema).default([]),
+  coordSource: z.string().default(""),
+  coordConf: z.string().optional(),
+  nota: z.string().default(""),
+});
+
+export const CompetitorSchema = z.object({
+  key: z.string(),
+  name: z.string(),
+  tipo: CompTipoSchema,
+  zone: z.string(), // ubicación FÍSICA (texto) — distinta del cluster (color/leyenda asignado)
+  cluster: CompClusterSchema,
+  lat: z.number(),
+  lng: z.number(),
+  isSede: z.boolean().default(false), // MAC: sede del cliente incrustada como referencia, no rival
+  mismoEdificio: z.string().nullable().default(null), // NewCity↔Retina: jamás sumar
+  abrioDespuesVentana: z.boolean().default(false), // HG Zona Este: abrió nov-2024 (post may-2024)
+  n2panel: z.number().int().nonnegative(),
+  n2exp: z.number().nonnegative(), // «personas/mes (est.)»
+  opsMes: z.number().nonnegative(),
+  opsAno: z.number().nonnegative(),
+  pctLocal: z.number().min(0).max(100),
+  pctForaneo: z.number().min(0).max(100),
+  pctFrontera: z.number().min(0).max(100),
+  pctAero: z.number().min(0).max(100),
+  rank: z.number().int().positive(),
+  od: CompOdSchema,
+  detalle: CompDetalleSchema.optional(),
+});
+
+export const CompClusterMetaSchema = z.object({ key: CompClusterSchema, label: z.string() });
+export const CompTipoMetaSchema = z.object({
+  key: CompTipoSchema,
+  label: z.string(),
+  oftSharePct: z.number().min(0).max(1),
+  cirugiaPct: z.number().min(0).max(1),
+  catarataPct: z.number().min(0).max(1),
+});
+export const CompFuenteSchema = z.object({
+  label: z.string(),
+  url: z.string().optional().default(""),
+  nota: z.string().optional().default(""),
+});
+export const CompFunnelSchema = z.object({
+  formula: z.string(),
+  footfallPatientPct: z.number().min(0).max(1),
+  notas: z.array(z.string()).default([]),
+  fuentes: z.array(CompFuenteSchema).default([]),
+});
+export const CompBenchmarkSchema = z.object({
+  setOpsMes: z.number(),
+  setOpsAno: z.number(),
+  publicoAno: z.number(),
+  techoStock: z.number(),
+  nota: z.string().default(""),
+});
+export const CompMetaSchema = z.object({
+  ventana: z.string(),
+  tz: z.string().default("UTC-7"),
+  kFactor: z.number(),
+  kBounds: z.array(z.number()).length(2).optional(),
+  devicesHomeBC: z.number(),
+  mapCenter: z.object({ lat: z.number(), lng: z.number() }),
+  mapZoom: z.number().default(12),
+});
+export const CompValidacionSchema = z.object({
+  key: z.string(),
+  capMin: z.number(),
+  capMax: z.number(),
+  ratioPct: z.number(),
+});
+export const CompAnchorSchema = z.object({
+  name: z.string(),
+  lat: z.number(),
+  lng: z.number(),
+  kind: CompAnchorKindSchema,
+});
+
+export const CompetidoresSchema = z.object({
+  generatedAt: z.string(),
+  titulo: z.string(),
+  subtitulo: z.string(),
+  glanceHtml: z.string().default(""),
+  meta: CompMetaSchema,
+  clusters: z.array(CompClusterMetaSchema).min(1),
+  tipos: z.array(CompTipoMetaSchema).min(1),
+  funnel: CompFunnelSchema,
+  benchmarks: CompBenchmarkSchema,
+  competitors: z.array(CompetitorSchema),
+  anchors: z.array(CompAnchorSchema),
+  validacionCruzada: z.array(CompValidacionSchema).optional().default([]),
+  caveats: z.array(z.string()).default([]),
+});
+
+export type Competidores = z.infer<typeof CompetidoresSchema>;
+export type Competitor = z.infer<typeof CompetitorSchema>;
+export type CompOd = z.infer<typeof CompOdSchema>;
+export type CompOrigin = z.infer<typeof CompOriginSchema>;
+export type CompDest = z.infer<typeof CompDestSchema>;
+export type CompCluster = z.infer<typeof CompClusterSchema>;
+export type CompTipo = z.infer<typeof CompTipoSchema>;
+export type CompAnchor = z.infer<typeof CompAnchorSchema>;
+export type CompTipoMeta = z.infer<typeof CompTipoMetaSchema>;
+export type CompFunnel = z.infer<typeof CompFunnelSchema>;
+export type CompValidacion = z.infer<typeof CompValidacionSchema>;
+export type CompDetalle = z.infer<typeof CompDetalleSchema>;
