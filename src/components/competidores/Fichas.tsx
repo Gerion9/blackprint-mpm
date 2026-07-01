@@ -68,8 +68,10 @@ function FichaCard({ c }: { c: Competitor }) {
 }
 
 export default function Fichas({ competitors }: { competitors: Competitor[] }) {
+  // orden dentro de cada zona: de mayor a menor por VISITAS (personas/mes = n2exp),
+  // que es el número grande de la ficha — no por operaciones captables.
   const byZone = (z: CompCluster) =>
-    competitors.filter((c) => c.cluster === z).sort((a, b) => b.opsMes - a.opsMes);
+    competitors.filter((c) => c.cluster === z).sort((a, b) => b.n2exp - a.n2exp);
   return (
     <div className="cmp-fichas">
       <div className="sec-purpose reveal">
