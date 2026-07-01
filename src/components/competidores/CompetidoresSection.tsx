@@ -37,7 +37,9 @@ export default function CompetidoresSection({ data }: { data: Competidores }) {
       <div className="sec-headline" style={{ maxWidth: "52ch" }}>
         De dónde llega el paciente, y a dónde <em>sigue</em>
       </div>
-      <OdMap competitors={competitors} anchors={anchors} />
+      {/* El mapa de flujos excluye a los que abrieron DESPUÉS de la ventana de movilidad (HG Zona
+          Este, nov-2024): no tienen viajes reales que mostrar, así que no son seleccionables aquí. */}
+      <OdMap competitors={competitors.filter((c) => !c.abrioDespuesVentana)} anchors={anchors} />
 
       <ComparativeTable competitors={competitors} />
       <CrossValidation competitors={competitors} validacionCruzada={validacionCruzada} />
