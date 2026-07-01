@@ -37,7 +37,7 @@ export default function OdMap({
   const emptyDest = mode === "destino" && sel.od.dests.length === 0;
 
   return (
-    <div className="module tjm reveal">
+    <div className="module tjm">
       <div className="module-bar mapx-bar">
         <div>
           <strong style={{ fontFamily: "var(--font-display),sans-serif", fontSize: 15, color: "var(--ink)" }}>

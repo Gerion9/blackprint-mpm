@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { loadTijuana, loadTijuanaAgebs } from "@/lib/data";
+import { loadTijuana, loadTijuanaAgebs, loadCompetidores } from "@/lib/data";
 import { Html } from "@/components/Polaris";
 import ScrollFX from "@/components/ScrollFX";
 import TijuanaMap from "@/components/tijuana/TijuanaMap";
@@ -18,6 +18,7 @@ import MarketMoney from "@/components/tijuana/MarketMoney";
 import { deriveMarketMoney } from "@/components/tijuana/charts/marketMoney";
 import ReadingGuide from "@/components/tijuana/ReadingGuide";
 import AudienceSegments from "@/components/tijuana/AudienceSegments";
+import CompetidoresSection from "@/components/competidores/CompetidoresSection";
 import type { TijuanaSeccion, TijuanaTabla, TijuanaViz } from "@/lib/schema";
 
 export const metadata: Metadata = {
@@ -205,7 +206,7 @@ function SectionBlock({ s, fallbackNum }: { s: TijuanaSeccion; fallbackNum: stri
 }
 
 export default async function Page() {
-  const [study, agebs] = await Promise.all([loadTijuana(), loadTijuanaAgebs()]);
+  const [study, agebs, comp] = await Promise.all([loadTijuana(), loadTijuanaAgebs(), loadCompetidores()]);
 
   if (!study) {
     return (
@@ -239,6 +240,7 @@ export default async function Page() {
                 {ch.nav}
               </a>
             ))}
+            {comp ? <a href="#competencia">Competencia</a> : null}
             <a href="#recomendaciones">Qué hacer</a>
             {study.audiencias ? <a href="#audiencias">Audiencias</a> : null}
             {study.validacion ? <a href="#validacion">Lo que falta</a> : null}
@@ -366,6 +368,11 @@ export default async function Page() {
                   </div>
                 );
               })}
+
+              {/* Inteligencia competitiva (movilidad) al cierre del cap. 03: quién capta hoy la catarata y los
+                  flujos origen-destino (incluido CODET). Antes era la ruta /tijuana/competidores; ahora vive
+                  DENTRO del estudio, como una parte más del mismo reporte. */}
+              {ch.num === "03" && comp ? <CompetidoresSection data={comp} /> : null}
             </div>
           ))}
 

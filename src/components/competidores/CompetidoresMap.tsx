@@ -31,7 +31,7 @@ export default function CompetidoresMap({
   const nameOf = (key: string | null) => (key ? competitors.find((c) => c.key === key)?.name ?? key : "");
 
   return (
-    <div className="module tjm reveal">
+    <div className="module tjm">
       <div className="module-bar">
         <div>
           <strong style={{ fontFamily: "var(--font-display),sans-serif", fontSize: 15, color: "var(--ink)" }}>
