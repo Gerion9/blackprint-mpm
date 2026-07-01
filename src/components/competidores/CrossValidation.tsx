@@ -33,10 +33,10 @@ export default function CrossValidation({
               </tr>
             </thead>
             <tbody>
-              {validacionCruzada.map((v) => {
+              {validacionCruzada.filter((v) => v.key !== "hg_zona_este").map((v) => {
                 const c = byKey.get(v.key);
                 return (
-                  <tr key={v.key} className={v.key === "hg_zona_este" ? "hl" : ""}>
+                  <tr key={v.key}>
                     <td>{c?.name ?? v.key}</td>
                     <td className="num">
                       {fmt(v.capMin)}–{fmt(v.capMax)}
@@ -56,11 +56,12 @@ export default function CrossValidation({
           métodos, no es una tasa de captura.
         </div>
       </details>
-      <Callout kind="info" ic="i">
+      <Callout kind="warn" ic="!">
         <p>
-          <b>El mejor control es el Hospital General Zona Este:</b> la capacidad le supone miles de visitas al mes, pero
-          la movilidad lo ve casi en cero — porque abrió en noviembre de 2024, después de los datos de mayo. Medimos lo
-          que de verdad pasó, no la capacidad en papel.
+          <b>Hospital General Zona Este queda fuera de este cruce.</b> No podemos estimar sus visitas: abrió en
+          noviembre de 2024, después de nuestra ventana de movilidad (mayo de 2024). El casi-cero que veríamos no
+          significa poca demanda, sino que el hospital aún no existía cuando medimos — su capacidad estimada y nuestra
+          movilidad son de momentos distintos y no son comparables.
         </p>
       </Callout>
     </div>

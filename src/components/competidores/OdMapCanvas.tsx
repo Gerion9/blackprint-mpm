@@ -177,6 +177,10 @@ export default function OdMapCanvas({
       for (const p of built.pts) b.extend([p.lng, p.lat]);
       // maxZoom impide que el racimo denso de Zona Río colapse cuando hay un outlier (Ensenada/Mexicali)
       map.fitBounds(b, { padding: 50, maxZoom: 12.5, duration: 0 });
+    } else {
+      // sin viajes en este sentido (p.ej. HG Zona Este, que abrió tras la ventana de movilidad):
+      // no hay líneas, pero recentramos al punto para que el competidor seleccionado quede visible.
+      map.easeTo({ center: [node.lng, node.lat], zoom: Math.max(map.getZoom(), 12), duration: 500 });
     }
   }
 

@@ -133,7 +133,12 @@ export default function OdMap({
               {TIPO_LABEL[sel.tipo]} · {sel.zone}
             </div>
             <div className="d-nota">
-              {emptyDest ? (
+              {sel.abrioDespuesVentana ? (
+                <>
+                  Abrió en noviembre de 2024, después de nuestra ventana de movilidad (mayo de 2024): no medimos sus
+                  viajes porque el hospital casi no existía cuando tomamos los datos. Mostramos solo el punto.
+                </>
+              ) : emptyDest ? (
                 <>Sin viajes salientes registrados (muestra chica): mostramos solo el punto.</>
               ) : mode === "origen" ? (
                 <>
