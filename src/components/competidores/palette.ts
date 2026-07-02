@@ -25,7 +25,7 @@ export const TIPO_LABEL: Record<string, string> = {
   hospital_general: "Hospital general",
   clinica_oftalmologica: "Clínica oftalmológica",
   centro_retina: "Centro de retina",
-  refractivo_lasik: "Refractivo / LASIK",
+  refractivo_lasik: "Refractivo / LASIK (+ catarata)",
 };
 
 /** Rampa azul secuencial por nivel de ingreso de la zona de origen (umbrales 1:1 del HTML;

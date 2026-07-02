@@ -13,19 +13,24 @@ export default function Supuestos({ tipos, funnel }: { tipos: CompTipoMeta[]; fu
       </div>
 
       <p style={{ fontFamily: "var(--font-mono),monospace", fontSize: 11, color: "var(--ink-note)", margin: "0 0 8px" }}>
-        operaciones/mes =
+        operaciones de catarata captables al mes =
       </p>
       <div className="formula reveal">
         <span className="term">personas</span>
         <span className="op">×</span>
-        <span className="term">% oftalmología</span>
+        <span className="term">% que va al ojo</span>
         <span className="op">×</span>
-        <span className="term w">50% pacientes</span>
+        <span className="term w">50% son pacientes</span>
         <span className="op">×</span>
-        <span className="term">P(cirugía · tipo)</span>
+        <span className="term">% que llega a cirugía</span>
         <span className="op">×</span>
-        <span className="term">40% catarata</span>
+        <span className="term">40% son de catarata</span>
       </div>
+      <p className="md-foot" style={{ marginTop: 8 }}>
+        En palabras: de las personas que se detienen, las que vienen por el ojo → la mitad que son pacientes (no
+        acompañantes) → las que llegan a cirugía → y de esas cirugías de ojo, el 40% son de catarata. El público foráneo
+        entra a media mezcla de catarata (×0.5).
+      </p>
 
       <details className="tbl-block reveal" open style={{ marginTop: 18 }}>
         <summary className="tbl-title">Tasas por tipo de competidor</summary>
@@ -34,9 +39,9 @@ export default function Supuestos({ tipos, funnel }: { tipos: CompTipoMeta[]; fu
             <thead>
               <tr>
                 <th>Tipo de competidor</th>
-                <th className="num">% oftalmología</th>
-                <th className="num">P(cirugía)</th>
-                <th className="num">P(catarata | cirugía)</th>
+                <th className="num">% público de ojo</th>
+                <th className="num">% que llega a cirugía</th>
+                <th className="num">de esas, % de catarata</th>
               </tr>
             </thead>
             <tbody>
@@ -52,10 +57,12 @@ export default function Supuestos({ tipos, funnel }: { tipos: CompTipoMeta[]; fu
           </table>
         </div>
         <div className="dt-note">
-          <span className="tg tg-sup">[supuesto]</span> Tasas del embudo (50% del público es paciente; 95% / 6% de
-          oftalmología; la conversión a cirugía varía por tipo; la catarata es <b>40% para todos</b>). Esa tasa de 40%
+          <span className="tg tg-sup">[supuesto]</span> Tasas del embudo (50% del público es paciente; el público que va
+          por el ojo es 95% en una clínica de ojo y 6% en un hospital general; la conversión a cirugía varía por tipo; la
+          catarata es <b>40% para todos</b>). Esa tasa de 40%
           está anclada a la experiencia del cliente: CODET reporta ≈100 cirugías de catarata/mes y el modelo reproduce
-          ese <b>~100</b>. El líder, Tijuana Eye Center, sale en <b>~151/mes</b>.
+          ese <b>~100</b>. El 40% es, de cada cirugía de ojo, cuántas son de catarata (una sola tasa para todos). El líder
+          de hoy es Tijuana Eye Center (<b>~151/mes</b>), apenas por delante de CLC (~147).
         </div>
       </details>
 
@@ -75,8 +82,9 @@ export default function Supuestos({ tipos, funnel }: { tipos: CompTipoMeta[]; fu
 
       <Callout kind="med" ic="≠">
         <p>
-          <b>No sumes el flujo y el techo:</b> el flujo del set (~587 operaciones/mes) y el techo de mercado (~10,007
-          personas con catarata operable) son dos lentes distintas — una mide lo que circula hoy, la otra el tamaño total.
+          <b>No sumes el flujo y el techo:</b> el flujo del set (~587 operaciones captables al mes) y el techo de mercado
+          (~10,007 personas con catarata operable, un total —no por mes—) son dos lentes distintas: una mide lo que circula
+          hoy, la otra el tamaño total.
         </p>
       </Callout>
     </div>

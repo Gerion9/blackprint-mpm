@@ -2,13 +2,20 @@ import type { Competitor } from "@/lib/schema";
 import { ZONE_HEX, ZONE_LABEL, TIPO_LABEL } from "./palette";
 
 /** Top-5 por operaciones captables/mes, reusando .aud-grid/.aud-card. Borde superior = color de
- *  zona. #1 (CLC) lleva badge «Líder». Cifras redondeadas (el decimal vive en la tabla auditable). */
+ *  zona. #1 = Tijuana Eye Center lleva badge «Líder». Cifras redondeadas (el decimal vive en la tabla auditable). */
 export default function RankTop5({ competitors }: { competitors: Competitor[] }) {
   const top5 = [...competitors].sort((a, b) => b.opsMes - a.opsMes).slice(0, 5);
   const leader = top5[0];
 
   return (
-    <div className="aud-grid" style={{ gridTemplateColumns: "repeat(auto-fit,minmax(220px,1fr))" }}>
+    <>
+      <div className="sec-purpose reveal">
+        El top 5 por cirugía de catarata captable al mes. Tijuana Eye Center encabeza, pero incluso el líder capta una
+        porción modesta: el mercado está repartido, no concentrado. Cuenta a las clínicas refractivas y de LASIK como
+        competencia —también convierten a catarata. Y el número grande, «personas/mes», son teléfonos detenidos cerca al
+        menos una vez (incluye foráneo): tránsito, no pacientes.
+      </div>
+      <div className="aud-grid" style={{ gridTemplateColumns: "repeat(auto-fit,minmax(220px,1fr))" }}>
       {top5.map((c, i) => (
         <div
           key={c.key}
@@ -28,12 +35,12 @@ export default function RankTop5({ competitors }: { competitors: Competitor[] })
               {TIPO_LABEL[c.tipo]} · {ZONE_LABEL[c.cluster].split(" · ")[0]}
             </span>
             <span className="tg tg-est">[estimación]</span>
-            {c === leader ? <span className="badge navy">Líder · 2.2× el #2</span> : null}
+            {c === leader ? <span className="badge navy">Líder, por muy poco</span> : null}
           </p>
           <div className="muni-chips">
             <div className="mchip">
               <span className="mc-v">~{c.n2exp.toLocaleString("es-MX")}</span>
-              <span className="mc-l">personas/mes</span>
+              <span className="mc-l">personas/mes <em>pasan cerca</em></span>
             </div>
             <div className="mchip">
               <span className="mc-v">{c.pctLocal}%</span>
@@ -44,6 +51,11 @@ export default function RankTop5({ competitors }: { competitors: Competitor[] })
               <span className="mc-l">→ frontera</span>
             </div>
           </div>
+          {c.pctFrontera >= 50 ? (
+            <p className="aud-ov-foot" style={{ paddingTop: 6, fontSize: 11, opacity: 0.82 }}>
+              Ese → frontera alto es tránsito del edificio (turismo médico), no catarata que cruza.
+            </p>
+          ) : null}
           {c.mismoEdificio ? (
             <p className="aud-ov-foot" style={{ borderTop: "1px dashed var(--line)", paddingTop: 7 }}>
               Mismo edificio que {competitors.find((x) => x.key === c.mismoEdificio)?.name ?? c.mismoEdificio} — no se
@@ -52,6 +64,7 @@ export default function RankTop5({ competitors }: { competitors: Competitor[] })
           ) : null}
         </div>
       ))}
-    </div>
+      </div>
+    </>
   );
 }

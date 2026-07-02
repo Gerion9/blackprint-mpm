@@ -23,7 +23,7 @@ export default function OdMap({
   competitors: Competitor[];
   anchors: CompAnchor[];
 }) {
-  const [selectedKey, setSelectedKey] = useState<string>("clc");
+  const [selectedKey, setSelectedKey] = useState<string>("tij_eye"); // abre en el líder actual
   const [mode, setMode] = useState<Mode>("origen");
 
   const groups = useMemo(() => {
@@ -41,10 +41,11 @@ export default function OdMap({
       <div className="module-bar mapx-bar">
         <div>
           <strong style={{ fontFamily: "var(--font-display),sans-serif", fontSize: 15, color: "var(--ink)" }}>
-            De dónde llega el paciente, y a dónde sigue
+            De dónde llega su público, y a dónde sigue
           </strong>
           <div className="scen-desc">
-            Línea más gruesa, más gente. Elige un competidor en la lista y alterna el sentido del flujo.
+            Línea más gruesa, más gente. Elige un competidor en la lista y alterna el sentido del flujo. El «op/mes» junto
+            a cada nombre es catarata captable —la que representa su público—, no cirugías realizadas.
           </div>
           <div className="mode-switch" role="group" aria-label="Sentido del flujo" style={{ marginTop: 10 }}>
             <button type="button" aria-pressed={mode === "origen"} onClick={() => setMode("origen")}>
@@ -142,13 +143,16 @@ export default function OdMap({
                 <>Sin viajes salientes registrados (muestra chica): mostramos solo el punto.</>
               ) : mode === "origen" ? (
                 <>
-                  Llega un {sel.pctLocal}% local y un {sel.pctForaneo}% posible foráneo. El color de cada línea marca el
+                  Llega un {sel.pctLocal}% local y un {sel.pctForaneo}% foráneo posible. El color de cada línea marca el
                   nivel de ingreso de su zona de origen.
                 </>
               ) : (
                 <>
-                  Tras la clínica, un {sel.pctFrontera}% sigue hacia una garita. En coral, los que van a la frontera; en
-                  gris, a otro lugar de la ciudad.
+                  Tras la clínica, un {sel.pctFrontera}% sigue hacia una garita
+                  {sel.pctFrontera >= 50
+                    ? " —en su mayoría tránsito del mismo edificio (turismo médico), no catarata que cruza"
+                    : ""}
+                  . En coral, los que van a la frontera; en gris, a otro lugar de la ciudad.
                 </>
               )}
             </div>

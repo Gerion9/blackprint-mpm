@@ -23,19 +23,21 @@ export default function CompetidoresSection({ data }: { data: Competidores }) {
   return (
     <div className="cmp" id="competencia" data-sec style={{ marginTop: 48 }}>
       <div className="sec-headline" style={{ maxWidth: "56ch" }}>
-        Y este es <em>quién</em> capta hoy la catarata en la ciudad
+        Hoy <em>nadie</em> es dueño de la catarata en Tijuana
       </div>
       <div className="sec-purpose reveal">
-        Con movilidad real (panel de celulares, mayo 2024) dimensionamos cuánta cirugía de catarata representa el
-        público de cada competidor, de dónde llega y a dónde sigue. La lectura confirma la tesis del oriente: nadie lo
-        domina y el corredor está casi vacío.
+        La respuesta corta: está repartida. El líder de hoy es Tijuana Eye Center —el público que pasa por él representa
+        unas 151 cirugías de catarata al mes (captables, no operadas)— y detrás viene un campo fragmentado, sin un
+        dominante claro. Lo medimos con movilidad real (panel de celulares, mayo de 2024): cuánta catarata representa el
+        público de cada competidor, de dónde llega y a dónde sigue. Y el corredor oriente, donde está MAC, sigue casi
+        vacío: ese es el hueco.
       </div>
 
       <ComoLeer />
       <RankTop5 competitors={competitors} />
 
       <div className="sec-headline" style={{ maxWidth: "52ch" }}>
-        De dónde llega el paciente, y a dónde <em>sigue</em>
+        De dónde llega su <em>público</em>, y a dónde sigue
       </div>
       {/* El mapa de flujos excluye a los que abrieron DESPUÉS de la ventana de movilidad (HG Zona
           Este, nov-2024): no tienen viajes reales que mostrar, así que no son seleccionables aquí. */}
@@ -46,6 +48,14 @@ export default function CompetidoresSection({ data }: { data: Competidores }) {
       <Supuestos tipos={tipos} funnel={funnel} />
       <Fichas competitors={competitors} />
 
+      <div className="sec-headline" style={{ maxWidth: "48ch" }}>
+        El oriente sigue <em>despejado</em>
+      </div>
+      <div className="sec-purpose reveal">
+        Lo que significa para MAC: ningún competidor concentra el mercado y el oriente está casi vacío. No hay un gigante
+        que desbancar —hay un hueco donde entrar primero.
+      </div>
+
       <div className="callout warn reveal" style={{ marginTop: 24 }}>
         <span className="ic" aria-hidden="true">
           !
@@ -54,7 +64,8 @@ export default function CompetidoresSection({ data }: { data: Competidores }) {
           <p>
             <b>Cómo NO leer estas cifras.</b> Son señal para comparar competidores, no un conteo de quirófano.
             «Operaciones captables» = la demanda de catarata que circula por el punto, no las cirugías que el competidor
-            realiza. Y nunca se suma el flujo (~587/mes) con el techo (~10,007): son lentes distintas.
+            realiza. Y nunca se suma el flujo (~587/mes) con el techo (~10,007): son lentes distintas. Y «personas/mes»
+            es tránsito que pasa cerca —incluye pacientes foráneos—, no pacientes de catarata.
           </p>
         </div>
       </div>

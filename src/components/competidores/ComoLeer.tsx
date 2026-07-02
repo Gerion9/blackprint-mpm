@@ -25,13 +25,16 @@ export default function ComoLeer() {
           <div className="rguide-levels" style={{ marginTop: 12 }}>
             <div className="rg-lvl">
               <span className="rg-lvl-n">Presencia</span>
-              <p>Alguien estuvo cerca, aunque fuera de paso. Es el techo del tránsito, no la clientela.</p>
+              <p>
+                Un teléfono se detuvo cerca del punto al menos una vez, aunque fuera un momento. Es lo que mostramos como
+                «personas/mes»: el techo del tránsito que pasa cerca —incluye turismo médico foráneo—, no la clientela.
+              </p>
             </div>
             <div className="rg-lvl">
               <span className="rg-lvl-n">Visita</span>
               <p>
-                <strong>Se quedó de verdad</strong>, varios minutos. Es la cifra de trabajo con la que comparamos
-                competidores.
+                Se detuvo <strong>de verdad</strong>, varios minutos. De aquí sale el número más estricto y solo-local que
+                usamos en la validación cruzada.
               </p>
             </div>
             <div className="rg-lvl">
@@ -65,30 +68,40 @@ export default function ComoLeer() {
           <h4 className="rguide-h">Glosario</h4>
           <dl className="rguide-gloss">
             <div>
-              <dt>Personas estimadas</dt>
-              <dd>La muestra de celulares llevada a personas reales con un factor de ajuste. Por eso son estimaciones, no un conteo.</dd>
+              <dt>Personas/mes (el número grande)</dt>
+              <dd>
+                Teléfonos que el sistema ve <strong>detenidos</strong> cerca del punto (a 50 m o menos) <strong>al menos
+                una vez</strong> —sin exigir que se quedaran un rato—, ya sin duplicados y sin el personal que trabaja ahí,
+                y llevados a personas reales (incluye turismo médico foráneo). Es un <strong>techo de tránsito</strong>:
+                quién pasó y se detuvo cerca, <strong>no</strong> quién se quedó a consulta ni cuántos se operan. Por eso
+                es un número alto.
+              </dd>
             </div>
             <div>
               <dt>% local</dt>
-              <dd>De quienes se quedaron, cuántos viven en la zona — el paciente que regresa a seguimiento.</dd>
+              <dd>De quienes se detuvieron, cuántos viven en la zona (se les vio en ≥2 días): el paciente que sí volvería a seguimiento.</dd>
             </div>
             <div>
-              <dt>% foráneo (posible)</dt>
+              <dt>% foráneo posible</dt>
               <dd>
                 Cuántos no pasan la noche en Baja California: señal de que cruzan la frontera, no un conteo. Probablemente
-                queda corto; <em>léelo como comparación</em> entre competidores.
+                queda corto; <em>léelo como comparación</em> entre competidores. No suma con el % local: son dos señales
+                independientes.
               </dd>
             </div>
             <div>
               <dt>Operaciones de catarata captables</dt>
               <dd>
-                Cuántas cirugías de catarata representa el público de ojo que pasa hoy por ese competidor — el mercado en
-                juego, <strong>NO las que el competidor de hecho opera</strong>.
+                Cuántas cirugías de catarata representa el público de ojo que pasa hoy por ese competidor —el mercado en
+                juego—, <strong>NO las que el competidor de hecho opera</strong>.
               </dd>
             </div>
             <div>
               <dt>→ frontera</dt>
-              <dd>De quienes salen de la clínica, cuántos siguen hacia una garita.</dd>
+              <dd>
+                De quienes salen de la clínica, cuántos siguen hacia una garita. Cuando es muy alto (Retina, NewCity) suele
+                ser <strong>tránsito del mismo edificio</strong> —turismo médico—, no catarata que cruza.
+              </dd>
             </div>
             <div>
               <dt>El hueco</dt>

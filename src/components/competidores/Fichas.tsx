@@ -7,7 +7,7 @@ import { ZONE_HEX, ZONE_LABEL, TIPO_LABEL } from "./palette";
  *  enriquece sin tocar el contrato. */
 const GROUP_ORDER: CompCluster[] = ["oriente", "zona_rio", "centro"];
 
-function FichaCard({ c }: { c: Competitor }) {
+function FichaCard({ c, competitors }: { c: Competitor; competitors: Competitor[] }) {
   const front = c.pctFrontera;
   const aero = c.pctAero;
   const otro = Math.max(0, 100 - front - aero);
@@ -20,7 +20,7 @@ function FichaCard({ c }: { c: Competitor }) {
         </h3>
         <span className="aud-tam">
           ~{c.n2exp.toLocaleString("es-MX")}
-          <small>personas/mes</small>
+          <small>personas/mes · pasan cerca</small>
         </span>
       </div>
       <p style={{ fontFamily: "var(--font-mono),monospace", fontSize: 11, color: "var(--blue-deep)", margin: 0 }}>
@@ -29,7 +29,7 @@ function FichaCard({ c }: { c: Competitor }) {
       <div className="muni-chips">
         <div className="mchip">
           <span className="mc-v">~{Math.round(c.opsMes)}</span>
-          <span className="mc-l">op catarata/mes</span>
+          <span className="mc-l">op catarata/mes <em>captable</em></span>
         </div>
         <div className="mchip">
           <span className="mc-v">{c.pctLocal}%</span>
@@ -60,7 +60,7 @@ function FichaCard({ c }: { c: Competitor }) {
               · <span style={{ color: "#b3402f", fontWeight: 600 }}>abrió después de la ventana (nov-2024)</span>
             </>
           ) : null}
-          {c.mismoEdificio ? <> · mismo edificio que {c.mismoEdificio}</> : null}
+          {c.mismoEdificio ? <> · mismo edificio que {competitors.find((x) => x.key === c.mismoEdificio)?.name ?? c.mismoEdificio}</> : null}
         </p>
       </div>
     </div>
@@ -75,8 +75,10 @@ export default function Fichas({ competitors }: { competitors: Competitor[] }) {
   return (
     <div className="cmp-fichas">
       <div className="sec-purpose reveal">
-        Una ficha por competidor, agrupadas por zona. La barra inferior muestra <b>a dónde sigue</b> el público tras la
-        clínica: a la frontera, al aeropuerto o a otro punto de la ciudad.
+        Una ficha por competidor, agrupadas por zona. El número grande, «personas/mes», son los teléfonos que se detienen
+        cerca del punto al menos una vez (ya sin duplicados ni personal): un techo de tránsito —incluye turismo médico
+        foráneo—, no visitantes que se quedaron ni pacientes de catarata. La barra inferior muestra <b>a dónde sigue</b>
+        ese público tras la clínica: a la frontera, al aeropuerto o a otro punto de la ciudad.
       </div>
       {GROUP_ORDER.map((z) => {
         const list = byZone(z);
@@ -88,7 +90,7 @@ export default function Fichas({ competitors }: { competitors: Competitor[] }) {
             </div>
             <div className="aud-grid" style={{ gridTemplateColumns: "repeat(auto-fit,minmax(240px,1fr))" }}>
               {list.map((c) => (
-                <FichaCard key={c.key} c={c} />
+                <FichaCard key={c.key} c={c} competitors={competitors} />
               ))}
             </div>
           </div>

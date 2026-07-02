@@ -19,7 +19,7 @@ export default function CrossValidation({
       <div className="sec-purpose reveal">
         Cruzamos <b>dos métodos independientes</b> —una estimación por capacidad (camas y quirófanos) y nuestra lectura
         de movilidad— y las diferencias salen sistemáticas: las mega-instalaciones se ven al ~4%, los hospitales medianos
-        a un tercio, las clínicas de ojo a la par o por encima.
+        a un tercio, y las clínicas de ojo líderes a la par o por encima.
       </div>
       <details className="tbl-block reveal" open>
         <summary className="tbl-title">Dos métodos, una misma dirección</summary>
@@ -28,8 +28,8 @@ export default function CrossValidation({
             <thead>
               <tr>
                 <th>Competidor</th>
-                <th className="num">Capacidad (PDF · vis/mes)</th>
-                <th className="num">Movilidad (N2 · solo local)</th>
+                <th className="num">Capacidad instalada · visitas/mes</th>
+                <th className="num">Movilidad · solo residentes locales</th>
                 <th className="num">Ratio</th>
               </tr>
             </thead>
@@ -53,9 +53,11 @@ export default function CrossValidation({
           </table>
         </div>
         <div className="dt-note">
-          La movilidad aquí es el número <b>conservador</b> (paradas verificadas N2, solo residentes de Baja California)
-          — no el titular de personas/mes con turismo médico —, para comparar con la capacidad manzanas comparables. El
-          ratio compara los dos métodos, no es una tasa de captura.
+          <b>Aquí usamos a propósito el número más estricto: solo residentes de Baja California que se detuvieron de
+          verdad.</b> Por eso una clínica aparece mucho más chica que en sus «personas/mes» del ranking —ese titular suma
+          turismo médico y el simple detenerse cerca—; así la comparamos de tú a tú contra la capacidad instalada. El
+          ratio compara los dos métodos, no es una tasa de captura (un ratio alto = la movilidad ve más gente que la
+          capacidad estimada).
         </div>
       </details>
       <Callout kind="warn" ic="!">
