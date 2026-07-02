@@ -54,7 +54,7 @@ export default function CompetidoresSection({ data }: { data: Competidores }) {
           <p>
             <b>Cómo NO leer estas cifras.</b> Son señal para comparar competidores, no un conteo de quirófano.
             «Operaciones captables» = la demanda de catarata que circula por el punto, no las cirugías que el competidor
-            realiza. Y nunca se suma el flujo (~100/mes) con el techo (~10,007): son lentes distintas.
+            realiza. Y nunca se suma el flujo (~133/mes) con el techo (~10,007): son lentes distintas.
           </p>
         </div>
       </div>

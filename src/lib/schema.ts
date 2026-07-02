@@ -599,6 +599,7 @@ export const CompValidacionSchema = z.object({
   key: z.string(),
   capMin: z.number(),
   capMax: z.number(),
+  mov: z.number(), // movilidad conservadora (N2 paradas · solo local), NO el titular n2exp con foráneo
   ratioPct: z.number(),
 });
 export const CompAnchorSchema = z.object({

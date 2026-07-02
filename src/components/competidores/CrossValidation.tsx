@@ -2,7 +2,8 @@ import type { Competitor, CompValidacion } from "@/lib/schema";
 import { Callout } from "@/components/Polaris";
 
 /** Validación cruzada: capacidad (PDF) × movilidad. El mejor argumento de confianza — las
- *  diferencias salen sistemáticas y explicables. Movilidad = n2exp por key (NO se recalcula). */
+ *  diferencias salen sistemáticas y explicables. Movilidad = N2 conservador (v.mov, solo local),
+ *  NO el titular n2exp con turismo médico — para comparar manzanas comparables con la capacidad. */
 export default function CrossValidation({
   competitors,
   validacionCruzada,
@@ -28,7 +29,7 @@ export default function CrossValidation({
               <tr>
                 <th>Competidor</th>
                 <th className="num">Capacidad (PDF · vis/mes)</th>
-                <th className="num">Movilidad (personas/mes)</th>
+                <th className="num">Movilidad (N2 · solo local)</th>
                 <th className="num">Ratio</th>
               </tr>
             </thead>
@@ -42,7 +43,7 @@ export default function CrossValidation({
                       {fmt(v.capMin)}–{fmt(v.capMax)}
                     </td>
                     <td className="num">
-                      <b>{c ? fmt(c.n2exp) : "—"}</b>
+                      <b>{fmt(v.mov)}</b>
                     </td>
                     <td className="num">{v.ratioPct}%</td>
                   </tr>
@@ -52,8 +53,9 @@ export default function CrossValidation({
           </table>
         </div>
         <div className="dt-note">
-          La movilidad es la columna «personas/mes» de la tabla comparativa, sin recalcular. El ratio compara los dos
-          métodos, no es una tasa de captura.
+          La movilidad aquí es el número <b>conservador</b> (paradas verificadas N2, solo residentes de Baja California)
+          — no el titular de personas/mes con turismo médico —, para comparar con la capacidad manzanas comparables. El
+          ratio compara los dos métodos, no es una tasa de captura.
         </div>
       </details>
       <Callout kind="warn" ic="!">

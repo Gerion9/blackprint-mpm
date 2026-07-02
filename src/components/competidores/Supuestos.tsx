@@ -53,8 +53,8 @@ export default function Supuestos({ tipos, funnel }: { tipos: CompTipoMeta[]; fu
         </div>
         <div className="dt-note">
           <span className="tg tg-sup">[supuesto]</span> Tasas del embudo (50% del público es paciente; 95% / 6% de
-          oftalmología; cirugía y catarata por tipo). Verificación: Clínica CLC 593 × 0.95 × 0.50 × 0.25 × 0.62 ={" "}
-          <b>43.6</b> op/mes.
+          oftalmología; cirugía y catarata por tipo). Verificación (base local): Clínica CLC 593 × 0.95 × 0.50 × 0.25 ×
+          0.62 = <b>43.6</b> op/mes; sumando el footfall foráneo con catarata (×0.35) llega a las <b>~56.5</b> del titular.
         </div>
       </details>
 
@@ -74,7 +74,7 @@ export default function Supuestos({ tipos, funnel }: { tipos: CompTipoMeta[]; fu
 
       <Callout kind="med" ic="≠">
         <p>
-          <b>No sumes el flujo y el techo:</b> el flujo del set (~100 operaciones/mes) y el techo de mercado (~10,007
+          <b>No sumes el flujo y el techo:</b> el flujo del set (~133 operaciones/mes) y el techo de mercado (~10,007
           personas con catarata operable) son dos lentes distintas — una mide lo que circula hoy, la otra el tamaño total.
         </p>
       </Callout>

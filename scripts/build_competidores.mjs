@@ -24,7 +24,7 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const ROOT = path.resolve(__dirname, ".."); // mpm-platform
 const SRC = path.resolve(ROOT, "..", "analisis_visitas_competidores.html"); // raíz MirandoPorMexico
 const OUT = path.join(ROOT, "public", "data", "competidores_tijuana.json");
-const GENERATED_AT = "2026-06-30";
+const GENERATED_AT = "2026-07-02";
 
 const html = readFileSync(SRC, "utf8");
 
@@ -47,21 +47,21 @@ const r4 = (v) => rnd(v, 4);
  * key, name, tipo, cluster (color/leyenda), zone (ubicación física), lat/lng, n2panel/n2exp,
  * opsMes (= ODATA.ops, se cruza), opsAno, % (local/foráneo/frontera/aero), rank, flags. */
 const FACTS = [
-  { key: "clc", name: "Clínica de Ojos CLC", tipo: "clinica_oftalmologica", cluster: "centro", zone: "Zona Río (geocode) · Centro (asignación)", lat: 32.51859, lng: -117.01095, n2panel: 398, n2exp: 593, opsMes: 43.6, opsAno: 524, pctLocal: 36, pctForaneo: 18, pctFrontera: 6, pctAero: 2, rank: 1 },
-  { key: "retina", name: "Retina Center Tijuana", tipo: "centro_retina", cluster: "zona_rio", zone: "Zona Río", lat: 32.53625, lng: -117.02283, n2panel: 407, n2exp: 595, opsMes: 19.8, opsAno: 237, pctLocal: 39, pctForaneo: 16, pctFrontera: 71, pctAero: 0, rank: 2, mismoEdificio: "newcity" },
-  { key: "tij_eye", name: "Tijuana Eye Center", tipo: "refractivo_lasik", cluster: "zona_rio", zone: "Zona Río", lat: 32.52892, lng: -117.02474, n2panel: 460, n2exp: 739, opsMes: 15.8, opsAno: 190, pctLocal: 38, pctForaneo: 18, pctFrontera: 8, pctAero: 0, rank: 3 },
-  { key: "codet", name: "CODET Vision Institute", tipo: "refractivo_lasik", cluster: "zona_rio", zone: "Zona Río", lat: 32.53301, lng: -117.01568, n2panel: 229, n2exp: 309, opsMes: 6.6, opsAno: 79, pctLocal: 39, pctForaneo: 24, pctFrontera: 5, pctAero: 0, rank: 4 },
-  { key: "vision_mendez", name: "Visión Méndez", tipo: "clinica_oftalmologica", cluster: "zona_rio", zone: "Zona Río", lat: 32.53435, lng: -117.02954, n2panel: 57, n2exp: 60, opsMes: 4.5, opsAno: 53, pctLocal: 11, pctForaneo: 33, pctFrontera: 0, pctAero: 0, rank: 5 },
-  { key: "angeles", name: "Hospital Ángeles Tijuana", tipo: "hospital_general", cluster: "zona_rio", zone: "Zona Río", lat: 32.51812, lng: -117.00777, n2panel: 949, n2exp: 1279, opsMes: 2.8, opsAno: 33, pctLocal: 34, pctForaneo: 20, pctFrontera: 3, pctAero: 1, rank: 6 },
-  { key: "excel", name: "Hospital Excel (MediExcel)", tipo: "hospital_general", cluster: "zona_rio", zone: "Zona Río", lat: 32.52065, lng: -117.01196, n2panel: 823, n2exp: 1144, opsMes: 2.5, opsAno: 30, pctLocal: 31, pctForaneo: 22, pctFrontera: 8, pctAero: 1, rank: 7 },
-  { key: "prado", name: "Hospital del Prado", tipo: "hospital_general", cluster: "oriente", zone: "Corredor oriente", lat: 32.51001, lng: -116.99007, n2panel: 571, n2exp: 843, opsMes: 1.8, opsAno: 22, pctLocal: 43, pctForaneo: 17, pctFrontera: 2, pctAero: 1, rank: 8 },
-  { key: "guadalajara", name: "Hospital Guadalajara", tipo: "hospital_general", cluster: "centro", zone: "Centro", lat: 32.53444, lng: -117.04665, n2panel: 493, n2exp: 599, opsMes: 1.3, opsAno: 16, pctLocal: 42, pctForaneo: 31, pctFrontera: 17, pctAero: 0, rank: 9 },
-  { key: "newcity", name: "NewCity Medical Plaza", tipo: "hospital_general", cluster: "zona_rio", zone: "Zona Río", lat: 32.53625, lng: -117.02283, n2panel: 407, n2exp: 595, opsMes: 1.3, opsAno: 15, pctLocal: 39, pctForaneo: 16, pctFrontera: 71, pctAero: 0, rank: 10, mismoEdificio: "retina" },
-  { key: "hgt", name: "Hospital General de Tijuana (Av. Centenario)", tipo: "hospital_general", cluster: "zona_rio", zone: "Zona Río", lat: 32.52657, lng: -117.00971, n2panel: 220, n2exp: 367, opsMes: 0.8, opsAno: 10, pctLocal: 33, pctForaneo: 20, pctFrontera: 3, pctAero: 0, rank: 11 },
-  { key: "mendoza_barbosa", name: "Fundación Mendoza Barbosa (Torre Torela)", tipo: "hospital_general", cluster: "centro", zone: "Agua Caliente", lat: 32.51786, lng: -117.01746, n2panel: 119, n2exp: 168, opsMes: 0.4, opsAno: 4, pctLocal: 33, pctForaneo: 15, pctFrontera: 0, pctAero: 0, rank: 12 },
-  { key: "medica_ciudad", name: "Médica de la Ciudad", tipo: "hospital_general", cluster: "oriente", zone: "Corredor oriente", lat: 32.53101, lng: -116.95239, n2panel: 61, n2exp: 137, opsMes: 0.3, opsAno: 4, pctLocal: 57, pctForaneo: 20, pctFrontera: 5, pctAero: 3, rank: 13 },
-  { key: "mac", name: "Hospitales MAC Tijuana", tipo: "hospital_general", cluster: "oriente", zone: "Corredor oriente", lat: 32.51332, lng: -116.96481, n2panel: 19, n2exp: 36, opsMes: 0.1, opsAno: 1, pctLocal: 42, pctForaneo: 11, pctFrontera: 0, pctAero: 0, rank: 14, isSede: true },
-  { key: "hg_zona_este", name: "Hospital General Zona Este (Las Fuentes)", tipo: "hospital_general", cluster: "oriente", zone: "Corredor oriente", lat: 32.4712, lng: -116.8535, n2panel: 1, n2exp: 4, opsMes: 0.0, opsAno: 0, pctLocal: 0, pctForaneo: 0, pctFrontera: 0, pctAero: 0, rank: 15, abrioDespuesVentana: true },
+  { key: "clc", name: "Clínica de Ojos CLC", tipo: "clinica_oftalmologica", cluster: "centro", zone: "Zona Río (geocode) · Centro (asignación)", lat: 32.51859, lng: -117.01095, n2panel: 398, n2exp: 4166, opsMes: 56.5, opsAno: 678, pctLocal: 15, pctForaneo: 21, pctFrontera: 6, pctAero: 1, rank: 1 },
+  { key: "retina", name: "Retina Center Tijuana", tipo: "centro_retina", cluster: "zona_rio", zone: "Zona Río", lat: 32.53625, lng: -117.02283, n2panel: 407, n2exp: 2825, opsMes: 25.1, opsAno: 301, pctLocal: 21, pctForaneo: 17, pctFrontera: 71, pctAero: 0, rank: 2, mismoEdificio: "newcity" },
+  { key: "tij_eye", name: "Tijuana Eye Center", tipo: "refractivo_lasik", cluster: "zona_rio", zone: "Zona Río", lat: 32.52892, lng: -117.02474, n2panel: 460, n2exp: 3508, opsMes: 20.3, opsAno: 244, pctLocal: 20, pctForaneo: 21, pctFrontera: 9, pctAero: 0, rank: 3 },
+  { key: "codet", name: "CODET Vision Institute", tipo: "refractivo_lasik", cluster: "zona_rio", zone: "Zona Río", lat: 32.53301, lng: -117.01568, n2panel: 229, n2exp: 2476, opsMes: 9.6, opsAno: 115, pctLocal: 17, pctForaneo: 26, pctFrontera: 6, pctAero: 0, rank: 4 },
+  { key: "vision_mendez", name: "Visión Méndez", tipo: "clinica_oftalmologica", cluster: "zona_rio", zone: "Zona Río", lat: 32.53435, lng: -117.02954, n2panel: 57, n2exp: 1979, opsMes: 7.9, opsAno: 95, pctLocal: 4, pctForaneo: 38, pctFrontera: 0, pctAero: 0, rank: 5 },
+  { key: "angeles", name: "Hospital Ángeles Tijuana", tipo: "hospital_general", cluster: "zona_rio", zone: "Zona Río", lat: 32.51812, lng: -117.00777, n2panel: 949, n2exp: 5777, opsMes: 3.8, opsAno: 45, pctLocal: 22, pctForaneo: 23, pctFrontera: 3, pctAero: 1, rank: 6 },
+  { key: "excel", name: "Hospital Excel (MediExcel)", tipo: "hospital_general", cluster: "zona_rio", zone: "Zona Río", lat: 32.52065, lng: -117.01196, n2panel: 823, n2exp: 5908, opsMes: 3.4, opsAno: 41, pctLocal: 17, pctForaneo: 23, pctFrontera: 6, pctAero: 1, rank: 7 },
+  { key: "prado", name: "Hospital del Prado", tipo: "hospital_general", cluster: "oriente", zone: "Corredor oriente", lat: 32.51001, lng: -116.99007, n2panel: 571, n2exp: 3142, opsMes: 2.3, opsAno: 28, pctLocal: 27, pctForaneo: 20, pctFrontera: 2, pctAero: 1, rank: 8 },
+  { key: "guadalajara", name: "Hospital Guadalajara", tipo: "hospital_general", cluster: "centro", zone: "Centro", lat: 32.53444, lng: -117.04665, n2panel: 493, n2exp: 3718, opsMes: 2.1, opsAno: 25, pctLocal: 23, pctForaneo: 28, pctFrontera: 21, pctAero: 0, rank: 9 },
+  { key: "newcity", name: "NewCity Medical Plaza", tipo: "hospital_general", cluster: "zona_rio", zone: "Zona Río", lat: 32.53625, lng: -117.02283, n2panel: 407, n2exp: 2825, opsMes: 1.6, opsAno: 20, pctLocal: 21, pctForaneo: 17, pctFrontera: 71, pctAero: 0, rank: 10, mismoEdificio: "retina" },
+  { key: "hgt", name: "Hospital General de Tijuana (Av. Centenario)", tipo: "hospital_general", cluster: "zona_rio", zone: "Zona Río", lat: 32.52657, lng: -117.00971, n2panel: 220, n2exp: 4779, opsMes: 1.0, opsAno: 12, pctLocal: 10, pctForaneo: 25, pctFrontera: 4, pctAero: 2, rank: 11 },
+  { key: "mendoza_barbosa", name: "Fundación Mendoza Barbosa (Torre Torela)", tipo: "hospital_general", cluster: "centro", zone: "Agua Caliente", lat: 32.51786, lng: -117.01746, n2panel: 119, n2exp: 895, opsMes: 0.5, opsAno: 6, pctLocal: 18, pctForaneo: 21, pctFrontera: 1, pctAero: 1, rank: 12 },
+  { key: "medica_ciudad", name: "Médica de la Ciudad", tipo: "hospital_general", cluster: "oriente", zone: "Corredor oriente", lat: 32.53101, lng: -116.95239, n2panel: 61, n2exp: 554, opsMes: 0.4, opsAno: 4, pctLocal: 24, pctForaneo: 19, pctFrontera: 4, pctAero: 6, rank: 13 },
+  { key: "mac", name: "Hospitales MAC Tijuana", tipo: "hospital_general", cluster: "oriente", zone: "Corredor oriente", lat: 32.51332, lng: -116.96481, n2panel: 19, n2exp: 131, opsMes: 0.1, opsAno: 1, pctLocal: 20, pctForaneo: 18, pctFrontera: 0, pctAero: 0, rank: 14, isSede: true },
+  { key: "hg_zona_este", name: "Hospital General Zona Este (Las Fuentes)", tipo: "hospital_general", cluster: "oriente", zone: "Corredor oriente", lat: 32.4712, lng: -116.8535, n2panel: 1, n2exp: 12, opsMes: 0.0, opsAno: 0, pctLocal: 0, pctForaneo: 0, pctFrontera: 0, pctAero: 0, rank: 15, abrioDespuesVentana: true },
 ];
 
 const competitors = FACTS.map((f) => {
@@ -109,7 +109,7 @@ const out = {
   subtitulo:
     "Cuánta cirugía de catarata representa hoy el público de cada competidor, de dónde llega y a dónde sigue — con datos de movilidad real (mayo 2024, ~1 mes).",
   glanceHtml:
-    '<b>De un vistazo.</b> Hoy nadie es dueño de la catarata en Tijuana: los 15 competidores juntos captan solo una fracción del mercado y el corredor oriente está casi sin oferta. Entre todos suman del orden de <b>~100 operaciones de catarata al mes</b> (~1,200 al año) <span class="tg tg-est">[estimación]</span>, frente a un techo de <b>~10,007 personas con catarata operable</b> <span class="tg tg-est">[estimación]</span> y ~462 al año que hoy resuelve el sector público. Las clínicas de oftalmología encabezan —Clínica de Ojos CLC, ~44/mes—; los hospitales apenas rozan la catarata. <b>Qué hacer:</b> entrar por el oriente, donde el competidor más cercano queda lejos, y competir por captar mercado, no por arrebatar una plaza saturada.',
+    '<b>De un vistazo.</b> Hoy nadie es dueño de la catarata en Tijuana: los 15 competidores juntos captan solo una fracción del mercado y el corredor oriente está casi sin oferta. Entre todos suman del orden de <b>~133 operaciones de catarata al mes</b> (~1,597 al año) <span class="tg tg-est">[estimación]</span>, frente a un techo de <b>~10,007 personas con catarata operable</b> <span class="tg tg-est">[estimación]</span> y ~462 al año que hoy resuelve el sector público. Las clínicas de oftalmología encabezan —Clínica de Ojos CLC, ~57/mes—; los hospitales apenas rozan la catarata. <b>Qué hacer:</b> entrar por el oriente, donde el competidor más cercano queda lejos, y competir por captar mercado, no por arrebatar una plaza saturada.',
   meta: {
     ventana: "mayo 2024 (~1 mes)",
     tz: "UTC-7",
@@ -131,7 +131,7 @@ const out = {
     { key: "refractivo_lasik", label: "Refractivo / LASIK", oftSharePct: 0.95, cirugiaPct: 0.3, catarataPct: 0.15 },
   ],
   funnel: {
-    formula: "operaciones/mes = personas × %oftalmología × 50% pacientes × P(cirugía|tipo) × P(catarata|cirugía|tipo)",
+    formula: "operaciones/mes = personas N2 verificadas (local + foráneo) × %oftalmología × 50% pacientes × P(cirugía|tipo) × P(catarata|cirugía|tipo) · foráneos con catarata ×0.35",
     footfallPatientPct: 0.5,
     notas: [
       "origins/dests son TOP-8 muestreados; sus sumas NO reproducen pctLocal/pctFrontera (esos vienen del total).",
@@ -147,39 +147,42 @@ const out = {
     ],
   },
   benchmarks: {
-    setOpsMes: 100,
-    setOpsAno: 1202,
+    setOpsMes: 133,
+    setOpsAno: 1597,
     publicoAno: 462,
     techoStock: 10007,
     nota: "flujo del set DEDUPLICADO vs stock/techo; nunca sumar como demanda ni restar techo − flujo.",
   },
   competitors,
   anchors,
+  // 'mov' = movilidad CONSERVADORA (N2 paradas verificadas, solo residentes BC) para comparar
+  // manzanas comparables con la capacidad — NO el titular N1 laxo con foráneo (competitors[].n2exp).
   validacionCruzada: [
-    { key: "newcity", capMin: 12000, capMax: 18000, ratioPct: 4 },
-    { key: "hgt", capMin: 8000, capMax: 10000, ratioPct: 4 },
-    { key: "angeles", capMin: 3500, capMax: 5000, ratioPct: 30 },
-    { key: "hg_zona_este", capMin: 3000, capMax: 5000, ratioPct: 0 },
-    { key: "excel", capMin: 2500, capMax: 4000, ratioPct: 35 },
-    { key: "mac", capMin: 2000, capMax: 3500, ratioPct: 1 },
-    { key: "medica_ciudad", capMin: 1500, capMax: 3000, ratioPct: 6 },
-    { key: "prado", capMin: 1500, capMax: 3000, ratioPct: 37 },
-    { key: "mendoza_barbosa", capMin: 1500, capMax: 2500, ratioPct: 8 },
-    { key: "guadalajara", capMin: 1000, capMax: 2000, ratioPct: 40 },
-    { key: "codet", capMin: 400, capMax: 800, ratioPct: 51 },
-    { key: "tij_eye", capMin: 300, capMax: 600, ratioPct: 164 },
-    { key: "vision_mendez", capMin: 300, capMax: 600, ratioPct: 13 },
-    { key: "clc", capMin: 200, capMax: 500, ratioPct: 169 },
-    { key: "retina", capMin: 200, capMax: 400, ratioPct: 198 },
+    { key: "newcity", capMin: 12000, capMax: 18000, mov: 595, ratioPct: 4 },
+    { key: "hgt", capMin: 8000, capMax: 10000, mov: 367, ratioPct: 4 },
+    { key: "angeles", capMin: 3500, capMax: 5000, mov: 1279, ratioPct: 30 },
+    { key: "hg_zona_este", capMin: 3000, capMax: 5000, mov: 4, ratioPct: 0 },
+    { key: "excel", capMin: 2500, capMax: 4000, mov: 1144, ratioPct: 35 },
+    { key: "mac", capMin: 2000, capMax: 3500, mov: 36, ratioPct: 1 },
+    { key: "medica_ciudad", capMin: 1500, capMax: 3000, mov: 137, ratioPct: 6 },
+    { key: "prado", capMin: 1500, capMax: 3000, mov: 843, ratioPct: 37 },
+    { key: "mendoza_barbosa", capMin: 1500, capMax: 2500, mov: 168, ratioPct: 8 },
+    { key: "guadalajara", capMin: 1000, capMax: 2000, mov: 599, ratioPct: 40 },
+    { key: "codet", capMin: 400, capMax: 800, mov: 309, ratioPct: 51 },
+    { key: "tij_eye", capMin: 300, capMax: 600, mov: 739, ratioPct: 164 },
+    { key: "vision_mendez", capMin: 300, capMax: 600, mov: 60, ratioPct: 13 },
+    { key: "clc", capMin: 200, capMax: 500, mov: 593, ratioPct: 169 },
+    { key: "retina", capMin: 200, capMax: 400, mov: 595, ratioPct: 198 },
   ],
   caveats: [
     "Cada visita = un teléfono que se DETUVO a ≤50 m del punto (no de paso).",
     "GPS + geocodificación dan ~20-50 m de error → se usa un radio de 50 m (nivel edificio).",
     "Presencia ⊇ Visita ⊇ Visita prolongada: cada nivel incluye al siguiente; nunca se suman.",
     "Es panel (muestra), no censo; los absolutos SUBestiman el total; la expansión a personas (k ≈ 2.4) va acotada a [k/4, k·4].",
-    "Los foráneos están SUBrepresentados (línea de EE. UU. poco visible) → el % foráneo es señal relativa, probablemente corta.",
+    "El titular «personas/mes» es footfall estacionario laxo (N1, incluye algo de tránsito); las operaciones se calculan sobre la base clínica más estricta (paradas verificadas ≥5 min, N2): por eso personas y operaciones NO se multiplican directo.",
+    "El footfall foráneo (turismo médico) se expande por un factor mayor (k_foreign ≈ 7.1; la SIM extranjera penetra menos el panel) — antes se contaba como cero. Es estimación de orden de magnitud, no censo; el % foráneo sigue siendo señal relativa.",
     "El destino se mide a grano de manzana; «frontera»/«aeropuerto» = destino a ≤1.5 km de una garita o del aeropuerto.",
-    "NewCity y Retina ocupan el MISMO edificio (las mismas ~595 personas): jamás se suman como capturas independientes.",
+    "NewCity y Retina ocupan el MISMO edificio (las mismas ~2,825 personas): jamás se suman como capturas independientes.",
     "Hospital General Zona Este abrió en noviembre de 2024 (después de mayo de 2024): su ~0 refleja la zona en esa ventana, no el hospital.",
   ],
 };
