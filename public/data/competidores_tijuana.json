@@ -2,7 +2,7 @@
   "generatedAt": "2026-07-02",
   "titulo": "Tijuana · Inteligencia competitiva (catarata)",
   "subtitulo": "Cuánta cirugía de catarata representa hoy el público de cada competidor, de dónde llega y a dónde sigue — con datos de movilidad real (mayo 2024, ~1 mes).",
-  "glanceHtml": "<b>De un vistazo.</b> Hoy nadie es dueño de la catarata en Tijuana: los 15 competidores juntos captan solo una fracción del mercado y el corredor oriente está casi sin oferta. Entre todos suman del orden de <b>~133 operaciones de catarata al mes</b> (~1,597 al año) <span class=\"tg tg-est\">[estimación]</span>, frente a un techo de <b>~10,007 personas con catarata operable</b> <span class=\"tg tg-est\">[estimación]</span> y ~462 al año que hoy resuelve el sector público. Las clínicas de oftalmología encabezan —Clínica de Ojos CLC, ~57/mes—; los hospitales apenas rozan la catarata. <b>Qué hacer:</b> entrar por el oriente, donde el competidor más cercano queda lejos, y competir por captar mercado, no por arrebatar una plaza saturada.",
+  "glanceHtml": "<b>De un vistazo.</b> Hoy nadie es dueño de la catarata en Tijuana: los 15 competidores juntos captan solo una fracción del mercado y el corredor oriente está casi sin oferta. Entre todos suman del orden de <b>~587 operaciones de catarata al mes</b> (~7,047 al año) <span class=\"tg tg-est\">[estimación]</span>, frente a un techo de <b>~10,007 personas con catarata operable</b> <span class=\"tg tg-est\">[estimación]</span> y ~462 al año que hoy resuelve el sector público. Las clínicas de oftalmología encabezan —Tijuana Eye Center, ~151/mes—; los hospitales apenas rozan la catarata. <b>Qué hacer:</b> entrar por el oriente, donde el competidor más cercano queda lejos, y competir por captar mercado, no por arrebatar una plaza saturada.",
   "meta": {
     "ventana": "mayo 2024 (~1 mes)",
     "tz": "UTC-7",
@@ -38,32 +38,32 @@
       "label": "Hospital general (servicio de ojo)",
       "oftSharePct": 0.06,
       "cirugiaPct": 0.12,
-      "catarataPct": 0.6
+      "catarataPct": 0.4
     },
     {
       "key": "clinica_oftalmologica",
       "label": "Clínica oftalmológica general",
       "oftSharePct": 0.95,
       "cirugiaPct": 0.25,
-      "catarataPct": 0.62
+      "catarataPct": 0.4
     },
     {
       "key": "centro_retina",
       "label": "Centro de retina",
       "oftSharePct": 0.95,
       "cirugiaPct": 0.25,
-      "catarataPct": 0.28
+      "catarataPct": 0.4
     },
     {
       "key": "refractivo_lasik",
-      "label": "Refractivo / LASIK",
+      "label": "Refractivo / LASIK + catarata",
       "oftSharePct": 0.95,
       "cirugiaPct": 0.3,
-      "catarataPct": 0.15
+      "catarataPct": 0.4
     }
   ],
   "funnel": {
-    "formula": "operaciones/mes = personas N2 verificadas (local + foráneo) × %oftalmología × 50% pacientes × P(cirugía|tipo) × P(catarata|cirugía|tipo) · foráneos con catarata ×0.35",
+    "formula": "operaciones/mes = personas (N1 · local + foráneo) × %oftalmología × 50% pacientes × P(cirugía|tipo) × 40% catarata (tasa única) · foráneos con catarata ×0.5",
     "footfallPatientPct": 0.5,
     "notas": [
       "origins/dests son TOP-8 muestreados; sus sumas NO reproducen pctLocal/pctFrontera (esos vienen del total)."
@@ -100,8 +100,8 @@
     ]
   },
   "benchmarks": {
-    "setOpsMes": 133,
-    "setOpsAno": 1597,
+    "setOpsMes": 587,
+    "setOpsAno": 7047,
     "publicoAno": 462,
     "techoStock": 10007,
     "nota": "flujo del set DEDUPLICADO vs stock/techo; nunca sumar como demanda ni restar techo − flujo."
@@ -120,13 +120,13 @@
       "abrioDespuesVentana": false,
       "n2panel": 398,
       "n2exp": 4166,
-      "opsMes": 56.5,
-      "opsAno": 678,
+      "opsMes": 146.7,
+      "opsAno": 1760,
       "pctLocal": 15,
       "pctForaneo": 21,
       "pctFrontera": 6,
       "pctAero": 1,
-      "rank": 1,
+      "rank": 2,
       "od": {
         "origins": [
           {
@@ -198,14 +198,14 @@
             "cls": "otro"
           },
           {
-            "lat": 32.51724,
-            "lng": -117.01113,
+            "lat": 32.52363,
+            "lng": -117.01789,
             "dev": 5,
             "cls": "otro"
           },
           {
-            "lat": 32.52363,
-            "lng": -117.01789,
+            "lat": 32.51724,
+            "lng": -117.01113,
             "dev": 5,
             "cls": "otro"
           },
@@ -216,14 +216,14 @@
             "cls": "otro"
           },
           {
-            "lat": 32.52783,
-            "lng": -117.01035,
+            "lat": 32.49334,
+            "lng": -116.95575,
             "dev": 4,
             "cls": "otro"
           },
           {
-            "lat": 32.49334,
-            "lng": -116.95575,
+            "lat": 32.52783,
+            "lng": -117.01035,
             "dev": 4,
             "cls": "otro"
           }
@@ -243,13 +243,13 @@
       "abrioDespuesVentana": false,
       "n2panel": 407,
       "n2exp": 2825,
-      "opsMes": 25.1,
-      "opsAno": 301,
+      "opsMes": 103,
+      "opsAno": 1236,
       "pctLocal": 21,
       "pctForaneo": 17,
       "pctFrontera": 71,
       "pctAero": 0,
-      "rank": 2,
+      "rank": 3,
       "od": {
         "origins": [
           {
@@ -309,16 +309,16 @@
             "cls": "frontera"
           },
           {
-            "lat": 32.52098,
-            "lng": -116.97938,
-            "dev": 2,
-            "cls": "otro"
-          },
-          {
             "lat": 32.53417,
             "lng": -117.02225,
             "dev": 2,
             "cls": "frontera"
+          },
+          {
+            "lat": 32.52098,
+            "lng": -116.97938,
+            "dev": 2,
+            "cls": "otro"
           },
           {
             "lat": 32.52576,
@@ -333,22 +333,22 @@
             "cls": "otro"
           },
           {
-            "lat": 32.52034,
-            "lng": -117.00888,
+            "lat": 32.52442,
+            "lng": -117.0143,
             "dev": 1,
             "cls": "otro"
           },
           {
-            "lat": 32.51377,
-            "lng": -117.00734,
+            "lat": 32.49192,
+            "lng": -116.98228,
             "dev": 1,
             "cls": "otro"
           },
           {
-            "lat": 32.42665,
-            "lng": -116.96119,
+            "lat": 32.5373,
+            "lng": -117.01948,
             "dev": 1,
-            "cls": "otro"
+            "cls": "frontera"
           }
         ]
       }
@@ -366,13 +366,13 @@
       "abrioDespuesVentana": false,
       "n2panel": 460,
       "n2exp": 3508,
-      "opsMes": 20.3,
-      "opsAno": 244,
+      "opsMes": 150.7,
+      "opsAno": 1808,
       "pctLocal": 20,
       "pctForaneo": 21,
       "pctFrontera": 9,
       "pctAero": 0,
-      "rank": 3,
+      "rank": 1,
       "od": {
         "origins": [
           {
@@ -450,26 +450,26 @@
             "cls": "frontera"
           },
           {
-            "lat": 32.48317,
-            "lng": -117.08513,
-            "dev": 5,
-            "cls": "otro"
-          },
-          {
             "lat": 32.52442,
             "lng": -117.0143,
             "dev": 5,
             "cls": "otro"
           },
           {
-            "lat": 32.47138,
-            "lng": -116.95558,
-            "dev": 3,
+            "lat": 32.48317,
+            "lng": -117.08513,
+            "dev": 5,
             "cls": "otro"
           },
           {
-            "lat": 32.53038,
-            "lng": -117.02322,
+            "lat": 32.53119,
+            "lng": -117.02444,
+            "dev": 3,
+            "cls": "frontera"
+          },
+          {
+            "lat": 32.49282,
+            "lng": -116.92526,
             "dev": 3,
             "cls": "otro"
           }
@@ -489,8 +489,8 @@
       "abrioDespuesVentana": false,
       "n2panel": 229,
       "n2exp": 2476,
-      "opsMes": 9.6,
-      "opsAno": 115,
+      "opsMes": 100.2,
+      "opsAno": 1203,
       "pctLocal": 17,
       "pctForaneo": 26,
       "pctFrontera": 6,
@@ -567,8 +567,8 @@
             "cls": "otro"
           },
           {
-            "lat": 32.50416,
-            "lng": -116.99497,
+            "lat": 32.52779,
+            "lng": -117.01948,
             "dev": 4,
             "cls": "otro"
           },
@@ -579,8 +579,8 @@
             "cls": "otro"
           },
           {
-            "lat": 32.52779,
-            "lng": -117.01948,
+            "lat": 32.50416,
+            "lng": -116.99497,
             "dev": 4,
             "cls": "otro"
           },
@@ -591,8 +591,8 @@
             "cls": "otro"
           },
           {
-            "lat": 32.4482,
-            "lng": -117.04672,
+            "lat": 32.52783,
+            "lng": -117.01035,
             "dev": 3,
             "cls": "otro"
           }
@@ -612,8 +612,8 @@
       "abrioDespuesVentana": false,
       "n2panel": 57,
       "n2exp": 1979,
-      "opsMes": 7.9,
-      "opsAno": 95,
+      "opsMes": 60.6,
+      "opsAno": 727,
       "pctLocal": 4,
       "pctForaneo": 38,
       "pctFrontera": 0,
@@ -693,13 +693,13 @@
       "abrioDespuesVentana": false,
       "n2panel": 949,
       "n2exp": 5777,
-      "opsMes": 3.8,
-      "opsAno": 45,
+      "opsMes": 6,
+      "opsAno": 72,
       "pctLocal": 22,
       "pctForaneo": 23,
       "pctFrontera": 3,
       "pctAero": 1,
-      "rank": 6,
+      "rank": 7,
       "od": {
         "origins": [
           {
@@ -789,14 +789,14 @@
             "cls": "otro"
           },
           {
-            "lat": 32.51745,
-            "lng": -117.00668,
+            "lat": 32.49831,
+            "lng": -117.01023,
             "dev": 12,
             "cls": "otro"
           },
           {
-            "lat": 32.49831,
-            "lng": -117.01023,
+            "lat": 32.51745,
+            "lng": -117.00668,
             "dev": 12,
             "cls": "otro"
           }
@@ -816,13 +816,13 @@
       "abrioDespuesVentana": false,
       "n2panel": 823,
       "n2exp": 5908,
-      "opsMes": 3.4,
-      "opsAno": 41,
+      "opsMes": 6.2,
+      "opsAno": 74,
       "pctLocal": 17,
       "pctForaneo": 23,
       "pctFrontera": 6,
       "pctAero": 1,
-      "rank": 7,
+      "rank": 6,
       "od": {
         "origins": [
           {
@@ -939,13 +939,13 @@
       "abrioDespuesVentana": false,
       "n2panel": 571,
       "n2exp": 3142,
-      "opsMes": 2.3,
-      "opsAno": 28,
+      "opsMes": 3.4,
+      "opsAno": 41,
       "pctLocal": 27,
       "pctForaneo": 20,
       "pctFrontera": 2,
       "pctAero": 1,
-      "rank": 8,
+      "rank": 10,
       "od": {
         "origins": [
           {
@@ -999,15 +999,21 @@
         ],
         "dests": [
           {
+            "lat": 32.50717,
+            "lng": -116.98328,
+            "dev": 9,
+            "cls": "otro"
+          },
+          {
             "lat": 32.50416,
             "lng": -116.99497,
             "dev": 9,
             "cls": "otro"
           },
           {
-            "lat": 32.50717,
-            "lng": -116.98328,
-            "dev": 9,
+            "lat": 32.44875,
+            "lng": -117.02969,
+            "dev": 6,
             "cls": "otro"
           },
           {
@@ -1023,26 +1029,20 @@
             "cls": "otro"
           },
           {
-            "lat": 32.44875,
-            "lng": -117.02969,
-            "dev": 6,
-            "cls": "otro"
-          },
-          {
             "lat": 32.50109,
             "lng": -117.02943,
             "dev": 5,
             "cls": "otro"
           },
           {
-            "lat": 32.49026,
-            "lng": -116.99666,
+            "lat": 32.50775,
+            "lng": -116.99062,
             "dev": 5,
             "cls": "otro"
           },
           {
-            "lat": 32.50775,
-            "lng": -116.99062,
+            "lat": 32.49026,
+            "lng": -116.99666,
             "dev": 5,
             "cls": "otro"
           }
@@ -1062,8 +1062,8 @@
       "abrioDespuesVentana": false,
       "n2panel": 493,
       "n2exp": 3718,
-      "opsMes": 2.1,
-      "opsAno": 25,
+      "opsMes": 3.7,
+      "opsAno": 45,
       "pctLocal": 23,
       "pctForaneo": 28,
       "pctFrontera": 21,
@@ -1185,13 +1185,13 @@
       "abrioDespuesVentana": false,
       "n2panel": 407,
       "n2exp": 2825,
-      "opsMes": 1.6,
-      "opsAno": 20,
+      "opsMes": 3.1,
+      "opsAno": 37,
       "pctLocal": 21,
       "pctForaneo": 17,
       "pctFrontera": 71,
       "pctAero": 0,
-      "rank": 10,
+      "rank": 11,
       "od": {
         "origins": [
           {
@@ -1251,27 +1251,15 @@
             "cls": "frontera"
           },
           {
-            "lat": 32.52098,
-            "lng": -116.97938,
-            "dev": 2,
-            "cls": "otro"
-          },
-          {
             "lat": 32.53417,
             "lng": -117.02225,
             "dev": 2,
             "cls": "frontera"
           },
           {
-            "lat": 32.52576,
-            "lng": -117.02139,
-            "dev": 1,
-            "cls": "otro"
-          },
-          {
-            "lat": 32.49192,
-            "lng": -116.98228,
-            "dev": 1,
+            "lat": 32.52098,
+            "lng": -116.97938,
+            "dev": 2,
             "cls": "otro"
           },
           {
@@ -1281,16 +1269,28 @@
             "cls": "otro"
           },
           {
-            "lat": 32.53583,
-            "lng": -117.02493,
+            "lat": 32.52442,
+            "lng": -117.0143,
+            "dev": 1,
+            "cls": "otro"
+          },
+          {
+            "lat": 32.5373,
+            "lng": -117.01948,
             "dev": 1,
             "cls": "frontera"
           },
           {
-            "lat": 32.53362,
-            "lng": -117.02148,
+            "lat": 32.53824,
+            "lng": -117.00377,
             "dev": 1,
-            "cls": "frontera"
+            "cls": "otro"
+          },
+          {
+            "lat": 32.52779,
+            "lng": -117.01948,
+            "dev": 1,
+            "cls": "otro"
           }
         ]
       }
@@ -1308,13 +1308,13 @@
       "abrioDespuesVentana": false,
       "n2panel": 220,
       "n2exp": 4779,
-      "opsMes": 1,
-      "opsAno": 12,
+      "opsMes": 4.9,
+      "opsAno": 59,
       "pctLocal": 10,
       "pctForaneo": 25,
       "pctFrontera": 4,
       "pctAero": 2,
-      "rank": 11,
+      "rank": 8,
       "od": {
         "origins": [
           {
@@ -1386,8 +1386,8 @@
             "cls": "otro"
           },
           {
-            "lat": 32.52482,
-            "lng": -117.00851,
+            "lat": 32.51967,
+            "lng": -116.91674,
             "dev": 3,
             "cls": "otro"
           },
@@ -1398,20 +1398,20 @@
             "cls": "otro"
           },
           {
-            "lat": 32.51967,
-            "lng": -116.91674,
-            "dev": 3,
-            "cls": "otro"
-          },
-          {
-            "lat": 32.51805,
-            "lng": -117.00787,
+            "lat": 32.52482,
+            "lng": -117.00851,
             "dev": 3,
             "cls": "otro"
           },
           {
             "lat": 32.5283,
             "lng": -117.00997,
+            "dev": 3,
+            "cls": "otro"
+          },
+          {
+            "lat": 32.51805,
+            "lng": -117.00787,
             "dev": 3,
             "cls": "otro"
           }
@@ -1431,8 +1431,8 @@
       "abrioDespuesVentana": false,
       "n2panel": 119,
       "n2exp": 895,
-      "opsMes": 0.5,
-      "opsAno": 6,
+      "opsMes": 0.9,
+      "opsAno": 11,
       "pctLocal": 18,
       "pctForaneo": 21,
       "pctFrontera": 1,
@@ -1509,8 +1509,20 @@
             "cls": "otro"
           },
           {
-            "lat": 32.52153,
-            "lng": -117.01425,
+            "lat": 32.46444,
+            "lng": -116.86587,
+            "dev": 2,
+            "cls": "otro"
+          },
+          {
+            "lat": 32.51459,
+            "lng": -117.01826,
+            "dev": 2,
+            "cls": "otro"
+          },
+          {
+            "lat": 32.5188,
+            "lng": -117.01733,
             "dev": 2,
             "cls": "otro"
           },
@@ -1523,18 +1535,6 @@
           {
             "lat": 32.48884,
             "lng": -117.00848,
-            "dev": 2,
-            "cls": "otro"
-          },
-          {
-            "lat": 32.51459,
-            "lng": -117.01826,
-            "dev": 2,
-            "cls": "otro"
-          },
-          {
-            "lat": 32.46444,
-            "lng": -116.86587,
             "dev": 2,
             "cls": "otro"
           }
@@ -1554,8 +1554,8 @@
       "abrioDespuesVentana": false,
       "n2panel": 61,
       "n2exp": 554,
-      "opsMes": 0.4,
-      "opsAno": 4,
+      "opsMes": 0.6,
+      "opsAno": 8,
       "pctLocal": 24,
       "pctForaneo": 19,
       "pctFrontera": 4,
@@ -1638,20 +1638,20 @@
             "cls": "aeropuerto"
           },
           {
-            "lat": 32.53006,
-            "lng": -116.94607,
-            "dev": 3,
-            "cls": "otro"
-          },
-          {
             "lat": 32.37366,
             "lng": -116.93314,
             "dev": 3,
             "cls": "otro"
           },
           {
-            "lat": 32.5318,
-            "lng": -116.94672,
+            "lat": 32.53006,
+            "lng": -116.94607,
+            "dev": 3,
+            "cls": "otro"
+          },
+          {
+            "lat": 32.52667,
+            "lng": -116.9479,
             "dev": 2,
             "cls": "otro"
           }
@@ -1672,7 +1672,7 @@
       "n2panel": 19,
       "n2exp": 131,
       "opsMes": 0.1,
-      "opsAno": 1,
+      "opsAno": 2,
       "pctLocal": 20,
       "pctForaneo": 18,
       "pctFrontera": 0,
@@ -1749,14 +1749,14 @@
             "cls": "otro"
           },
           {
-            "lat": 32.51279,
-            "lng": -116.95869,
+            "lat": 32.52515,
+            "lng": -116.86892,
             "dev": 2,
             "cls": "otro"
           },
           {
-            "lat": 32.52515,
-            "lng": -116.86892,
+            "lat": 32.51279,
+            "lng": -116.95869,
             "dev": 2,
             "cls": "otro"
           },
@@ -1971,7 +1971,7 @@
     "GPS + geocodificación dan ~20-50 m de error → se usa un radio de 50 m (nivel edificio).",
     "Presencia ⊇ Visita ⊇ Visita prolongada: cada nivel incluye al siguiente; nunca se suman.",
     "Es panel (muestra), no censo; los absolutos SUBestiman el total; la expansión a personas (k ≈ 2.4) va acotada a [k/4, k·4].",
-    "El titular «personas/mes» es footfall estacionario laxo (N1, incluye algo de tránsito); las operaciones se calculan sobre la base clínica más estricta (paradas verificadas ≥5 min, N2): por eso personas y operaciones NO se multiplican directo.",
+    "El titular «personas/mes» es footfall estacionario laxo (N1, incluye algo de tránsito) y es la MISMA base de la que salen las operaciones (× %oftalmología × 50% pacientes × cirugía-por-tipo × 40% catarata); el footfall foráneo entra a media mezcla de catarata.",
     "El footfall foráneo (turismo médico) se expande por un factor mayor (k_foreign ≈ 7.1; la SIM extranjera penetra menos el panel) — antes se contaba como cero. Es estimación de orden de magnitud, no censo; el % foráneo sigue siendo señal relativa.",
     "El destino se mide a grano de manzana; «frontera»/«aeropuerto» = destino a ≤1.5 km de una garita o del aeropuerto.",
     "NewCity y Retina ocupan el MISMO edificio (las mismas ~2,825 personas): jamás se suman como capturas independientes.",

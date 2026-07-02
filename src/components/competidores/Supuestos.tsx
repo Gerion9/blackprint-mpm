@@ -2,7 +2,7 @@ import type { CompTipoMeta, CompFunnel } from "@/lib/schema";
 import { Callout } from "@/components/Polaris";
 
 /** Supuestos del embudo: fórmula (clase .formula navy) + tasas por tipo [supuesto] + fuentes en
- *  chips .src. Verificación visible: CLC 593×0.95×0.50×0.25×0.62 = 43.6. */
+ *  chips .src. Catarata única 40% anclada a CODET (~100 cirugías/mes). Líder: Tijuana Eye Center ~151/mes. */
 export default function Supuestos({ tipos, funnel }: { tipos: CompTipoMeta[]; funnel: CompFunnel }) {
   const pct = (n: number) => `${Math.round(n * 100)}%`;
   return (
@@ -24,7 +24,7 @@ export default function Supuestos({ tipos, funnel }: { tipos: CompTipoMeta[]; fu
         <span className="op">×</span>
         <span className="term">P(cirugía · tipo)</span>
         <span className="op">×</span>
-        <span className="term">P(catarata · tipo)</span>
+        <span className="term">40% catarata</span>
       </div>
 
       <details className="tbl-block reveal" open style={{ marginTop: 18 }}>
@@ -53,8 +53,9 @@ export default function Supuestos({ tipos, funnel }: { tipos: CompTipoMeta[]; fu
         </div>
         <div className="dt-note">
           <span className="tg tg-sup">[supuesto]</span> Tasas del embudo (50% del público es paciente; 95% / 6% de
-          oftalmología; cirugía y catarata por tipo). Verificación (base local): Clínica CLC 593 × 0.95 × 0.50 × 0.25 ×
-          0.62 = <b>43.6</b> op/mes; sumando el footfall foráneo con catarata (×0.35) llega a las <b>~56.5</b> del titular.
+          oftalmología; la conversión a cirugía varía por tipo; la catarata es <b>40% para todos</b>). Esa tasa de 40%
+          está anclada a la experiencia del cliente: CODET reporta ≈100 cirugías de catarata/mes y el modelo reproduce
+          ese <b>~100</b>. El líder, Tijuana Eye Center, sale en <b>~151/mes</b>.
         </div>
       </details>
 
@@ -74,7 +75,7 @@ export default function Supuestos({ tipos, funnel }: { tipos: CompTipoMeta[]; fu
 
       <Callout kind="med" ic="≠">
         <p>
-          <b>No sumes el flujo y el techo:</b> el flujo del set (~133 operaciones/mes) y el techo de mercado (~10,007
+          <b>No sumes el flujo y el techo:</b> el flujo del set (~587 operaciones/mes) y el techo de mercado (~10,007
           personas con catarata operable) son dos lentes distintas — una mide lo que circula hoy, la otra el tamaño total.
         </p>
       </Callout>
